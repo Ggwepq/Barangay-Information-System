@@ -1,99 +1,115 @@
 <?php
 
-// phpcs:ignoreFile
-
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class BackupController extends Controller
 {
     public function index()
     {
-        $disk = Storage::disk(config('backup.destination.disks')[0]);
-
-        $files = $disk->files(config('app.name'));
+        $disk = Storage::disk('local');  // Use 'local' disk for storage
+        $files = $disk->files('backups');  // Look for files in the 'backups' directory
         $now = Carbon::now();
         $backups = [];
-        // make an array of backup files, with their filesize and creation date
-        foreach ($files as $k => $f) {
-            // only take the zip files into account
-            if (substr($f, -4) == '.zip' && $disk->exists($f)) {
+
+        foreach ($files as $f) {
+            if (substr($f, -4) == '.sql' && $disk->exists($f)) {
                 $lastModifiedDate = Carbon::createFromTimestamp($disk->lastModified($f));
                 $fileAge = $lastModifiedDate->diffForHumans($now, true);
 
                 $backups[] = [
                     'file_path' => $f,
-                    'file_name' => str_replace(config('app.name') . '/', '', $f),
-                    'file_size' => BackupController::formatFileSize($disk->size($f)),
+                    'file_name' => basename($f),
+                    'file_size' => $this->formatFileSize($disk->size($f)),
                     'file_age' => $fileAge,
                     'last_modified' => $lastModifiedDate->format('Y-m-d')
                 ];
             }
         }
 
-        // reverse the backups, so the newest one would be on top
         $backups = array_reverse($backups);
 
-        return view("Backup.index", compact('backups'));
+        return view('Backup.index', compact('backups'));
     }
 
     public function create()
     {
         try {
-            // start the backup process
-            Artisan::call('backup:run', ['--only-db' => true]);
+            $backupFile = 'backups/db_backup_' . now()->format('Y_m_d_H_i_s') . '.sql';
+            $path = storage_path('app/' . $backupFile);
 
-            $output = Artisan::output();
-            // log the results
-            Log::info("Backpack\BackupManager -- new backup started from admin interface \r\n" . $output);
-            // return the results as a response to the ajax call
+            // Open a file for writing
+            $handle = fopen($path, 'w');
+            if (!$handle) {
+                throw new Exception("Unable to create backup file at {$path}");
+            }
+
+            // Fetch all tables in the database
+            $tables = \DB::select('SHOW TABLES');
+            $dbName = env('DB_DATABASE');
+            $key = 'Tables_in_' . $dbName;  // Key name varies with MySQL
+
+            // Iterate over tables
+            foreach ($tables as $table) {
+                $tableName = $table->$key;
+
+                // Get CREATE TABLE statement
+                $createTable = \DB::select("SHOW CREATE TABLE `{$tableName}`");
+                $createSQL = $createTable[0]->{'Create Table'} . ";\n\n";
+                fwrite($handle, $createSQL);
+
+                // Fetch table rows
+                $rows = \DB::table($tableName)->get();
+                foreach ($rows as $row) {
+                    $rowArray = (array) $row;
+                    $columns = implode('`, `', array_keys($rowArray));
+                    $values = implode("', '", array_map(function ($value) {
+                        return addslashes($value);
+                    }, array_values($rowArray)));
+
+                    $insertSQL = "INSERT INTO `{$tableName}` (`{$columns}`) VALUES ('{$values}');\n";
+                    fwrite($handle, $insertSQL);
+                }
+                fwrite($handle, "\n");
+            }
+
+            fclose($handle);
+
+            Log::info("Database backup created successfully at {$path}");
+
+            return redirect()->back()->withSuccess('Successfully backed up database');
         } catch (Exception $e) {
+            Log::error('Backup failed: ' . $e->getMessage());
             return redirect()->back()->withErrors($e->getMessage());
         }
-
-        return redirect()->back()->withSuccess('Successfully Backed up Database');
     }
 
-    /**
-     * Downloads a backup zip file.
-     *
-     * TODO: make it work no matter the flysystem driver (S3 Bucket, etc).
-     */
     public function download($file_name)
     {
-        $file = config('laravel-backup.backup.name') . '/' . $file_name;
-        $disk = Storage::disk(config('laravel-backup.backup.destination.disks')[0]);
-        if ($disk->exists($file)) {
-            $fs = Storage::disk(config('laravel-backup.backup.destination.disks')[0])->getDriver();
-            $stream = $fs->readStream($file);
+        $file = 'backups/' . $file_name;
+        $disk = Storage::disk('local');
 
-            return Response::stream(function () use ($stream) {
-                fpassthru($stream);
-            }, 200, [
-                "Content-Type" => $fs->getMimetype($file),
-                "Content-Length" => $fs->getSize($file),
-                "Content-disposition" => "attachment; filename=\"" . basename($file) . "\"",
-            ]);
+        if ($disk->exists($file)) {
+            return response()->download(storage_path('app/' . $file));
         } else {
             abort(404, "The backup file doesn't exist.");
         }
     }
 
-    /**
-     * Deletes a backup file.
-     */
     public function delete($file_name)
     {
-        $disk = Storage::disk(config('laravel-backup.backup.destination.disks')[0]);
-        if ($disk->exists(config('laravel-backup.backup.name') . '/' . $file_name)) {
-            $disk->delete(config('laravel-backup.backup.name') . '/' . $file_name);
-            return redirect()->back();
+        $file = 'backups/' . $file_name;
+        $disk = Storage::disk('local');
+
+        if ($disk->exists($file)) {
+            $disk->delete($file);
+            return redirect()->back()->withSuccess('Backup deleted successfully');
         } else {
             abort(404, "The backup file doesn't exist.");
         }
@@ -101,13 +117,8 @@ class BackupController extends Controller
 
     public function formatFileSize($bytes, $decimalPlaces = 2)
     {
-        // File Units
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-
-        // Calculate the size
         $factor = floor((strlen($bytes) - 1) / 3);
-
-        // Format the size and append the unit
         return sprintf("%.{$decimalPlaces}f", $bytes / pow(1024, $factor)) . ' ' . $units[$factor];
     }
 }
