@@ -4,12 +4,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Resident;
-use App\Models\Officer;
-use App\Models\Business;
 use App\Models\Blotter;
+use App\Models\Business;
+use App\Models\Officer;
+use App\Models\Resident;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 class PdfController extends Controller
 {
@@ -23,9 +23,10 @@ class PdfController extends Controller
         $post = Resident::find($id);
         $cman = Officer::where('position', 'Chairman')->first();
         $sec = Officer::where('position', 'Secretary')->first();
+
         $pdf = PDF::loadView('Forms.BarangayClearance', compact('post', 'cman', 'sec'));
+
         $pdf->SetPaper('letter', 'portrait');
-        ;
         return $pdf->stream();
     }
 
@@ -34,15 +35,13 @@ class PdfController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function business($id)
     {
         $post = Business::find($id);
         $cman = Officer::where('position', 'Chairman')->first();
         $sec = Officer::where('position', 'Secretary')->first();
         $pdf = PDF::loadView('Forms.BusinessPermit', compact('post', 'cman', 'sec'));
-        $pdf->SetPaper('letter', 'portrait');
-        ;
+        $pdf->SetPaper('letter', 'portrait');;
         return $pdf->stream();
     }
 
@@ -52,8 +51,7 @@ class PdfController extends Controller
         $cman = Officer::where('position', 'Chairman')->first();
         $sec = Officer::where('position', 'Secretary')->first();
         $pdf = PDF::loadView('Forms.CertificateIndigency', compact('post', 'cman', 'sec'));
-        $pdf->SetPaper('letter', 'portrait');
-        ;
+        $pdf->SetPaper('letter', 'portrait');;
         return $pdf->stream();
     }
 
@@ -66,6 +64,7 @@ class PdfController extends Controller
         $pdf->SetPaper('letter', 'portrait');
         return $pdf->stream();
     }
+
     public function create()
     {
         //
