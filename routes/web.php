@@ -39,27 +39,29 @@ Route::get('/RestrictedAuth', [HomeController::class, 'error2']);
 Auth::routes();
 
 Route::prefix('admin')->middleware('admin')->group(function () {
-    // Residents
     Route::controller(ResidentController::class)->group(function () {
+        // Residents
         Route::get('/Resident', 'index');
-        Route::get('/Resident/NotResident', 'index2');
         Route::get('/Resident/Create', 'create');
-        Route::get('/Resident/NotResident/Create', 'create2');
         Route::get('/Resident/Edit/{id}', 'edit');
-        Route::get('/Resident/NotResident/Edit/{id}', 'edit2');
         Route::get('/Resident/Deactivate/{id}', 'destroy');
-        Route::get('/Resident/NotResident/Deactivate/{id}', 'destroy2');
         Route::get('/Resident/Soft', 'soft');
-        Route::get('/Resident/NotResident/Soft', 'soft2');
-        Route::get('/Resident/Reactivate/{id}', 'reactivate');
-        Route::get('/Resident/NotResident/Reactivate/{id}', 'reactivate2');
-        Route::get('/Resident/Remove/{id}', 'remove');
-        Route::get('/Resident/NotResident/Remove/{id}', 'remove2');
         Route::post('/Resident/Store', 'store');
-        Route::post('/Resident/NotResident/Store', 'notResident');
         Route::post('/Resident/Update/{id}', 'update');
-        Route::post('/Resident/NotResident/Update/{id}', 'update2');
+        Route::get('/Resident/Remove/{id}', 'remove');
+        Route::get('/Resident/Reactivate/{id}', 'reactivate');
         Route::get('/Resident/Mass', 'remove');
+
+        // Non-residents
+        Route::get('/Resident/NotResident', 'index2');
+        Route::get('/Resident/NotResident/Create', 'create2');
+        Route::get('/Resident/NotResident/Edit/{id}', 'edit2');
+        Route::get('/Resident/NotResident/Deactivate/{id}', 'destroy2');
+        Route::get('/Resident/NotResident/Soft', 'soft2');
+        Route::get('/Resident/NotResident/Reactivate/{id}', 'reactivate2');
+        Route::get('/Resident/NotResident/Remove/{id}', 'remove2');
+        Route::post('/Resident/NotResident/Store', 'notResident');
+        Route::post('/Resident/NotResident/Update/{id}', 'update2');
     });
 
     // Household

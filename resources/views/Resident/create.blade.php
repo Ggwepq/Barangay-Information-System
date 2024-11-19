@@ -33,35 +33,36 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <center>
-                                            <img class="img-fluid img-thumbnail" id="pic"
-                                                src="{{ URL::asset('img/steve.jpg') }}" alt="Resident Photo"
-                                                style="max-width: 200px; background-size: contain;">
-                                        </center>
-                                        <label for="exampleInputFile" class="mt-2">Photo Upload</label>
-                                        <input type="file" class="form-control-file" name="image"
-                                            onChange="readURL(this)" id="exampleInputFile" aria-describedby="fileHelp">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="date">Date of Registration<span style="color:red;">*</span></label>
-                                        <div class="input-group date" id="date" data-target-input="nearest">
-                                            <input type="text" name="created_at" placeholder="YYYY-MM-DD"
-                                                value="{{ date('Y-m-d H:i:s') }}" class="form-control datetimepicker-input"
-                                                data-target="#date">
-                                            <div class="input-group-append" data-target="#date"
-                                                data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            <form action="{{ url('admin/Resident/Store') }}" method="post" files="true"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <center>
+                                                <img class="img-fluid img-thumbnail" id="pic"
+                                                    src="{{ URL::asset('img/steve.jpg') }}" alt="Resident Photo"
+                                                    style="max-width: 200px; background-size: contain;">
+                                            </center>
+                                            <label for="exampleInputFile" class="form-label">Photo Upload</label>
+                                            <input type="file" class="form-control " name="image"
+                                                onChange="readURL(this)" id="exampleInputFile" aria-describedby="fileHelp">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">Date of Registration<span
+                                                    style="color:red;">*</span></label>
+                                            <div class="input-group date" id="date" data-target-input="nearest">
+                                                <input type="text" name="created_at" placeholder="YYYY-MM-DD"
+                                                    value="{{ date('Y-m-d H:i:s') }}"
+                                                    class="form-control datetimepicker-input" data-target="#date">
+                                                <div class="input-group-append" data-target="#date"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <form action="{{ url('admin/Resident/Store') }}" method="post" files="true"
-                                        enctype="multipart/form-data">
-                                        @csrf
+                                    <div class="col-md-9">
                                         <div class="card card-secondary ">
                                             <div class="card-header">
                                                 <h3 class="card-title">Personal Information</h3>
@@ -152,8 +153,7 @@
                                                         <div class="col-sm-3">
                                                             <label for="civilStatus">Civil Status<span
                                                                     style="color:red;">*</span></label>
-                                                            <select class="form-control select2"
-                                                                style="width:100%; height:100%;"name="civilStatus">
+                                                            <select class="form-control" name="civilStatus">
                                                                 <option value="Single"
                                                                     {{ old('civilStatus') == 'Single' ? 'selected' : '' }}>
                                                                     Single</option>
@@ -261,8 +261,7 @@
                                                         <div class="col-sm-3">
                                                             <label for="citizenship">Citizenship<span
                                                                     style="color:red;">*</span></label>
-                                                            <select class="form-control select2"
-                                                                style="width:100%; height:100%;" name="citizenship">
+                                                            <select class="form-control" name="citizenship">
                                                                 <option value="Filipino"
                                                                     {{ old('citizenship') == 'Filipino' ? 'selected' : '' }}>
                                                                     Filipino</option>
@@ -349,9 +348,9 @@
                                             <a href="/admin/Resident" class="btn btn-secondary mr-2">Back</a>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -382,13 +381,14 @@
                     }
                 }
             });
+
             $('#tinNo').inputmask('99-9999999');
             $('#precintNo').inputmask('9999a');
             $('#voterId').inputmask('9999-9999a-a999aaa99999-9');
 
-            $('#date').on('change', function() {
+            $('#date').on('change.datetimepicker', function(e) {
                 today = new Date();
-                date = new Date($('#date').val());
+                date = moment(e.date).toDate();
                 age = today.getFullYear() - date.getFullYear();
                 m = today.getMonth() - date.getMonth();
                 if (date >= today) {
@@ -397,9 +397,9 @@
                 console.log($('#age').val());
             });
 
-            $('#birthdate').on('change', function() {
+            $('#birthdate').on('change.datetimepicker', function(e) {
                 var today = new Date();
-                var birthDate = moment($('#birthdate').val(), 'YYYY-MM-DD').toDate();
+                var birthDate = moment(e.date).toDate();
                 var age = today.getFullYear() - birthDate.getFullYear();
                 var m = today.getMonth() - birthDate.getMonth();
                 if (birthDate >= today) {
@@ -409,7 +409,6 @@
                         age--;
                     }
                     $('#age').val(age);
-                    console.log($('#age').val());
                 }
             });
         });

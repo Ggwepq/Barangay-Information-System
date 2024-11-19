@@ -4,19 +4,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Inhabitant;
 use App\Models\Blotter;
 use App\Models\Business;
-use App\Models\Schedule;
-use App\Models\Resident;
-use App\Models\ParentModel;
-use App\Models\Voter;
+use App\Models\Inhabitant;
 use App\Models\Officer;
+use App\Models\ParentModel;
+use App\Models\Resident;
+use App\Models\Schedule;
+use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ResidentController extends Controller
 {
@@ -60,7 +60,7 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
-        /*dd($request->all());*/
+        // dd($request->all());
 
         $rules = [
             'firstName' => ['required', 'max:70', 'unique:residents', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
@@ -129,14 +129,14 @@ class ResidentController extends Controller
         } else {
             try {
                 $file = $request->file('image');
-                $pic = "";
+                $pic = '';
                 if ($file == '' || $file == null) {
-                    $pic = "img/steve.jpg";
+                    $pic = 'img/steve.jpg';
                 } else {
-                    $date = date("Ymdhis");
+                    $date = date('Ymdhis');
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $pic = "img/" . $date . '.' . $extension;
-                    $request->file('image')->move("img", $pic);
+                    $pic = 'img/' . $date . '.' . $extension;
+                    $request->file('image')->move('img', $pic);
                     // $request->file('photo')->move(public_path("/uploads"), $newfilename);
                 }
 
@@ -185,11 +185,9 @@ class ResidentController extends Controller
                 return Redirect::back()->withErrors($errMess);
             }
 
-
-            return redirect('/Resident')->withSuccess('Successfully inserted into the database.');
+            return redirect('/admin/Resident')->withSuccess('Successfully inserted into the database.');
         }
     }
-
 
     public function notResident(Request $request)
     {
@@ -260,14 +258,14 @@ class ResidentController extends Controller
         } else {
             try {
                 $file = $request->file('image');
-                $pic = "";
+                $pic = '';
                 if ($file == '' || $file == null) {
-                    $pic = "img/steve.jpg";
+                    $pic = 'img/steve.jpg';
                 } else {
-                    $date = date("Ymdhis");
+                    $date = date('Ymdhis');
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $pic = "img/" . $date . '.' . $extension;
-                    $request->file('image')->move("img", $pic);
+                    $pic = 'img/' . $date . '.' . $extension;
+                    $request->file('image')->move('img', $pic);
                     // $request->file('photo')->move(public_path("/uploads"), $newfilename);
                 }
 
@@ -319,6 +317,7 @@ class ResidentController extends Controller
             return redirect('/Resident/NotResident')->withSuccess('Successfully inserted into the database.');
         }
     }
+
     /**
      * Display the specified resource.
      *
@@ -342,12 +341,12 @@ class ResidentController extends Controller
         return view('Resident.update', compact('post'));
     }
 
-
     public function edit2($id)
     {
         $post = Resident::find($id);
         return view('Non-resident.update', compact('post'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -424,15 +423,15 @@ class ResidentController extends Controller
         } else {
             try {
                 $file = $request->file('image');
-                $pic = "";
+                $pic = '';
                 if ($file == '' || $file == null) {
                     $nullpic = Resident::find($id);
                     $pic = $nullpic->image;
                 } else {
-                    $date = date("Ymdhis");
+                    $date = date('Ymdhis');
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $pic = "img/" . $date . '.' . $extension;
-                    $request->file('image')->move("img", $pic);
+                    $pic = 'img/' . $date . '.' . $extension;
+                    $request->file('image')->move('img', $pic);
                     // $request->file('photo')->move(public_path("/uploads"), $newfilename);
                 }
 
@@ -515,10 +514,9 @@ class ResidentController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Resident')->withSuccess('Successfully updated into the database.');
+            return redirect('/admin/Resident')->withSuccess('Successfully updated into the database.');
         }
     }
-
 
     public function update2(Request $request, $id)
     {
@@ -589,15 +587,15 @@ class ResidentController extends Controller
         } else {
             try {
                 $file = $request->file('image');
-                $pic = "";
+                $pic = '';
                 if ($file == '' || $file == null) {
                     $nullpic = Resident::find($id);
                     $pic = $nullpic->image;
                 } else {
-                    $date = date("Ymdhis");
+                    $date = date('Ymdhis');
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $pic = "img/" . $date . '.' . $extension;
-                    $request->file('image')->move("img", $pic);
+                    $pic = 'img/' . $date . '.' . $extension;
+                    $request->file('image')->move('img', $pic);
                     // $request->file('photo')->move(public_path("/uploads"), $newfilename);
                 }
 
@@ -680,9 +678,10 @@ class ResidentController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Resident/NotResident')->withSuccess('Successfully updated into the database.');
+            return redirect('/admin/Resident/NotResident')->withSuccess('Successfully updated into the database.');
         }
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -691,9 +690,8 @@ class ResidentController extends Controller
      */
     public function destroy($id)
     {
-
         Resident::find($id)->update(['isActive' => 0]);
-        return redirect('/Resident');
+        return redirect('/admin/Resident');
     }
 
     public function soft()
@@ -705,14 +703,13 @@ class ResidentController extends Controller
     public function reactivate($id)
     {
         Resident::find($id)->update(['isActive' => 1]);
-        return redirect('/Resident');
+        return redirect('/admin/Resident');
     }
 
     public function destroy2($id)
     {
-
         Resident::find($id)->update(['isActive' => 0]);
-        return redirect('/Resident/NotResident');
+        return redirect('/admin/Resident/NotResident');
     }
 
     public function soft2()
@@ -724,7 +721,7 @@ class ResidentController extends Controller
     public function reactivate2($id)
     {
         Resident::find($id)->update(['isActive' => 1]);
-        return redirect('/Resident/NotResident');
+        return redirect('/admin/Resident/NotResident');
     }
 
     public function remove($id)
@@ -738,7 +735,7 @@ class ResidentController extends Controller
         $chkOfficer = Officer::where('residentId', $id)->get();
 
         if (count($chkHousehold) > 0 || count($chkBlotter) > 0 || count($chkBusiness) > 0 || count($chkSchedule) > 0 || count($chkOfficer) > 0) {
-            return redirect('/Resident')->withError('It seems that the record is still being used in other items. Deletion failed.');
+            return redirect('/admin/Resident')->withError('It seems that the record is still being used in other items. Deletion failed.');
         } else {
             if (count($post->Parents) != 0) {
                 $parent = parentModel::where('residentId', $post->id)->first();
@@ -751,7 +748,7 @@ class ResidentController extends Controller
             }
 
             $post->delete();
-            return redirect('/Resident/Soft');
+            return redirect('/admin/Resident/Soft');
         }
     }
 
@@ -766,7 +763,7 @@ class ResidentController extends Controller
         $chkOfficer = Officer::where('residentId', $id)->get();
 
         if (count($chkHousehold) > 0 || count($chkBlotter) > 0 || count($chkBusiness) > 0 || count($chkSchedule) > 0 || count($chkOfficer) > 0) {
-            return redirect('/Resident/NotResident')->withError('It seems that the record is still being used in other items. Deletion failed.');
+            return redirect('/admin/Resident/NotResident')->withError('It seems that the record is still being used in other items. Deletion failed.');
         } else {
             if (count($post->Parents) != 0) {
                 $parent = parentModel::where('residentId', $post->id)->first();
@@ -779,7 +776,7 @@ class ResidentController extends Controller
             }
 
             $post->delete();
-            return redirect('/Resident/NotResident/Soft');
+            return redirect('/admin/Resident/NotResident/Soft');
         }
     }
 }

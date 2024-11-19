@@ -420,7 +420,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '/vendor/bootstrap/js/bootstrap.min.js',
+                    'location' => '/vendor/bootstrap/js/bootstrap.bundle.min.js',
                 ],
             ],
         ],

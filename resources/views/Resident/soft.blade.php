@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-hover">
+            <table id="datatable" class="display table" style="width:100%">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -119,7 +119,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="form-group float-right">
+            <div class="form-group float-left">
                 <label class="checkbox-inline"><input type="checkbox"
                         onclick="document.location='{{ url('admin/Resident') }}';" id="showDeactivated"> Show active
                     records</label>

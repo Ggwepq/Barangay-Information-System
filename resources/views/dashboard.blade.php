@@ -31,7 +31,7 @@
                             <h3 class="card-title">Pending Cases</h3>
                         </div>
                         <div class="card-body">
-                            <table id="datatable" class="display table" cellspacing="50">
+                            <table id="datatable" class="display table" style="width:100%" cellspacing="50">
                                 <thead>
                                     <tr>
                                         <th>Case No.</th>
