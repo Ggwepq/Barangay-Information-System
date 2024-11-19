@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped">
+            <table id="datatable" class="display table" style="width:100%">
                 <thead>
                     <tr>
                         <th>Household no.</th>

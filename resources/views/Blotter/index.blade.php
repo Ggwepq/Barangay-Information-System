@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped">
+            <table id="datatable" class="table table-bordered table-striped"style="width:100%">
                 <thead>
                     <tr>
                         <th>Case No.</th>

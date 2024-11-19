@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-hover">
+            <table id="datatable" class="table table-bordered table-hover" style="width:100%">
                 <thead>
                     <tr>
                         <th>Image</th>

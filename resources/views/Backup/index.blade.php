@@ -42,7 +42,8 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped" style="width:100%"> {{-- Added datatable classes --}}
+            <table id="datatable" class="display table table-bordered table-striped" style="width:100%">
+                {{-- Added datatable classes --}}
                 <thead>
                     <tr>
                         <th>File</th>
@@ -62,13 +63,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="form-group pull-right"> {{-- Consider aligning this with CSS instead of pull-right --}}
-                <div class="custom-control custom-checkbox"> {{-- AdminLTE uses custom checkboxes --}}
-                    <input class="custom-control-input" type="checkbox" id="showDeactivated"
-                        onclick="document.location='{{ url('/admin/Blotter/Soft') }}';">
-                    <label for="showDeactivated" class="custom-control-label">Show deactivated records</label>
-                </div>
-            </div>
         </div>
     </div>
 

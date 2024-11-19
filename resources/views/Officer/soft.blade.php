@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="card-body"> {{-- Updated box-body to card-body --}}
-            <table id="example" class="table table-bordered table-hover"> {{-- Updated table classes --}}
+            <table id="example" class="table table-bordered table-hover" style="width:100%"> {{-- Updated table classes --}}
                 <thead>
                     <tr>
                         <th>Position</th>
