@@ -23,7 +23,9 @@
         <div class="card-header with-border">
             <h3 class="card-title">Constituent Management</h3>
             <div class="card-tools float-right">
-                <a href="{{ url('admin/Resident/Create') }}" class="btn btn-sm btn-success">New Resident</a>
+                <a href="{{ url('/admin/Resident/Create') }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i> New Resident
+                </a>
             </div>
         </div>
         <div class="card-body">

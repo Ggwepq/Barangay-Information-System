@@ -10,8 +10,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                    {{-- Updated home link --}}
+                    <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                     <li class="breadcrumb-item active">Officers</li>
                 </ol>
             </div>
@@ -21,29 +20,19 @@
 
 @section('content')
 
-    @if (session('success'))
-        <script>
-            toastr.success('{{ session('success') }}', 'Success!');
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            toastr.error('{{ session('error') }}', "There's something wrong!");
-        </script>
-    @endif
 
 
-    <div class="card card-primary"> {{-- Updated box to card --}}
-        <div class="card-header"> {{-- Updated box-header to card-header --}}
+    <div class="card card-primary">
+        <div class="card-header with-border">
             <h3 class="card-title">Officer Management</h3>
-            <div class="card-tools"> {{-- Updated box-tools to card-tools --}}
-                <a href="{{ url('/admin/Officer/Create') }}" class="btn btn-xs btn-success">New Officer</a>
-                {{-- Updated route URL --}}
+            <div class="card-tools float-right">
+                <a href="{{ url('/admin/Officer/Create') }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i> New Officer
+                </a>
             </div>
         </div>
         <div class="card-body"> {{-- Updated box-body to card-body --}}
-            <table id="example" class="table table-bordered table-hover" style="width:100%"> {{-- Updated table classes --}}
+            <table id="datatable" class="table table-responsive" style="width:100%"> {{-- Updated table classes --}}
                 <thead>
                     <tr>
                         <th>Position</th>
@@ -66,16 +55,64 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ url('/admin/Officer/Reactivate/' . $posts->id) }}" onclick="return reacForm()"
-                                    class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="Reactivate record"> {{-- Updated route URL and removed inline onclick --}}
-                                    <i class="fa fa-recycle"></i>
-                                </a>
-                                <a href="{{ url('/admin/Officer/Remove/' . $posts->id) }}" onclick="return deleteForm()"
-                                    class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="Delete record"> {{-- Updated route URL and removed inline onclick --}}
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                    data-target="#reactivateModal-{{ $posts->id }}">
+                                    <i class="fas fa-recycle"></i> Reactivate
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#deleteModal-{{ $posts->id }}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+
+                                <!-- Reactivate Modal -->
+                                <div class="modal fade" id="reactivateModal-{{ $posts->id }}" tabindex="-1"
+                                    aria-labelledby="reactivateModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="reactivateModalLabel">Reactivate Record</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to reactivate this record?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a href="{{ url('admin/Officer/Reactivate/' . $posts->id) }}"
+                                                    class="btn btn-primary">Reactivate</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal-{{ $posts->id }}" tabindex="-1"
+                                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Delete Record</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this record?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a href="{{ url('admin/Officer/Remove/' . $posts->id) }}"
+                                                    class="btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -95,13 +132,15 @@
 @stop
 
 @section('js') {{-- Updated script section to js --}}
-    <script>
-        function reacForm() {
-            return confirm("Are you sure you want to reactivate this record?"); // Simplified confirmation
-        }
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success') }}', 'Success!');
+        </script>
+    @endif
 
-        function deleteForm() {
-            return confirm("Are you sure you want to delete this record?"); // Simplified confirmation
-        }
-    </script>
+    @if (session('error'))
+        <script>
+            toastr.error('{{ session('error') }}', "There's something wrong!");
+        </script>
+    @endif
 @stop

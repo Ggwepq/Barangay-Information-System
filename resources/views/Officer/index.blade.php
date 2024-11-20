@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Resident</h1>
+                <h1 class="m-0">Officer Management</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Resident</li>
+                    <li class="breadcrumb-item active">Officer Management</li>
                 </ol>
             </div>
         </div>
@@ -20,26 +20,18 @@
 
 
 @section('content')
-    @if (session('success'))
-        <script type="text/javascript">
-            toastr.success('{{ session('success') }}', 'Success!');
-        </script>
-    @endif
-    @if (session('error'))
-        <script type="text/javascript">
-            toastr.error('{{ session('error') }}', "There's something wrong!");
-        </script>
-    @endif
 
-    <div class="card">
-        <div class="card-header">
+    <div class="card card-primary">
+        <div class="card-header with-border">
             <h3 class="card-title">Officer Management</h3>
-            <div class="card-tools">
-                <a href="{{ url('/admin/Officer/Create') }}" class="btn btn-xs btn-success">New Officer</a>
+            <div class="card-tools float-right">
+                <a href="{{ url('/admin/Officer/Create') }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i> New Officer
+                </a>
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped" style="width:100%">
+            <table id="datatable" class="display table table-responsive" style="width:100%">
                 <thead>
                     <tr>
                         <th>Position</th>
@@ -62,22 +54,70 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ url('/admin/Officer/Edit/' . $posts->id) }}" onclick="return updateForm()"
-                                    class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="Update record">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="{{ url('/admin/Officer/Deactivate/' . $posts->id) }}" onclick="return deleteForm()"
-                                    class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="Deactivate record">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#editModal-{{ $posts->id }}">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#deactivateModal-{{ $posts->id }}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+
+                                <!-- Reactivate Modal -->
+                                <div class="modal fade" id="editModal-{{ $posts->id }}" tabindex="-1"
+                                    aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel">Edit Record</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to edit this record?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a href="{{ url('admin/Officer/Edit/' . $posts->id) }}"
+                                                    class="btn btn-primary">Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deactivateModal-{{ $posts->id }}" tabindex="-1"
+                                    aria-labelledby="deactivateModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deactivateModalLabel">Deactivate Record</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to deactivate this record?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a href="{{ url('admin/Officer/Deactivate/' . $posts->id) }}"
+                                                    class="btn btn-danger">Deactivate</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="form-group float-right">
+            <div class="form-group float-left">
                 <label class="checkbox-inline"><input type="checkbox"
                         onclick="document.location='{{ url('/admin/Officer/Soft') }}';" id="showDeactivated"> Show
                     deactivated records</label>
@@ -87,15 +127,14 @@
 @endsection
 
 @section('js')
-    <script>
-        function updateForm() {
-            return confirm("Are you sure you want to modify this record?");
-        }
-
-        function deleteForm() {
-            return confirm(
-                "Are you sure you want to deactivate this record? All items included in this record will also be deactivated."
-            );
-        }
-    </script>
+    @if (session('success'))
+        <script type="text/javascript">
+            toastr.success('{{ session('success') }}', 'Success!');
+        </script>
+    @endif
+    @if (session('error'))
+        <script type="text/javascript">
+            toastr.error('{{ session('error') }}', "There's something wrong!");
+        </script>
+    @endif
 @stop

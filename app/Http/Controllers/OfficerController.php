@@ -4,10 +4,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Officer;
 use App\Models\Resident;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -22,7 +22,6 @@ class OfficerController extends Controller
      */
     public function index()
     {
-
         $post = Officer::where('isActive', 1)->get();
         return view('Officer.index', compact('post'));
     }
@@ -47,7 +46,7 @@ class OfficerController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'residentId' => ['required','unique:officers'],
+            'residentId' => ['required', 'unique:officers'],
             'position' => 'required',
             'email' => 'required|email',
             'password' => 'required',
@@ -89,7 +88,7 @@ class OfficerController extends Controller
                     $errMess = $e->getMessage();
                     return Redirect::back()->withErrors($errMess);
                 }
-                return redirect('/Officer')->withSuccess('Successfully inserted into the database.');
+                return redirect('/admin/Officer')->withSuccess('Successfully inserted into the database.');
             } else {
                 return Redirect::back()->withErrors('The password does not match');
             }
@@ -130,7 +129,7 @@ class OfficerController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'residentId' => ['required',Rule::unique('officers')->ignore($id)],
+            'residentId' => ['required', Rule::unique('officers')->ignore($id)],
             'position' => 'required',
             'email' => 'required|email',
             'password' => 'required',
@@ -172,7 +171,7 @@ class OfficerController extends Controller
                     $errMess = $e->getMessage();
                     return Redirect::back()->withErrors($errMess);
                 }
-                return redirect('/Officer')->withSuccess('Successfully inserted into the database.');
+                return redirect('/admin/Officer')->withSuccess('Successfully inserted into the database.');
             } else {
                 return Redirect::back()->withErrors('The password does not match');
             }
@@ -187,9 +186,8 @@ class OfficerController extends Controller
      */
     public function destroy($id)
     {
-
         Officer::find($id)->update(['isActive' => 0]);
-        return redirect('/Officer');
+        return redirect('/admin/Officer');
     }
 
     public function soft()
@@ -201,7 +199,7 @@ class OfficerController extends Controller
     public function reactivate($id)
     {
         Officer::find($id)->update(['isActive' => 1]);
-        return redirect('/Officer');
+        return redirect('/admin/Officer');
     }
 
     public function remove($id)
@@ -211,7 +209,7 @@ class OfficerController extends Controller
         $chkSec = Officer::find($id)->where('position', 'Secretary')->get();
 
         if (count($chkChairman) > 0 || count($chkSec) > 0) {
-            return redirect('/Officer')->withError('Your account could not be deleted. Because, it is necessary in the forms.');
+            return redirect('/admin/Officer')->withError('Your account could not be deleted. Because, it is necessary in the forms.');
         } else {
             if (count($post->User) != 0) {
                 $user = User::where('officerId', $id)->first();
@@ -219,7 +217,7 @@ class OfficerController extends Controller
             }
 
             $post->delete();
-            return redirect('/Officer/Soft');
+            return redirect('/admin/Officer/Soft');
         }
     }
 }
