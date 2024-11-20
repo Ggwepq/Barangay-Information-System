@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                     <li class="breadcrumb-item active">Project</li>
                 </ol>
             </div>
@@ -21,13 +21,15 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header with-border">
-            <h3 class="card-title">Constituent Management</h3>
+            <h3 class="card-title text-lg">Project</h3>
             <div class="card-tools float-right">
-                <a href="{{ url('admin/Project/Create') }}" class="btn btn-xs btn-success">Project</a>
+                <a href="{{ url('/admin/Project/Create') }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i> New Project
+                </a>
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped" style="width:100%">
+            <table id="datatable" class="table table-responsive" style="width:100%">
                 <thead>
                     <tr>
                         <th>Project</th>

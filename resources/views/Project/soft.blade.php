@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                     <li class="breadcrumb-item active">Project</li>
                 </ol>
             </div>
@@ -21,7 +21,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped" style="width:100%">
+            <table id="datatable" class="table table-responsive" style="width:100%">
                 <thead>
                     <tr>
                         <th>Project</th>

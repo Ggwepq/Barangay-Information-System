@@ -19,16 +19,6 @@
 @endsection
 
 @section('content')
-    @if (session('success'))
-        <script>
-            toastr.success('{{ session('success') }}', 'Success!');
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            toastr.error('{{ session('error') }}', "There's something wrong!");
-        </script>
-    @endif
 
     <div class="card">
         <div class="card-header bg-primary text-white">
@@ -128,7 +118,9 @@
     <script>
         $(document).ready(function() {
             // Initialize Select2
-            $('.select2').select2();
+            $('.select2').select2({
+                theme: bootstrap4
+            });
 
             // Initialize DataTables
             $('#list1, #list2, #list3').DataTable({
@@ -146,4 +138,14 @@
             });
         });
     </script>
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success') }}', 'Success!');
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            toastr.error('{{ session('error') }}', "There's something wrong!");
+        </script>
+    @endif
 @endsection

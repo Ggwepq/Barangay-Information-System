@@ -4,9 +4,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Project;
 use App\Models\Officer;
+use App\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -45,10 +45,10 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'projectName' => ['required','unique:projects','max:150'],
+            'projectName' => ['required', 'unique:projects', 'max:150'],
             'projectDev' => 'required|max:150',
             'description' => 'nullable|max:150',
-            'officerCharge' =>  'required',
+            'officerCharge' => 'required',
             'dateStarted' => 'required',
             'dateEnded' => 'nullable'
         ];
@@ -62,7 +62,7 @@ class ProjectController extends Controller
             'projectName' => 'Project Name',
             'projectDev' => 'Project Developer',
             'description' => 'Description',
-            'officerCharge' =>  'Officer-in-Charge',
+            'officerCharge' => 'Officer-in-Charge',
             'dateStarted' => 'Date Started',
             'dateEnded' => 'Date Ended'
         ];
@@ -76,7 +76,7 @@ class ProjectController extends Controller
                     'projectName' => $request->projectName,
                     'projectDev' => $request->projectDev,
                     'description' => $request->description,
-                    'officerCharge' =>  $request->officerCharge,
+                    'officerCharge' => $request->officerCharge,
                     'dateStarted' => $request->dateStarted,
                     'dateEnded' => $request->dateEnded
                 ]);
@@ -85,7 +85,7 @@ class ProjectController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Project')->withSuccess('Successfully inserted into the database.');
+            return redirect('/admin/Project')->withSuccess('Successfully inserted into the database.');
         }
     }
 
@@ -123,10 +123,10 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'projectName' => ['required',Rule::unique('projects')->ignore($id),'max:150'],
+            'projectName' => ['required', Rule::unique('projects')->ignore($id), 'max:150'],
             'projectDev' => 'required|max:150',
             'description' => 'nullable|max:150',
-            'officerCharge' =>  'required',
+            'officerCharge' => 'required',
             'dateStarted' => 'required',
             'dateEnded' => 'nullable'
         ];
@@ -140,7 +140,7 @@ class ProjectController extends Controller
             'projectName' => 'Project Name',
             'projectDev' => 'Project Developer',
             'description' => 'Description',
-            'officerCharge' =>  'Officer-in-Charge',
+            'officerCharge' => 'Officer-in-Charge',
             'dateStarted' => 'Date Started',
             'dateEnded' => 'Date Ended'
         ];
@@ -154,7 +154,7 @@ class ProjectController extends Controller
                     'projectName' => $request->projectName,
                     'projectDev' => $request->projectDev,
                     'description' => $request->description,
-                    'officerCharge' =>  $request->officerCharge,
+                    'officerCharge' => $request->officerCharge,
                     'dateStarted' => $request->dateStarted,
                     'dateEnded' => $request->dateEnded
                 ]);
@@ -163,7 +163,7 @@ class ProjectController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Project')->withSuccess('Successfully updated into the database.');
+            return redirect('/admin/Project')->withSuccess('Successfully updated into the database.');
         }
     }
 
@@ -175,9 +175,8 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-
         Project::find($id)->update(['isActive' => 0]);
-        return redirect('/Project');
+        return redirect('/admin/Project');
     }
 
     public function soft()
@@ -189,13 +188,13 @@ class ProjectController extends Controller
     public function reactivate($id)
     {
         Project::find($id)->update(['isActive' => 1]);
-        return redirect('/Project');
+        return redirect('/admin/Project');
     }
 
     public function remove($id)
     {
         $post = Project::find($id);
         $post->delete();
-        return redirect('/Project/Soft');
+        return redirect('/admin/Project/Soft');
     }
 }
