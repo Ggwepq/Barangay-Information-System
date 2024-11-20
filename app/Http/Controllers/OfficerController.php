@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Officer;
+use App\Models\Position;
 use App\Models\Resident;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,7 +35,8 @@ class OfficerController extends Controller
     public function create()
     {
         $resident = Resident::where('isActive', 1)->get();
-        return view('Officer.create', compact('resident'));
+        $position = Position::where('isActive', 1)->get();
+        return view('Officer.create', compact('resident', 'position'));
     }
 
     /**
@@ -47,7 +49,7 @@ class OfficerController extends Controller
     {
         $rules = [
             'residentId' => ['required', 'unique:officers'],
-            'position' => 'required',
+            'positionId' => 'required',
             'email' => 'required|email',
             'password' => 'required',
             'conpassword' => 'required',
@@ -60,7 +62,7 @@ class OfficerController extends Controller
         ];
         $niceNames = [
             'residentId' => 'Resident',
-            'position' => 'Position',
+            'positionId' => 'Position',
             'email' => 'Email Address',
             'password' => 'Password',
             'conpassword' => 'Password Confirmation',
@@ -74,7 +76,7 @@ class OfficerController extends Controller
                 try {
                     $officer = Officer::create([
                         'residentId' => $request->residentId,
-                        'position' => $request->position,
+                        'positionId' => $request->positionId,
                     ]);
 
                     User::create([
@@ -115,8 +117,9 @@ class OfficerController extends Controller
     public function edit($id)
     {
         $resident = Resident::where('isActive', 1)->get();
+        $position = Position::where('isActive', 1)->get();
         $post = Officer::with('User')->find($id);
-        return view('Officer.update', compact('resident', 'post'));
+        return view('Officer.update', compact('resident', 'position', 'post'));
     }
 
     /**
@@ -130,7 +133,7 @@ class OfficerController extends Controller
     {
         $rules = [
             'residentId' => ['required', Rule::unique('officers')->ignore($id)],
-            'position' => 'required',
+            'positionId' => 'required',
             'email' => 'required|email',
             'password' => 'required',
             'conpassword' => 'required',
@@ -143,7 +146,7 @@ class OfficerController extends Controller
         ];
         $niceNames = [
             'residentId' => 'Resident',
-            'position' => 'Position',
+            'positionId' => 'Position',
             'email' => 'Email Address',
             'password' => 'Password',
             'conpassword' => 'Password Confirmation',
@@ -157,7 +160,7 @@ class OfficerController extends Controller
                 try {
                     $officer = Officer::find($id)->update([
                         'residentId' => $request->residentId,
-                        'position' => $request->position
+                        'positionId' => $request->positionId
                     ]);
 
                     User::find($request->userId)->update([
@@ -205,8 +208,8 @@ class OfficerController extends Controller
     public function remove($id)
     {
         $post = Officer::find($id);
-        $chkChairman = Officer::find($id)->where('position', 'Chairman')->get();
-        $chkSec = Officer::find($id)->where('position', 'Secretary')->get();
+        $chkChairman = Officer::find($id)->where('positionId', '1')->get();
+        $chkSec = Officer::find($id)->where('positionId', '2')->get();
 
         if (count($chkChairman) > 0 || count($chkSec) > 0) {
             return redirect('/admin/Officer')->withError('Your account could not be deleted. Because, it is necessary in the forms.');

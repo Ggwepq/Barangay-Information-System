@@ -7,26 +7,26 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OfficerSeeder extends Seeder
+class PositionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('officers')->insert([
+        DB::table('positions')->insert([
             'id' => '1',
-            'residentid' => '1',
-            'positionId' => '1',
+            'position_name' => 'Chairman',
+            'position_limit' => '1',
             'isActive' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
-        DB::table('officers')->insert([
+        DB::table('positions')->insert([
             'id' => '2',
-            'residentid' => '2',
-            'positionId' => '2',
+            'position_name' => 'Secretary',
+            'position_limit' => '2',
             'isActive' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

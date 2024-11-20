@@ -62,12 +62,11 @@
                                             <div class="form-group">
                                                 <label>Position<span style="color:Red;">*</span></label>
                                                 <select class="form-control" name="position">
-                                                    <option value="Kagawad"
-                                                        @if ($post->position == 'Kagawad') selected @endif>Kagawad
-                                                    </option>
-                                                    <option value="Tanod"
-                                                        @if ($post->position == 'Tanod') selected @endif>Tanod
-                                                    </option>
+                                                    @foreach ($position as $positions)
+                                                        <option value="{{ $positions->id }}"
+                                                            @if ($positions->id == $post->positionId) selected @endif>
+                                                            {{ $positions->position_name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">

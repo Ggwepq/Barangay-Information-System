@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(ResidentSeeder::class);
+        $this->call(PositionSeeder::class);
         $this->call(OfficerSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(HouseholdSeeder::class);

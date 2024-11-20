@@ -59,9 +59,10 @@
                                     <div class="form-group">
                                         <label>Position<span style="color:Red;">*</span></label>
                                         <select class="form-control" name="position">
-                                            <option value="Secretary">Secretary</option>
-                                            <option value="Kagawad">Kagawad</option>
-                                            <option value="Tanod">Tanod</option>
+                                            @foreach ($position as $positions)
+                                                <option value="{{ $positions->id }}">{{ $positions->position_name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">

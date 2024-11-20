@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HouseholdController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\ReportController;
@@ -89,6 +90,19 @@ Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/Officer/Remove/{id}', 'remove');
         Route::post('/Officer/Store', 'store');
         Route::post('/Officer/Update/{id}', 'update');
+    });
+
+    // Officer
+    Route::controller(PositionController::class)->group(function () {
+        Route::get('/Position', 'index');
+        Route::get('/Position/Create', 'create');
+        Route::get('/Position/Edit/{id}', 'edit');
+        Route::get('/Position/Deactivate/{id}', 'destroy');
+        Route::get('/Position/Soft', 'soft');
+        Route::get('/Position/Reactivate/{id}', 'reactivate');
+        Route::get('/Position/Remove/{id}', 'remove');
+        Route::post('/Position/Store', 'store');
+        Route::post('/Position/Update/{id}', 'update');
     });
 
     // Projects

@@ -16,7 +16,7 @@ class ResidentSeeder extends Seeder
     {
         DB::table('residents')->insert([
             'id' => '1',
-            'firstName' => 'The',
+            'firstName' => 'The Admin',
             'middleName' => 'admin',
             'lastName' => 'Administrator',
             'street' => '123 Admin St.',

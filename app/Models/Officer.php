@@ -13,13 +13,18 @@ class Officer extends Model
 
     protected $fillable = [
         'residentId',
-        'position',
+        'positionId',
         'isActive'
     ];
 
     public function Resident()
     {
         return $this->belongsTo(Resident::class, 'residentId');
+    }
+
+    public function Position()
+    {
+        return $this->belongsTo(Position::class, 'positionId');
     }
 
     public function User()

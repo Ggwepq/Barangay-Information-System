@@ -365,6 +365,11 @@ return [
             'icon' => 'fas fa-fw fa-user-tie',
         ],
         [
+            'text' => 'Position',
+            'url' => '/admin/Position',
+            'icon' => 'fas fa-fw fa-user-tie',
+        ],
+        [
             'text' => 'Database Backup',
             'url' => '/admin/Backup',
             'icon' => 'fas fa-fw fa-database',
