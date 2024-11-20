@@ -91,7 +91,7 @@ class BlotterController extends Controller
                 return Redirect::back()->withErrors($errMess);
             }
 
-            return redirect('/Blotter')->withSuccess('Successfully inserted into the database.');
+            return redirect('/admin/Blotter')->withSuccess('Successfully inserted into the database.');
         }
     }
 
@@ -178,7 +178,7 @@ class BlotterController extends Controller
                 return Redirect::back()->withErrors($errMess);
             }
 
-            return redirect('/Blotter')->withSuccess('Successfully updated into the database.');
+            return redirect('/admin/Blotter')->withSuccess('Successfully updated into the database.');
         }
     }
 
@@ -191,7 +191,7 @@ class BlotterController extends Controller
     public function destroy($id)
     {
         Blotter::find($id)->update(['isActive' => 0]);
-        return redirect('/Blotter');
+        return redirect('/admin/Blotter');
     }
 
     public function soft()
@@ -203,13 +203,13 @@ class BlotterController extends Controller
     public function reactivate($id)
     {
         Blotter::find($id)->update(['isActive' => 1]);
-        return redirect('/Blotter');
+        return redirect('/admin/Blotter');
     }
 
     public function remove($id)
     {
         $post = Blotter::find($id);
         $post->delete();
-        return redirect('/Blotter/Soft');
+        return redirect('/admin/Blotter/Soft');
     }
 }

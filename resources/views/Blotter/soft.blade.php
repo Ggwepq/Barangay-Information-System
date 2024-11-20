@@ -31,16 +31,16 @@
     @endif
 
     <div class="card card-primary">
-        <div class="card-header">
+        <div class="card-header with-border">
             <h3 class="card-title">Blotter Records</h3>
-            <div class="card-tools">
+            <div class="card-tools float-right">
                 <a href="{{ url('admin/Household/Create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus"></i> New Household
+                    <i class="fas fa-plus"></i> New Blotter
                 </a>
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+            <table id="datatable" class="table table-responsive">
                 <thead>
                     <tr>
                         <th>Case No.</th>
@@ -64,22 +64,70 @@
                             <td>{{ $posts->officerCharge }}</td>
                             <td>{{ $posts->description }}</td>
                             <td>
-                                <a href="{{ url('admin/Blotter/Reactivate/' . $posts->id) }}"
-                                    onclick="return confirmReactivation();" class="btn btn-warning btn-sm"
-                                    data-toggle="tooltip" title="Reactivate record">
-                                    <i class="fas fa-recycle"></i>
-                                </a>
-                                <a href="{{ url('admin/Blotter/Remove/' . $posts->id) }}"
-                                    onclick="return confirmDeletion();" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                    title="Delete record">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                    data-target="#reactivateModal-{{ $posts->id }}">
+                                    <i class="fas fa-recycle"></i> Reactivate
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#deleteModal-{{ $posts->id }}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+
+                                <!-- Reactivate Modal -->
+                                <div class="modal fade" id="reactivateModal-{{ $posts->id }}" tabindex="-1"
+                                    aria-labelledby="reactivateModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="reactivateModalLabel">Reactivate Record</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to reactivate this record?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a href="{{ url('admin/Blotter/Reactivate/' . $posts->id) }}"
+                                                    class="btn btn-primary">Reactivate</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal-{{ $posts->id }}" tabindex="-1"
+                                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Delete Record</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this record?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a href="{{ url('admin/Blotter/Remove/' . $posts->id) }}"
+                                                    class="btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="form-group text-right">
+            <div class="form-group float-left">
                 <label class="checkbox-inline">
                     <input type="checkbox" onclick="location.href='{{ url('admin/Blotter') }}';" id="showDeactivated"> Show
                     active records
@@ -90,13 +138,4 @@
 @stop
 
 @section('js')
-    <script>
-        function confirmReactivation() {
-            return confirm("Are you sure you want to reactivate this record?");
-        }
-
-        function confirmDeletion() {
-            return confirm("Are you sure you want to delete this record?");
-        }
-    </script>
 @stop

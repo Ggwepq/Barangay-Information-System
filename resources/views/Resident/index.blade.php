@@ -23,11 +23,11 @@
         <div class="card-header with-border">
             <h3 class="card-title">Constituent Management</h3>
             <div class="card-tools float-right">
-                <a href="{{ url('admin/Resident/Create') }}" class="btn btn-xs btn-success">New Resident</a>
+                <a href="{{ url('admin/Resident/Create') }}" class="btn btn-sm btn-success">New Resident</a>
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="display table"style="width:100%" cellspacing="0">
+            <table id="datatable" class="display table table-responsive"style="width:100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Image</th>
