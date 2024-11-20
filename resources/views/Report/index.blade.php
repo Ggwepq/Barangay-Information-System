@@ -19,16 +19,6 @@
 @stop
 
 @section('content')
-    @if (session('success'))
-        <script>
-            toastr.success('{{ session('success') }}', 'Success!');
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            toastr.error('{{ session('error') }}', "There's something wrong!");
-        </script>
-    @endif
 
     <div class="card card-primary">
         <div class="card-header">
@@ -41,12 +31,13 @@
                     <!-- Start Date -->
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="start">Date Started</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control datepicker" id="start" name="start"
-                                    placeholder="YYYY-MM-DD">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                            <label for="date">Start Date</label>
+                            <div class="input-group date" id="start" data-target-input="nearest">
+                                <input type="text" id="startDate" name="start" placeholder="YYYY-MM-DD"
+                                    value="{{ old('start') }}" class="form-control datetimepicker-input"
+                                    data-target="#start">
+                                <div class="input-group-append" data-target="#start" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -55,12 +46,13 @@
                     <!-- End Date -->
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="end">Date Ended</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control datepicker" id="end" name="end"
-                                    placeholder="YYYY-MM-DD">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                            <label for="date">End Date</label>
+                            <div class="input-group date" id="end" data-target-input="nearest">
+                                <input type="text" id="endDate" name="start" placeholder="YYYY-MM-DD"
+                                    value="{{ old('end') }}" class="form-control datetimepicker-input"
+                                    data-target="#end">
+                                <div class="input-group-append" data-target="#end" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +76,7 @@
             <div class="card mt-4 d-none" id="dataCard">
                 <div class="card-header bg-primary text-white">Report Results</div>
                 <div class="card-body">
-                    <table id="list1" class="table table-bordered table-striped">
+                    <table id="list1" class="table table-responsive">
                         <thead>
                             <tr>
                                 <th>Case No.</th>
@@ -106,33 +98,42 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            // Initialize date picker
-            $('.datepicker').inputmask('9999-99-99');
+
+            $('#start, #end').datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: 'en',
+            })
 
             // Validate date range
-            $('#end').on('change', function() {
-                const start = $('#start').val();
-                const end = $('#end').val();
+            $('#end').on('change.datetimepicker', function(e) {
+                const start = $('#start').datetimepicker('viewDate').format('YYYY-MM-DD');
+                const end = $('#end').datetimepicker('viewDate').format('YYYY-MM-DD');
+
                 if (start > end) {
-                    alert('Invalid End date. It should not be earlier than the Start date.');
+                    toastr.error('Invalid End date. It should not be earlier than the Start date.');
                 }
             });
 
             // Generate report
             $('#gen').on('click', function() {
-                const start = $('#start').val();
-                const end = $('#end').val();
+                const start = $('#start').datetimepicker('viewDate').format('YYYY-MM-DD');
+                const end = $('#end').datetimepicker('viewDate').format('YYYY-MM-DD');
 
-                if (!start || !end) {
-                    toastr.error('Please select both start and end dates.', 'Error!');
+                if (start > end) {
+                    toastr.error('Invalid End date. It should not be earlier than the Start date.');
                     return;
+                } else {
+                    if (!start || !end) {
+                        toastr.error('Please select both start and end dates.', 'Error!');
+                        return;
+                    }
                 }
 
                 $('#dataCard').removeClass('d-none'); // Show the results card
 
                 $('#list1').DataTable({
                     destroy: true, // Allow reinitialization
-                    ajax: `/Report/Table/${start}/${end}`,
+                    ajax: `/admin/Report/Table/${start}/${end}`,
                     columns: [{
                             data: 'id',
                             render: (data) => String(data).padStart(5, '0')
@@ -152,16 +153,27 @@
 
             // Export to PDF
             $('#pdf').on('click', function() {
-                const start = $('#start').val();
-                const end = $('#end').val();
+                const start = $('#start').datetimepicker('viewDate').format('YYYY-MM-DD');
+                const end = $('#end').datetimepicker('viewDate').format('YYYY-MM-DD');
 
                 if (!start || !end) {
                     toastr.error('Please select both start and end dates.', 'Error!');
                     return false;
                 }
 
-                $(this).attr('href', `/Report/Pdf/${start}/${end}`);
+                $(this).attr('href', `/admin/Report/Pdf/${start}/${end}`);
             });
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success') }}', 'Success!');
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            toastr.error('{{ session('error') }}', "There's something wrong!");
+        </script>
+    @endif
 @stop

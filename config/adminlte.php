@@ -327,21 +327,21 @@ return [
             'icon' => 'fas fa-fw fa-scroll',
         ],
         ['header' => 'Management'],
-        [
-            'text' => 'Business',
-            'url' => '/admin/Business',
-            'icon' => 'fas fa-fw fa-briefcase',
-        ],
+        // [
+        //     'text' => 'Business',
+        //     'url' => '/admin/Business',
+        //     'icon' => 'fas fa-fw fa-briefcase',
+        // ],
         [
             'text' => 'Projects',
             'url' => '/admin/Project',
             'icon' => 'fas fa-fw fa-tasks',
         ],
-        [
-            'text' => 'Court Schedules',
-            'url' => '/admin/Schedule',
-            'icon' => 'fas fa-fw fa-calendar-day',
-        ],
+        // [
+        //     'text' => 'Court Schedules',
+        //     'url' => '/admin/Schedule',
+        //     'icon' => 'fas fa-fw fa-calendar-day',
+        // ],
         ['header' => 'Queries & Reports'],
         [
             'text' => 'Queries',
@@ -354,11 +354,11 @@ return [
             'icon' => 'fas fa-fw fa-print',
         ],
         ['header' => 'Utilities'],
-        [
-            'text' => 'Non-residents',
-            'url' => '/admin/Resident/NotResident',
-            'icon' => 'fas fa-fw fa-users-slash',
-        ],
+        // [
+        //     'text' => 'Non-residents',
+        //     'url' => '/admin/Resident/NotResident',
+        //     'icon' => 'fas fa-fw fa-users-slash',
+        // ],
         [
             'text' => 'Officers',
             'url' => '/admin/Officer',

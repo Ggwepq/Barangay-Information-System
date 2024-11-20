@@ -102,7 +102,7 @@ class HouseholdController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Household')->withSuccess('Successfully inserted into the database.');
+            return redirect('/admin/Household')->withSuccess('Successfully inserted into the database.');
         }
     }
 
@@ -187,7 +187,7 @@ class HouseholdController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Household')->withSuccess('Successfully updated into the database.');
+            return redirect('/admin/Household')->withSuccess('Successfully updated into the database.');
         }
     }
 
@@ -200,7 +200,7 @@ class HouseholdController extends Controller
     public function destroy($id)
     {
         Household::find($id)->update(['isActive' => 0]);
-        return redirect('/Household');
+        return redirect('/admin/Household');
     }
 
     public function soft()
@@ -212,7 +212,7 @@ class HouseholdController extends Controller
     public function reactivate($id)
     {
         Household::find($id)->update(['isActive' => 1]);
-        return redirect('/Household');
+        return redirect('/admin/Household');
     }
 
     public function remove($id)
@@ -228,6 +228,6 @@ class HouseholdController extends Controller
         }
 
         $post->delete();
-        return redirect('/Household/Soft');
+        return redirect('/admin/Household/Soft');
     }
 }
