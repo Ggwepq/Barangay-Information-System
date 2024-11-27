@@ -16,6 +16,7 @@ class Resident extends Model
         'middleName',
         'lastName',
         'province',
+        'house_no',
         'street',
         'brgy',
         'city',
@@ -38,7 +39,7 @@ class Resident extends Model
 
     public function Parents()
     {
-        return $this->hasMany(ParentModel::class, 'residentId');
+        return $this->hasMany(Parent::class, 'residentId');
     }
 
     public function Officer()

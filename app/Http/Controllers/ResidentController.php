@@ -8,7 +8,7 @@ use App\Models\Blotter;
 use App\Models\Business;
 use App\Models\Inhabitant;
 use App\Models\Officer;
-use App\Models\ParentModel;
+use App\Models\ResidentParent;
 use App\Models\Resident;
 use App\Models\Schedule;
 use App\Models\Voter;
@@ -162,7 +162,7 @@ class ResidentController extends Controller
                     'created_at' => $request->created_at
                 ]);
 
-                parentModel::create([
+                ResidentParent::create([
                     'residentId' => $resident->id,
                     'motherFirstName' => $request->motherFirstName,
                     'motherMiddleName' => $request->motherMiddleName,
@@ -292,7 +292,7 @@ class ResidentController extends Controller
                     'created_at' => $request->created_at
                 ]);
 
-                parentModel::create([
+                ResidentParent::create([
                     'residentId' => $resident->id,
                     'motherFirstName' => $request->motherFirstName,
                     'motherMiddleName' => $request->motherMiddleName,
@@ -462,14 +462,14 @@ class ResidentController extends Controller
                     ->where('r.id', $id)
                     ->get();
 
-                $chkParent = DB::table('residents as r')
+                $chkResidentParent = DB::table('residents as r')
                     ->join('parents as p', 'p.residentId', 'r.id')
                     ->select('r.*')
                     ->where('r.id', $id)
                     ->get();
 
-                if (count($chkParent) != 0) {
-                    parentModel::find($request->parentid)->updateOrCreate([
+                if (count($chkResidentParent) != 0) {
+                    ResidentParent::find($request->parentid)->updateOrCreate([
                         'residentId' => $request->residentId,
                         'motherFirstName' => $request->motherFirstName,
                         'motherMiddleName' => $request->motherMiddleName,
@@ -480,8 +480,8 @@ class ResidentController extends Controller
                     ]);
                 }
 
-                if (count($chkParent) == 0) {
-                    parentModel::create([
+                if (count($chkResidentParent) == 0) {
+                    ResidentParent::create([
                         'residentId' => $request->residentId,
                         'motherFirstName' => $request->motherFirstName,
                         'motherMiddleName' => $request->motherMiddleName,
@@ -626,14 +626,14 @@ class ResidentController extends Controller
                     ->where('r.id', $id)
                     ->get();
 
-                $chkParent = DB::table('residents as r')
+                $chkResidentParent = DB::table('residents as r')
                     ->join('parents as p', 'p.residentId', 'r.id')
                     ->select('r.*')
                     ->where('r.id', $id)
                     ->get();
 
-                if (count($chkParent) != 0) {
-                    parentModel::find($request->parentid)->updateOrCreate([
+                if (count($chkResidentParent) != 0) {
+                    ResidentParent::find($request->parentid)->updateOrCreate([
                         'residentId' => $request->residentId,
                         'motherFirstName' => $request->motherFirstName,
                         'motherMiddleName' => $request->motherMiddleName,
@@ -644,8 +644,8 @@ class ResidentController extends Controller
                     ]);
                 }
 
-                if (count($chkParent) == 0) {
-                    parentModel::create([
+                if (count($chkResidentParent) == 0) {
+                    ResidentParent::create([
                         'residentId' => $request->residentId,
                         'motherFirstName' => $request->motherFirstName,
                         'motherMiddleName' => $request->motherMiddleName,
@@ -737,8 +737,8 @@ class ResidentController extends Controller
         if (count($chkHousehold) > 0 || count($chkBlotter) > 0 || count($chkBusiness) > 0 || count($chkSchedule) > 0 || count($chkOfficer) > 0) {
             return redirect('/admin/Resident')->withError('It seems that the record is still being used in other items. Deletion failed.');
         } else {
-            if (count($post->Parents) != 0) {
-                $parent = parentModel::where('residentId', $post->id)->first();
+            if (count($post->ResidentParents) != 0) {
+                $parent = ResidentParent::where('residentId', $post->id)->first();
                 $parent->delete();
             }
 
@@ -765,8 +765,8 @@ class ResidentController extends Controller
         if (count($chkHousehold) > 0 || count($chkBlotter) > 0 || count($chkBusiness) > 0 || count($chkSchedule) > 0 || count($chkOfficer) > 0) {
             return redirect('/admin/Resident/NotResident')->withError('It seems that the record is still being used in other items. Deletion failed.');
         } else {
-            if (count($post->Parents) != 0) {
-                $parent = parentModel::where('residentId', $post->id)->first();
+            if (count($post->ResidentParents) != 0) {
+                $parent = ResidentParent::where('residentId', $post->id)->first();
                 $parent->delete();
             }
 
