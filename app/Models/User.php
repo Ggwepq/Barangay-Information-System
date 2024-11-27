@@ -56,9 +56,4 @@ class User extends Authenticatable
     {
         return '/img/logomanila.png';
     }
-
-    public function adminlte_desc()
-    {
-        return 'This is a user';
-    }
 }

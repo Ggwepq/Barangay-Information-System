@@ -13,7 +13,7 @@ return [
      * |
      */
     'title' => 'Barangay 73',
-    'title_prefix' => 'B.I.S.',
+    'title_prefix' => 'B.I.S. - ',
     'title_postfix' => '',
 
     /*
@@ -27,7 +27,7 @@ return [
      * | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
      * |
      */
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -104,7 +104,7 @@ return [
      */
     'preloader' => [
         'enabled' => true,
-        'mode' => 'cwrapper',
+        'mode' => 'fullscreen',
         'img' => [
             'path' => '/img/logomanila.png',
             'alt' => 'AdminLTE Preloader Image',
@@ -125,11 +125,11 @@ return [
      * | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
      * |
      */
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => true,
-    'usermenu_desc' => true,
+    'usermenu_desc' => false,
     'usermenu_profile_url' => false,
 
     /*
@@ -202,14 +202,14 @@ return [
      * | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
      * |
      */
-    'sidebar_mini' => 'lg',
+    'sidebar_mini' => 'xs',
     'sidebar_collapse' => true,
-    'sidebar_collapse_auto_size' => true,
+    'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
-    'sidebar_scrollbar_theme' => 'os-theme-dark',
+    'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
-    'sidebar_nav_accordion' => true,
+    'sidebar_nav_accordion' => false,
     'sidebar_nav_animation_speed' => 300,
 
     /*
@@ -243,7 +243,7 @@ return [
      * |
      */
     'use_route_url' => false,
-    'dashboard_url' => 'admin',
+    'dashboard_url' => 'admin/dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
