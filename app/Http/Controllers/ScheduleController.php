@@ -4,14 +4,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Schedule;
-use App\Models\Resident;
 use App\Models\Officer;
+use App\Models\Resident;
+use App\Models\Schedule;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class ScheduleController extends Controller
 {
@@ -84,7 +83,7 @@ class ScheduleController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Schedule')->withSuccess('Successfully inserted into the database.');
+            return redirect('admin/Schedule')->withSuccess('Successfully inserted into the database.');
         }
     }
 
@@ -160,7 +159,7 @@ class ScheduleController extends Controller
                 $errMess = $e->getMessage();
                 return Redirect::back()->withErrors($errMess);
             }
-            return redirect('/Schedule')->withSuccess('Successfully updated into the database.');
+            return redirect('admin/Schedule')->withSuccess('Successfully updated into the database.');
         }
     }
 
@@ -172,9 +171,8 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-
         Schedule::find($id)->update(['isActive' => 0]);
-        return redirect('/Schedule');
+        return redirect('admin/Schedule');
     }
 
     public function soft()
@@ -186,13 +184,13 @@ class ScheduleController extends Controller
     public function reactivate($id)
     {
         Schedule::find($id)->update(['isActive' => 1]);
-        return redirect('/Schedule');
+        return redirect('admin/Schedule');
     }
 
     public function remove($id)
     {
         $post = Schedule::find($id);
         $post->delete();
-        return redirect('/Schedule/Soft');
+        return redirect('admin/Schedule/Soft');
     }
 }

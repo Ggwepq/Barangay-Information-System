@@ -315,11 +315,11 @@ return [
             'url' => '/admin/Resident',
             'icon' => 'fas fa-fw fa-users',
         ],
-        [
-            'text' => 'Household',
-            'url' => '/admin/Household',
-            'icon' => 'fas fa-fw fa-home',
-        ],
+        // [
+        //     'text' => 'Household',
+        //     'url' => '/admin/Household',
+        //     'icon' => 'fas fa-fw fa-home',
+        // ],
         ['header' => 'Barangay Issues'],
         [
             'text' => 'Blotter',
@@ -337,11 +337,11 @@ return [
             'url' => '/admin/Project',
             'icon' => 'fas fa-fw fa-tasks',
         ],
-        // [
-        //     'text' => 'Court Schedules',
-        //     'url' => '/admin/Schedule',
-        //     'icon' => 'fas fa-fw fa-calendar-day',
-        // ],
+        [
+            'text' => 'Court Schedules',
+            'url' => '/admin/Schedule',
+            'icon' => 'fas fa-fw fa-calendar-day',
+        ],
         ['header' => 'Queries & Reports'],
         [
             'text' => 'Queries',
@@ -365,7 +365,7 @@ return [
             'icon' => 'fas fa-fw fa-user-tie',
         ],
         [
-            'text' => 'Position',
+            'text' => 'Positions',
             'url' => '/admin/Position',
             'icon' => 'fas fa-fw fa-user-tie',
         ],

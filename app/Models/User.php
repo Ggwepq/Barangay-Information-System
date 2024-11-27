@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function Officer()
     {
-        return $this->belongsTo('App\Officer', 'officerId');
+        return $this->belongsTo(Officer::class, 'officerId');
     }
 
     public function adminlte_image()

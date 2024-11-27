@@ -22,11 +22,11 @@ class Schedule extends Model
 
     public function Resident()
     {
-        return $this->belongsTo('App\Resident', 'residentId');
+        return $this->belongsTo(Resident::class, 'residentId');
     }
 
     public function Officer()
     {
-        return $this->belongsTo('App\Officer', 'officerId');
+        return $this->belongsTo(Officer::class, 'officerId');
     }
 }

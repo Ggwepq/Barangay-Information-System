@@ -46,7 +46,7 @@
                         @if ($posts->isDerogatory == 1)
                             <tr>
                             @else
-                            <tr style="" class="danger">
+                            <tr style="" class="table-danger">
                         @endif
                         <td><img src="{{ asset($posts->image) }}" width="100px" style="max-width:100px;"></td>
                         <td>{{ $posts->firstName }} {{ $posts->middleName }} {{ $posts->lastName }}</td>
@@ -80,7 +80,7 @@
                                 <i class="fa fa-print" aria-hidden="true"></i>
                             </a>
 
-                            <!-- Reactivate Modal -->
+                            <!-- Update Modal -->
                             <div class="modal fade" id="editModal-{{ $posts->id }}" tabindex="-1"
                                 aria-labelledby="editModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
 
-                            <!-- Delete Modal -->
+                            <!-- Deactivate Modal -->
                             <div class="modal fade" id="deactivateModal-{{ $posts->id }}" tabindex="-1"
                                 aria-labelledby="deactivateModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -142,10 +142,6 @@
     </div>
 @stop
 
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
 
 @section('js')
     <script></script>

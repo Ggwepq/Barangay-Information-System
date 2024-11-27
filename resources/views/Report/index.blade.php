@@ -60,7 +60,9 @@
 
                     <!-- Generate Report Button -->
                     <div class="col-md-1">
-                        <button type="button" id="gen" class="btn btn-primary mt-4">Generate</button>
+                        <button type="button" id="gen" class="btn btn-primary mt-4">
+                            <i class="fa fa-file"></i> Generate
+                        </button>
                     </div>
 
                     <!-- Export to PDF Button -->
