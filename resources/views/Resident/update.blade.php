@@ -169,7 +169,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-4">
                                                             <label>Civil Status<span style="color:red;">*</span></label>
                                                             <select class="form-control select2" name="civilStatus">
                                                                 <option value="0" disabled>Please select your civil
@@ -192,19 +192,13 @@
                                                                     Separated</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-4">
                                                             <label>Profession/Occupation</label>
                                                             <input type="text" class="form-control" maxlength="70"
                                                                 name="occupation" value="{{ $post->occupation }}"
                                                                 id="occupation" placeholder="Profession/Occupation">
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <label>Tin No.</label>
-                                                            <input type="text" class="form-control" name="tinNo"
-                                                                value="{{ $post->tinNo }}" id="tin"
-                                                                placeholder="Tin No.">
-                                                        </div>
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-4">
                                                             <label>Religion<span style="color:red;">*</span></label>
                                                             <input type="text" class="form-control" maxlength="50"
                                                                 value="{{ $post->religion }}" id="religion"
@@ -252,36 +246,19 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <div class="col-sm-5">
+                                                        <div class="col-sm-3">
+                                                            <label for="house_no">House Number<span
+                                                                    style="color:red;">*</span></label>
+                                                            <input type="text" class="form-control" maxlength="50"
+                                                                value="{{ $post->house_no }}" id="house_no"
+                                                                placeholder="House Number" name="house_no">
+                                                        </div>
+                                                        <div class="col-sm-6">
                                                             <label for="street">Street<span
                                                                     style="color:red;">*</span></label>
                                                             <input type="text" class="form-control" maxlength="70"
                                                                 value="{{ $post->street }}" id="street"
                                                                 placeholder="Street" name="street">
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="brgy">Brgy.<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ $post->brgy }}" id="brgy"
-                                                                placeholder="Brgy" name="brgy">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="city">City<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ $post->city }}" id="city"
-                                                                placeholder="City" name="city">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <label for="province">Province</label>
-                                                            <input type="text" class="form-control" maxlength="100"
-                                                                value="{{ $post->province }}" id="province"
-                                                                placeholder="Province" name="province">
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label>Citizenship<span style="color:red;">*</span></label>
@@ -298,12 +275,35 @@
                                                                 </option>
                                                             </select>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-5">
+                                                            <label for="province">Province</label>
+                                                            <select class="form-control select2" id="province"
+                                                                name="province">
+                                                                <option value="{{ $post->province }}">
+                                                                    {{ $post->province }}</option>
+                                                            </select>
+                                                        </div>
                                                         <div class="col-sm-3">
-                                                            <label for="periodResidence">Period of Residence<span
+                                                            <label for="city">City<span
                                                                     style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ $post->periodResidence }}" id="periodResidence"
-                                                                placeholder="Period of Residence" name="periodResidence">
+                                                            <select class="form-control select2" id="city"
+                                                                name="city">
+                                                                <option value="{{ $post->city }}">{{ $post->city }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label for="brgy">Brgy.<span
+                                                                    style="color:red;">*</span></label>
+                                                            <select class="form-control select2" id="brgy"
+                                                                name="brgy">
+                                                                <option value="{{ $post->brgy }}">{{ $post->brgy }}
+                                                                </option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -395,17 +395,16 @@
 
 @section('js')
     <script>
-        console.log('This thing loaded up');
         $(document).ready(function() {
-
-            console.log('This thing loaded up');
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            })
 
             $('#date, #birthdate').datetimepicker({
                 format: 'YYYY-MM-DD',
                 locale: 'en',
             })
 
-            $('#tin').inputmask("99-9999999");
             $('#precint').inputmask('9999a');
             $('#voterId').inputmask('9999-9999a-a999aaa99999-9');
 
@@ -458,5 +457,82 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            const provinceDropdown = $('#province');
+            const cityDropdown = $('#city');
+            const barangayDropdown = $('#brgy');
+
+            function resetDropdown(dropdown, placeholder = "Select") {
+                dropdown.html(`<option value="">${placeholder}</option>`);
+                dropdown.prop('disabled', true);
+            }
+
+            // Load Provinces
+            $.ajax({
+                url: '/admin/get-provinces',
+                method: 'GET',
+                success: function(data) {
+                    data.forEach(province => {
+                        provinceDropdown.append(
+                            `<option value="${province}">${province}</option>`);
+                    });
+                }
+            });
+
+            // On Province Change
+            provinceDropdown.change(function() {
+                const selectedProvince = $(this).val();
+                resetDropdown(cityDropdown, "Select a city");
+                resetDropdown(barangayDropdown, "Select a barangay");
+
+                if (selectedProvince) {
+                    $.ajax({
+                        url: '/admin/get-cities',
+                        method: 'GET',
+                        data: {
+                            province: selectedProvince
+                        },
+                        success: function(data) {
+                            data.forEach(city => {
+                                cityDropdown.append(
+                                    `<option value="${city}">${city}</option>`);
+                            });
+                            cityDropdown.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            // On City Change
+            cityDropdown.change(function() {
+                const selectedProvince = provinceDropdown.val();
+                const selectedCity = $(this).val();
+                resetDropdown(barangayDropdown, "Select a barangay");
+
+                console.log(selectedProvince)
+
+                if (selectedCity) {
+                    $.ajax({
+                        url: '/admin/get-barangays',
+                        method: 'GET',
+                        data: {
+                            province: selectedProvince,
+                            city: selectedCity
+                        },
+                        success: function(data) {
+                            data.forEach(barangay => {
+                                console.log(barangay)
+                                barangayDropdown.append(
+                                    `<option value="${barangay}">${barangay}</option>`
+                                );
+                            });
+                            barangayDropdown.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @stop

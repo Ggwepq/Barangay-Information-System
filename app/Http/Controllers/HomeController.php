@@ -5,7 +5,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blotter;
-use App\Models\Business;
 use App\Models\Resident;
 use App\Models\Voter;
 use Illuminate\Http\Request;
@@ -35,10 +34,9 @@ class HomeController extends Controller
         $male = Resident::where('isActive', 1)->where('gender', 1)->get();
         $female = Resident::where('isActive', 1)->where('gender', 2)->get();
         $record = Resident::where('isActive', 1)->where('isDerogatory', 0)->get();
-        $business = Business::where('isActive', 1)->get();
         $resident = Resident::where('isActive', 1)->get();
 
-        return view('dashboard', compact('voter', 'blotter', 'post', 'male', 'female', 'record', 'business', 'resident'));
+        return view('dashboard', compact('voter', 'blotter', 'post', 'male', 'female', 'record', 'resident'));
     }
 
     public function month()
@@ -60,7 +58,6 @@ class HomeController extends Controller
 
         return $response;
         // return Response()->json(['data'=>$jan,$feb,$mar,$apr,$may,$jun,$jul,$aug,$sep,$oct,$nov,$dec);
-
     }
 
     public function error()

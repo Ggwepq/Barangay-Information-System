@@ -150,7 +150,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <div class="col-sm-3">
+                                                        <div class="col-sm-4">
                                                             <label for="civilStatus">Civil Status<span
                                                                     style="color:red;">*</span></label>
                                                             <select class="form-control" name="civilStatus">
@@ -168,19 +168,13 @@
                                                                     Legally Separated</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-sm-3">
+                                                        <div class="col-sm-4">
                                                             <label for="occupation">Occupation</label>
                                                             <input type="text" class="form-control" maxlength="70"
                                                                 value="{{ old('occupation') }}" id="occupation"
                                                                 placeholder="Occupation" name="occupation">
                                                         </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="tinNo">Tin No.</label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ old('tinNo') }}" id="tinNo"
-                                                                placeholder="Tin No." name="tinNo">
-                                                        </div>
-                                                        <div class="col-sm-3">
+                                                        <div class="col-sm-4">
                                                             <label for="religion">Religion<span
                                                                     style="color:red;">*</span></label>
                                                             <input type="text" class="form-control" maxlength="50"
@@ -227,36 +221,19 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <div class="col-sm-5">
+                                                        <div class="col-sm-3">
+                                                            <label for="house_no">House Number<span
+                                                                    style="color:red;">*</span></label>
+                                                            <input type="text" class="form-control" maxlength="50"
+                                                                value="{{ old('house_no') }}" id="house_no"
+                                                                placeholder="House Number" name="house_no">
+                                                        </div>
+                                                        <div class="col-sm-6">
                                                             <label for="street">Street<span
                                                                     style="color:red;">*</span></label>
                                                             <input type="text" class="form-control" maxlength="70"
                                                                 value="{{ old('street') }}" id="street"
                                                                 placeholder="Street" name="street">
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="brgy">Brgy.<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('brgy') }}" id="brgy"
-                                                                placeholder="Brgy" name="brgy">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="city">City<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('city') }}" id="city"
-                                                                placeholder="City" name="city">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <label for="province">Province</label>
-                                                            <input type="text" class="form-control" maxlength="100"
-                                                                value="{{ old('province') }}" id="province"
-                                                                placeholder="Province" name="province">
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label for="citizenship">Citizenship<span
@@ -270,12 +247,32 @@
                                                                     Foreign</option>
                                                             </select>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-5">
+                                                            <label for="province">Province</label>
+                                                            <select class="form-control select2" id="province"
+                                                                name="province">
+                                                                <option value="">Select a province</option>
+                                                            </select>
+                                                        </div>
                                                         <div class="col-sm-3">
-                                                            <label for="periodResidence">Period of Residence<span
+                                                            <label for="city">City<span
                                                                     style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('periodResidence') }}" id="periodResidence"
-                                                                placeholder="Period of Residence" name="periodResidence">
+                                                            <select class="form-control select2" id="city"
+                                                                name="city" disabled>
+                                                                <option value="">Select a city</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label for="brgy">Brgy.<span
+                                                                    style="color:red;">*</span></label>
+                                                            <select class="form-control select2" id="brgy"
+                                                                name="brgy" disabled>
+                                                                <option value="">Select a barangay</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -384,7 +381,6 @@
                 }
             });
 
-            $('#tinNo').inputmask('99-9999999');
             $('#precintNo').inputmask('9999a');
             $('#voterId').inputmask('9999-9999a-a999aaa99999-9');
 
@@ -427,15 +423,87 @@
             }
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            const provinceDropdown = $('#province');
+            const cityDropdown = $('#city');
+            const barangayDropdown = $('#brgy');
+
+            function resetDropdown(dropdown, placeholder = "Select") {
+                dropdown.html(`<option value="">${placeholder}</option>`);
+                dropdown.prop('disabled', true);
+            }
+
+            // Load Provinces
+            $.ajax({
+                url: '/admin/get-provinces',
+                method: 'GET',
+                success: function(data) {
+                    data.forEach(province => {
+                        provinceDropdown.append(
+                            `<option value="${province}">${province}</option>`);
+                    });
+                }
+            });
+
+            // On Province Change
+            provinceDropdown.change(function() {
+                const selectedProvince = $(this).val();
+                resetDropdown(cityDropdown, "Select a city");
+                resetDropdown(barangayDropdown, "Select a barangay");
+
+                if (selectedProvince) {
+                    $.ajax({
+                        url: '/admin/get-cities',
+                        method: 'GET',
+                        data: {
+                            province: selectedProvince
+                        },
+                        success: function(data) {
+                            data.forEach(city => {
+                                cityDropdown.append(
+                                    `<option value="${city}">${city}</option>`);
+                            });
+                            cityDropdown.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            // On City Change
+            cityDropdown.change(function() {
+                const selectedProvince = provinceDropdown.val();
+                const selectedCity = $(this).val();
+                resetDropdown(barangayDropdown, "Select a barangay");
+
+                console.log(selectedProvince)
+
+                if (selectedCity) {
+                    $.ajax({
+                        url: '/admin/get-barangays',
+                        method: 'GET',
+                        data: {
+                            province: selectedProvince,
+                            city: selectedCity
+                        },
+                        success: function(data) {
+                            data.forEach(barangay => {
+                                console.log(barangay)
+                                barangayDropdown.append(
+                                    `<option value="${barangay}">${barangay}</option>`
+                                );
+                            });
+                            barangayDropdown.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
     @if ($errors->any())
         <script type="text/javascript">
             toastr.error('{{ implode('', $errors->all(':message')) }}', "There's something wrong!");
-        </script>
-    @endif
-    @if (session('error'))
-        <script type="text/javascript">
-            toastr.error('{{ session('error') }}', "There's something wrong!");
         </script>
     @endif
     </script>

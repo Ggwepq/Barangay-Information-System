@@ -7,6 +7,7 @@ use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HouseholdController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PositionController;
@@ -153,6 +154,12 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 Route::prefix('admin')->middleware('officer')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/month', [HomeController::class, 'month']);
+
+    Route::controller(LocationController::class)->group(function () {
+        Route::get('/get-provinces', 'getProvinces');
+        Route::get('/get-cities', 'getCities');
+        Route::get('/get-barangays', 'getBarangays');
+    });
 
     // Blotter
     Route::controller(BlotterController::class)->group(function () {

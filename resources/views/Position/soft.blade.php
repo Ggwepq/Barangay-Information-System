@@ -21,10 +21,10 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header with-border">
-            <h3 class="card-title">Position</h3>
+            <h3 class="card-title">Positions</h3>
             <div class="card-tools float-right">
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#createModal">
+                    <i class="fa fa-plus" aria-hidden="true"></i> New Position
                 </button>
             </div>
         </div>

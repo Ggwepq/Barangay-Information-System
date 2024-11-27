@@ -21,12 +21,12 @@ class ResidentFactory extends Factory
             'firstName' => fake()->firstName($gender),
             'middleName' => fake()->lastName(),
             'lastName' => fake()->lastName(),
-            'province' => fake()->state(),
+            'province' => 'NATIONAL CAPITAL REGION - THIRD DISTRICT',
             'house_no' => fake()->buildingNumber(),
             'street' => fake()->streetName(),
             'brgy' => fake()->citySuffix(),  // Barangay
             'city' => fake()->city(),
-            'citizenship' => fake()->country(),
+            'citizenship' => 'Filipino',
             'religion' => fake()->word(),
             'dateCitizen' => fake()->date(),
             'occupation' => fake()->jobTitle(),
@@ -39,6 +39,7 @@ class ResidentFactory extends Factory
             'isDerogatory' => 1,
             'isRegistered' => 1,
             'isActive' => 1,
+            'created_at' => fake()->date(),
         ];
     }
 }

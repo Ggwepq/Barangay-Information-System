@@ -123,15 +123,6 @@
                             <i class="fa fa-print"></i>
                         </div>
                     </div>
-                    <div class="small-box bg-pink">
-                        <div class="inner">
-                            <h3>{{ count($business) }}</h3>
-                            <p>Businesses</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-briefcase"></i>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
