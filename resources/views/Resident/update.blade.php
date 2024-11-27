@@ -378,6 +378,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group float-right">
+                                        <a class="btn btn-secondary" href="{{ url('/admin/Resident') }}">Go Back</a>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>

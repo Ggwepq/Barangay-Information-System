@@ -345,7 +345,7 @@
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <a href="/admin/Resident" class="btn btn-secondary mr-2">Back</a>
+                                            <a href="/admin/Resident" class="btn btn-secondary mr-2">Go Back</a>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
@@ -364,7 +364,7 @@
         $(document).ready(function() {
             //Initialize Select2 Elements
             $('.select2').select2({
-                theme: bootstrap4
+                theme: 'bootstrap4'
             })
             //Initialize Date Range Picker
             $('#date, #birthdate').datetimepicker({

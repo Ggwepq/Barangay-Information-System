@@ -109,6 +109,7 @@
                                 </div>
                             </div>
                             <div class="form-group text-right">
+                                <a class="btn btn-secondary" href="{{ url('/admin/Project') }}">Go Back</a>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form>

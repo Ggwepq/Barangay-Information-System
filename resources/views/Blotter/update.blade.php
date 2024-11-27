@@ -134,6 +134,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="text-right">
+                                        <a class="btn btn-secondary" href="{{ url('/admin/Blotter') }}">Go Back</a>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>

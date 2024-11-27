@@ -97,7 +97,8 @@
                                         <input type="password" class="form-control" name="conpassword"
                                             placeholder="Confirm Password">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group text-right">
+                                        <a class="btn btn-secondary mx-2" href="{{ url('/admin/Officer') }}">Go Back</a>
                                         <button class="btn btn-primary float-right" type="submit">Submit</button>
                                     </div>
                                 </div>
@@ -105,17 +106,20 @@
                         </form>
                     </div>
                 </div>
-            @stop
+            </div>
+        </div>
+    </div>
+@stop
 
 
 
-            @section('js')
-                <script>
-                    $(document).ready(function() {
-                        $('.select2').select2({
-                            theme: bootstrap4
-                        }); // Initialize Select2
-                        $('#email').inputmask('email'); //If using Inputmask
-                    });
-                </script>
-            @stop
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            }); // Initialize Select2
+            $('#email').inputmask('email'); //If using Inputmask
+        });
+    </script>
+@stop

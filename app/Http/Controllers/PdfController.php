@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blotter;
 use App\Models\Business;
-use App\Models\Officer;
+use App\Models\Position;
 use App\Models\Resident;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -21,9 +21,9 @@ class PdfController extends Controller
     public function index($id)
     {
         $post = Resident::find($id);
-        $cman = Officer::where('position', 'Chairman')->first();
-        $sec = Officer::where('position', 'Secretary')->first();
-
+        $position = Position::all();
+        $cman = $position->where('position_name', 'Chairman')->first()->officer->first();
+        $sec = $position->where('position_name', 'Secretary')->first()->officer->first();
         $pdf = PDF::loadView('Forms.BarangayClearance', compact('post', 'cman', 'sec'));
 
         $pdf->SetPaper('letter', 'portrait');
@@ -38,8 +38,9 @@ class PdfController extends Controller
     public function business($id)
     {
         $post = Business::find($id);
-        $cman = Officer::where('position', 'Chairman')->first();
-        $sec = Officer::where('position', 'Secretary')->first();
+        $position = Position::all();
+        $cman = $position->where('position_name', 'Chairman')->first()->officer->first();
+        $sec = $position->where('position_name', 'Secretary')->first()->officer->first();
         $pdf = PDF::loadView('Forms.BusinessPermit', compact('post', 'cman', 'sec'));
         $pdf->SetPaper('letter', 'portrait');;
         return $pdf->stream();
@@ -48,8 +49,9 @@ class PdfController extends Controller
     public function indigency($id)
     {
         $post = Resident::find($id);
-        $cman = Officer::where('position', 'Chairman')->first();
-        $sec = Officer::where('position', 'Secretary')->first();
+        $position = Position::all();
+        $cman = $position->where('position_name', 'Chairman')->first()->officer->first();
+        $sec = $position->where('position_name', 'Secretary')->first()->officer->first();
         $pdf = PDF::loadView('Forms.CertificateIndigency', compact('post', 'cman', 'sec'));
         $pdf->SetPaper('letter', 'portrait');;
         return $pdf->stream();
@@ -58,8 +60,9 @@ class PdfController extends Controller
     public function file($id)
     {
         $post = Blotter::find($id);
-        $cman = Officer::where('position', 'Chairman')->first();
-        $sec = Officer::where('position', 'Secretary')->first();
+        $position = Position::all();
+        $cman = $position->where('position_name', 'Chairman')->first()->officer->first();
+        $sec = $position->where('position_name', 'Secretary')->first()->officer->first();
         $pdf = PDF::loadView('Forms.FiletoAction', compact('post', 'cman', 'sec'));
         $pdf->SetPaper('letter', 'portrait');
         return $pdf->stream();

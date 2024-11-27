@@ -109,6 +109,7 @@
                                 </div>
                             </div>
                             <div class="form-group text-right">
+                                <a class="btn btn-secondary" href="{{ url('/admin/Project') }}">Go Back</a>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form>
@@ -122,6 +123,10 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            });
+
             $('.datemask').inputmask('9999-99-99'); // Mask for date format
 
             $('#dateEnded, #dateStarted').datetimepicker({

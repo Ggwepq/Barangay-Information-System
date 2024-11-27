@@ -111,6 +111,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-right">
+                                    <a class="btn btn-secondary" href="{{ url('/admin/Officer') }}">Go Back</a>
                                     <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>
                             </div>
