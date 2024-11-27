@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,21 +16,18 @@ return new class () extends Migration {
             $table->string('middleName')->nullable();
             $table->string('lastName');
             $table->string('province')->nullable();
+            $table->string('house_no');
             $table->string('street');
             $table->string('brgy');
             $table->string('city');
             $table->string('citizenship');
             $table->string('religion');
             $table->string('dateCitizen')->nullable();
-            $table->string('orderApproval')->nullable();
             $table->string('occupation')->nullable();
-            $table->string('tinNo')->nullable();
-            $table->string('isUnpleasant')->default('Good');
             $table->boolean('gender');
             $table->date('birthdate');
             $table->string('birthPlace');
             $table->string('civilStatus');
-            $table->string('periodResidence');
             $table->string('contactNumber')->nullable();
             $table->string('image')->nullable();
             $table->boolean('isDerogatory')->default(1);
