@@ -119,7 +119,7 @@
         $(document).ready(function() {
             // Initialize Select2
             $('.select2').select2({
-                theme: bootstrap4
+                theme: 'bootstrap4'
             });
 
             // Initialize DataTables
