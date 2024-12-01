@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->id('id');
             $table->foreignId('complainant')->constrained('residents')->onDelete('restrict')->onUpdate('restrict');
             $table->foreignId('complainedResident')->constrained('residents')->onDelete('restrict')->onUpdate('restrict');
-            $table->string('officerCharge');
+            $table->foreignId('officerCharge')->constrained('residents')->onDelete('restrict')->onUpdate('restrict');
             $table->text('description');
             $table->integer('status')->default(1);
             $table->boolean('isActive')->default(1);
