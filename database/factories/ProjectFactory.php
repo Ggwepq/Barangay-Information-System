@@ -22,7 +22,7 @@ class ProjectFactory extends Factory
             'projectName' => fake()->words(3, true),
             'projectDev' => Resident::factory(),
             'description' => fake()->paragraph(),
-            'officerCharge' => Officer::factory(),
+            'officerCharge' => Officer::factory()->create()->id,
             'dateStarted' => fake()->date(),
             'dateEnded' => fake()->optional()->date(),  // Optional end date
             'status' => fake()->randomElement([1, 2, 3]),  // Example statuses

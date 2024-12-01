@@ -145,7 +145,7 @@
                 <div>
                     <p>{{ $cman->Resident->lastName }}, {{ $cman->Resident->firstName }}
                         {{ $cman->Resident->middleName }}</p>
-                    <p>{{ $cman->position }}</p>
+                    <p>{{ $cman->position->position_name }}</p>
                 </div>
             </div>
         </div>

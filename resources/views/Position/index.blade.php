@@ -20,16 +20,16 @@
 
 @section('content')
     <div class="card card-primary">
-        <div class="card-header with-border">
-            <h3 class="card-title">Positions</h3>
-            <div class="card-tools float-right">
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Availabe Positions</h6>
+            <div class="card-tools ml-auto ">
                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#createModal">
                     <i class="fa fa-plus" aria-hidden="true"></i> New Position
                 </button>
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="display table table-responsive" style="width:100%">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Position</th>

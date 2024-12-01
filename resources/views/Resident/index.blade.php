@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                     <li class="breadcrumb-item active">Resident</li>
                 </ol>
             </div>
@@ -20,16 +20,11 @@
 
 @section('content')
     <div class="card card-primary">
-        <div class="card-header with-border">
-            <h3 class="card-title">Constituent Management</h3>
-            <div class="card-tools float-right">
-                <a href="{{ url('/admin/Resident/Create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus"></i> New Resident
-                </a>
-            </div>
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Registerd Residents</h6>
         </div>
         <div class="card-body">
-            <table id="datatable" class="display table table-responsive"style="width:100%" cellspacing="0">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -144,16 +139,29 @@
 
 
 @section('js')
-    <script></script>
+    <script>
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+    </script>
 
     @if (session('success'))
         <script type="text/javascript">
-            toastr.success(' <?php echo session('success'); ?>', 'Success!')
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            })
         </script>
     @endif
     @if (session('error'))
         <script type="text/javascript">
-            toastr.error(' <?php echo session('error'); ?>', "There's something wrong!")
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('error') }}'
+            })
         </script>
     @endif
 @stop

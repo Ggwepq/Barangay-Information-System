@@ -21,15 +21,12 @@
 @section('content')
 
 
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Basketball Court Scheduling</h3>
-            <div class="card-tools">
-                <a href="{{ url('/admin/Schedule/Create') }}" class="btn btn-xs btn-success">New Schedule</a>
-            </div>
+    <div class="card card-danger">
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Deactivated Court Schedules</h6>
         </div>
         <div class="card-body">
-            <table id="example" class="table table-bordered table-hover dataTable dtr-inline" style="width:100%">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Resident</th>

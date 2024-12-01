@@ -19,9 +19,12 @@
 @stop
 
 @section('content')
-    <div class="card">
+    <div class="card card-primary">
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Deactivated Barangay Projects</h6>
+        </div>
         <div class="card-body">
-            <table id="datatable" class="table table-responsive" style="width:100%">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Project</th>

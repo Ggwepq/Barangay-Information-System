@@ -22,17 +22,12 @@
 
 
 
-    <div class="card card-primary">
-        <div class="card-header with-border">
-            <h3 class="card-title">Officer Management</h3>
-            <div class="card-tools float-right">
-                <a href="{{ url('/admin/Officer/Create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus"></i> New Officer
-                </a>
-            </div>
+    <div class="card card-danger">
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Deactivated Barangay Officers</h6>
         </div>
         <div class="card-body"> {{-- Updated box-body to card-body --}}
-            <table id="datatable" class="table table-responsive" style="width:100%"> {{-- Updated table classes --}}
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Position</th>

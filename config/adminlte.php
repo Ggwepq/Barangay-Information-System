@@ -145,7 +145,7 @@ return [
      */
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
@@ -185,9 +185,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_sidebar' => 'sidebar-dark-navy elevation-4',
+    'classes_sidebar_nav' => 'nav-flat',
+    'classes_topnav' => 'navbar-light navbar-black',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -202,14 +202,14 @@ return [
      * | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
      * |
      */
-    'sidebar_mini' => 'xs',
-    'sidebar_collapse' => true,
+    'sidebar_mini' => null,
+    'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => true,
-    'sidebar_collapse_remember_no_transition' => true,
+    'sidebar_collapse_remember_no_transition' => false,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
-    'sidebar_nav_accordion' => false,
+    'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
 
     /*
@@ -285,84 +285,143 @@ return [
     'menu' => [
         // Navbar items:
         [
+            'text' => 'Home',
+            'topnav' => true,
+            'url' => '/admin',
+        ],
+        [
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
         ],
-        // [
-        //     'type' => 'fullscreen-widget',
-        //     'topnav_right' => true,
-        // ],
-        // [
-        //     'type' => 'darkmode-widget',
-        //     'topnav_right' => true,
-        // ],
-        // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'search',
-        // ],
+        [
+            'type' => 'fullscreen-widget',
+            'topnav_right' => true,
+        ],
+        [
+            'type' => 'darkmode-widget',
+            'topnav_right' => true,
+        ],
         [
             'text' => 'Dashboard',
             'url' => '/admin',
             'icon' => 'fas fa-fw fa-chart-line',
-            // 'label' => 4,
-            // 'label_color' => 'success',
         ],
         ['header' => 'Resident Profiling'],
         [
             'text' => 'Residents',
-            'url' => '/admin/Resident',
             'icon' => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Resident List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Resident',
+                ],
+                [
+                    'text' => 'New Resident',
+                    'icon' => 'fas fa-plus',
+                    'url' => '/admin/Resident/Create',
+                ],
+                [
+                    'text' => 'Deactivated Resident',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Resident/Soft',
+                ],
+            ]
         ],
-        // [
-        //     'text' => 'Household',
-        //     'url' => '/admin/Household',
-        //     'icon' => 'fas fa-fw fa-home',
-        // ],
         ['header' => 'Barangay Issues'],
         [
             'text' => 'Blotter',
-            'url' => '/admin/Blotter',
             'icon' => 'fas fa-fw fa-scroll',
+            'submenu' => [
+                [
+                    'text' => 'Blotter List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Blotter',
+                ],
+                [
+                    'text' => 'New Blotter',
+                    'icon' => 'fas fa-plus',
+                    'url' => '/admin/Blotter/Create',
+                ],
+                [
+                    'text' => 'Deactivated Blotter',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Blotter/Soft',
+                ],
+            ]
         ],
         ['header' => 'Management'],
-        // [
-        //     'text' => 'Business',
-        //     'url' => '/admin/Business',
-        //     'icon' => 'fas fa-fw fa-briefcase',
-        // ],
         [
             'text' => 'Projects',
-            'url' => '/admin/Project',
             'icon' => 'fas fa-fw fa-tasks',
+            'submenu' => [
+                [
+                    'text' => 'Project List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Project',
+                ],
+                [
+                    'text' => 'New Project',
+                    'icon' => 'fas fa-plus',
+                    'url' => '/admin/Project/Create',
+                ],
+                [
+                    'text' => 'Deactivated Project',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Project/Soft',
+                ],
+            ]
         ],
         [
             'text' => 'Court Schedules',
             'url' => '/admin/Schedule',
             'icon' => 'fas fa-fw fa-calendar-day',
+            'submenu' => [
+                [
+                    'text' => 'Schedule List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Schedule',
+                ],
+                [
+                    'text' => 'New Schedule',
+                    'icon' => 'fas fa-plus',
+                    'url' => '/admin/Schedule/Create',
+                ],
+                [
+                    'text' => 'Deactivated Schedule',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Schedule/Soft',
+                ],
+            ]
         ],
-        ['header' => 'Queries & Reports'],
-        [
-            'text' => 'Queries',
-            'url' => '/admin/Query',
-            'icon' => 'fas fa-fw fa-fax',
-        ],
+        ['header' => 'Reports'],
         [
             'text' => 'Reports',
             'url' => '/admin/Report',
             'icon' => 'fas fa-fw fa-print',
         ],
         ['header' => 'Utilities'],
-        // [
-        //     'text' => 'Non-residents',
-        //     'url' => '/admin/Resident/NotResident',
-        //     'icon' => 'fas fa-fw fa-users-slash',
-        // ],
         [
             'text' => 'Officers',
-            'url' => '/admin/Officer',
             'icon' => 'fas fa-fw fa-user-tie',
+            'submenu' => [
+                [
+                    'text' => 'Officer List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Officer',
+                ],
+                [
+                    'text' => 'New Officer',
+                    'icon' => 'fas fa-plus',
+                    'url' => '/admin/Officer/Create',
+                ],
+                [
+                    'text' => 'Deactivated Officer',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Officer/Soft',
+                ],
+            ]
         ],
         [
             'text' => 'Positions',
@@ -370,9 +429,9 @@ return [
             'icon' => 'fas fa-fw fa-user-tie',
         ],
         [
-            'text' => 'Database Backup',
-            'url' => '/admin/Backup',
-            'icon' => 'fas fa-fw fa-database',
+            'text' => 'Workspace',
+            'url' => '/admin/Workspace',
+            'icon' => 'fas fa-fw fa-user-tie',
         ],
     ],
 
@@ -515,7 +574,17 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '/vendor/sweetalert2/sweetalert2.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/sweetalert2/sweetalert2.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
                 ],
             ],
         ],
@@ -585,8 +654,8 @@ return [
      */
     'iframe' => [
         'default_tab' => [
-            'url' => null,
-            'title' => null,
+            'url' => '/admin',
+            'title' => 'Dashboard',
         ],
         'buttons' => [
             'close' => true,
@@ -597,9 +666,9 @@ return [
             'fullscreen' => true,
         ],
         'options' => [
-            'loading_screen' => 5000,
+            'loading_screen' => 1000,
             'auto_show_new_tab' => true,
-            'use_navbar_items' => true,
+            'use_navbar_items' => false,
         ],
     ],
 

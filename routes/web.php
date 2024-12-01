@@ -154,6 +154,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 Route::prefix('admin')->middleware('officer')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/month', [HomeController::class, 'month']);
+    Route::get('/Workspace', function () {
+        return view('iframe');
+    });
 
     Route::controller(LocationController::class)->group(function () {
         Route::get('/get-provinces', 'getProvinces');

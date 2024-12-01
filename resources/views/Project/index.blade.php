@@ -20,16 +20,11 @@
 
 @section('content')
     <div class="card card-primary">
-        <div class="card-header with-border">
-            <h3 class="card-title text-lg">Project</h3>
-            <div class="card-tools float-right">
-                <a href="{{ url('/admin/Project/Create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus"></i> New Project
-                </a>
-            </div>
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Barangay Projects</h6>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-responsive" style="width:100%">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Project</th>

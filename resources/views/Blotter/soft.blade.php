@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Blotter</h1>
+                <h1 class="m-0">Blotter Records</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Blotter</li>
+                    <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Blotter Records</li>
                 </ol>
             </div>
         </div>
@@ -30,17 +30,12 @@
         </script>
     @endif
 
-    <div class="card card-primary">
-        <div class="card-header with-border">
-            <h3 class="card-title">Blotter Records</h3>
-            <div class="card-tools float-right">
-                <a href="{{ url('admin/Household/Create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus"></i> New Blotter
-                </a>
-            </div>
+    <div class="card card-danger">
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Deactivated Blotter Records</h6>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-responsive">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Case No.</th>

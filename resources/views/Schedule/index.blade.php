@@ -19,16 +19,12 @@
 @stop
 
 @section('content')
-    <div class="card card-primary"> {{-- Changed box to card --}}
-        <div class="card-header"> {{-- Changed box-header to card-header --}}
-            <h3 class="card-title">Court Scheduling</h3>
-            <div class="card-tools"> {{-- Changed box-tools to card-tools --}}
-                <a href="{{ url('/admin/Schedule/Create') }}" class="btn btn-xs btn-success">
-                    <i class="fas fa-plus"></i> New Schedule</a>
-            </div>
+    <div class="card card-primary">
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Court Schedules</h6>
         </div>
         <div class="card-body"> {{-- Changed box-body to card-body --}}
-            <table id="datatable" class="table table-bordered table-hover dataTable dtr-inline" style="width:100%">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 {{-- Updated table classes for AdminLTE --}}
                 <thead>
                     <tr>

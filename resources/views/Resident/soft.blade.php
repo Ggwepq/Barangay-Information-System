@@ -19,15 +19,12 @@
 @endsection
 
 @section('content')
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Constituent Management</h3>
-            <div class="card-tools">
-                <a href="{{ url('admin/Resident/Create') }}" class="btn btn-success btn-sm">New Resident</a>
-            </div>
+    <div class="card card-danger">
+        <div class="card-header with-border d-inline-flex">
+            <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Deactivated Residents</h6>
         </div>
         <div class="card-body">
-            <table id="datatable" class="display table" style="width:100%">
+            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Image</th>

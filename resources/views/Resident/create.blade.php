@@ -10,7 +10,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/admin/Resident') }}">Residents</a></li>
                     <li class="breadcrumb-item active">New Resident</li>
                 </ol>
             </div>
@@ -25,9 +26,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">New Resident</h3>
-                            <div class="card-tools float-right">
+                        <div class="card-header with-border d-inline-flex">
+                            <h5 class="mr-auto mt-2"><i class="fa fa-plus"></i> New Resident Information</h5>
+                            <div class="card-tools float-right ml-auto mt-2">
                                 <p class="card-text"><b>Note</b>: Fields with <span style="color:red;">*</span> are
                                     needed to filled out.</p>
                             </div>
@@ -210,7 +211,7 @@
                                         </div>
                                         <div class="card card-secondary collapsed-card">
                                             <div class="card-header">
-                                                <h3 class="card-title">Residence Information</h3>
+                                                <h3 class="card-title">Address</h3>
                                                 <div class="card-tools">
                                                     <button type="button" class="btn btn-tool"
                                                         data-card-widget="collapse">
