@@ -187,7 +187,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-navy elevation-4',
     'classes_sidebar_nav' => 'nav-flat',
-    'classes_topnav' => 'navbar-light navbar-black',
+    'classes_topnav' => 'navbar-dark navbar-navy',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -327,6 +327,32 @@ return [
                     'icon' => 'fas fa-trash',
                     'url' => '/admin/Resident/Soft',
                 ],
+                [
+                    'text' => 'Document Requests',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Resident/Soft',
+                ],
+                [
+                    'text' => 'Resident Accounts',
+                    'icon' => 'fas fa-fw fa-users',
+                    'submenu' => [
+                        [
+                            'text' => 'Account List',
+                            'icon' => 'fas fa-list',
+                            'url' => '/admin/Resident/Account',
+                        ],
+                        [
+                            'text' => 'Create Account',
+                            'icon' => 'fas fa-plus',
+                            'url' => '/admin/Resident/Account/Create',
+                        ],
+                        [
+                            'text' => 'Deactivated Accounts',
+                            'icon' => 'fas fa-trash',
+                            'url' => '/admin/Resident/Account/Soft',
+                        ],
+                    ]
+                ],
             ]
         ],
         ['header' => 'Barangay Issues'],
@@ -395,6 +421,28 @@ return [
                 ],
             ]
         ],
+        ['header' => 'Announcements'],
+        [
+            'text' => 'Announcements',
+            'icon' => 'fas fa-fw fa-user-tie',
+            'submenu' => [
+                [
+                    'text' => 'Officer List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Officer',
+                ],
+                [
+                    'text' => 'New Officer',
+                    'icon' => 'fas fa-plus',
+                    'url' => '/admin/Officer/Create',
+                ],
+                [
+                    'text' => 'Deactivated Officer',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Officer/Soft',
+                ],
+            ]
+        ],
         ['header' => 'Reports'],
         [
             'text' => 'Reports',
@@ -427,11 +475,44 @@ return [
             'text' => 'Positions',
             'url' => '/admin/Position',
             'icon' => 'fas fa-fw fa-user-tie',
+            'submenu' => [
+                [
+                    'text' => 'Position List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Position',
+                ],
+                [
+                    'text' => 'Deactivated Positions',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Position/Soft',
+                ],
+            ]
         ],
         [
             'text' => 'Workspace',
             'url' => '/admin/Workspace',
             'icon' => 'fas fa-fw fa-user-tie',
+        ],
+        [
+            'text' => 'Settings',
+            'icon' => 'fas fa-fw fa-user-tie',
+            'submenu' => [
+                [
+                    'text' => 'Officer List',
+                    'icon' => 'fas fa-list',
+                    'url' => '/admin/Officer',
+                ],
+                [
+                    'text' => 'New Officer',
+                    'icon' => 'fas fa-plus',
+                    'url' => '/admin/Officer/Create',
+                ],
+                [
+                    'text' => 'Deactivated Officer',
+                    'icon' => 'fas fa-trash',
+                    'url' => '/admin/Officer/Soft',
+                ],
+            ]
         ],
     ],
 

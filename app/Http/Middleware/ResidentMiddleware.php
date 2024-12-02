@@ -1,6 +1,5 @@
-<?php
 
-// phpcs:ignoreFile
+<?php
 
 namespace App\Http\Middleware;
 
@@ -8,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Closure;
 use Redirect;
 
-class officerMiddleware
+class ResidentMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,22 +18,12 @@ class officerMiddleware
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        // if (Auth::guest()) {
-        //     return redirect('/Restricted');
-        // } else {
-        //     if ($request->user()->userRole == 1) {
-        //         return redirect('/admin');
-        //     } else {
-        //         return $next($request);
-        //     }
-        // }
-
         if (Auth::guard($guard)->check()) {
-            if ($request->user()->userRole == 1) {
-                return $next($request);
+            if ($request->user()->userRole == 3) {
+                return redirect('/user');
             }
 
-            return redirect('/RestrictedAuth');
+            return $next($request);
         }
 
         if (Auth::guest()) {

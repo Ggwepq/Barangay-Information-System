@@ -14,6 +14,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ResidentAccountController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TestController;
@@ -40,7 +41,13 @@ Route::get('/RestrictedAuth', [HomeController::class, 'error2']);
 
 Auth::routes();
 
-Route::prefix('admin')->middleware('admin')->group(function () {
+Route::prefix('admin')->middleware('officer')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/month', [HomeController::class, 'month']);
+    Route::get('/Workspace', function () {
+        return view('iframe');
+    });
+
     Route::controller(ResidentController::class)->group(function () {
         // Residents
         Route::get('/Resident', 'index');
@@ -53,17 +60,19 @@ Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/Resident/Remove/{id}', 'remove');
         Route::get('/Resident/Reactivate/{id}', 'reactivate');
         Route::get('/Resident/Mass', 'remove');
+    });
 
-        // Non-residents
-        Route::get('/Resident/NotResident', 'index2');
-        Route::get('/Resident/NotResident/Create', 'create2');
-        Route::get('/Resident/NotResident/Edit/{id}', 'edit2');
-        Route::get('/Resident/NotResident/Deactivate/{id}', 'destroy2');
-        Route::get('/Resident/NotResident/Soft', 'soft2');
-        Route::get('/Resident/NotResident/Reactivate/{id}', 'reactivate2');
-        Route::get('/Resident/NotResident/Remove/{id}', 'remove2');
-        Route::post('/Resident/NotResident/Store', 'notResident');
-        Route::post('/Resident/NotResident/Update/{id}', 'update2');
+    // Accounts
+    Route::controller(ResidentAccountController::class)->group(function () {
+        Route::get('/Resident/Account', 'index');
+        Route::get('/Resident/Account/Create', 'create');
+        Route::get('/Resident/Account/Edit/{id}', 'edit');
+        Route::get('/Resident/Account/Deactivate/{id}', 'destroy');
+        Route::get('/Resident/Account/Soft', 'soft2');
+        Route::get('/Resident/Account/Reactivate/{id}', 'reactivate');
+        Route::get('/Resident/Account/Remove/{id}', 'remove');
+        Route::post('/Resident/Account/Store', 'notResident');
+        Route::post('/Resident/Account/Update/{id}', 'update');
     });
 
     // Household
@@ -149,14 +158,6 @@ Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/Backup/Download', 'download');
         Route::get('/Backup/Delete', 'delete');
     });
-});
-
-Route::prefix('admin')->middleware('officer')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/month', [HomeController::class, 'month']);
-    Route::get('/Workspace', function () {
-        return view('iframe');
-    });
 
     Route::controller(LocationController::class)->group(function () {
         Route::get('/get-provinces', 'getProvinces');
@@ -204,3 +205,5 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::get('/FiletoAction/{id}', 'fileToAction');
     });
 });
+
+Route::prefix('user')->middleware('resident')->group(function () {});

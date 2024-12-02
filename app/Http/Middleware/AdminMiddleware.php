@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Auth;
 use Closure;
 use Redirect;
-use Illuminate\Support\Facades\Auth;
 
 class adminMiddleware
 {
@@ -18,14 +18,11 @@ class adminMiddleware
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-
-            if ($request->user()->userRole == 2) {
-                return redirect('/admin');
+            if ($request->user()->userRole == 1) {
+                return $next($request);
             }
 
-            return $next($request);
-
-
+            return redirect('/RestrictedAuth');
         }
 
         if (Auth::guest()) {
