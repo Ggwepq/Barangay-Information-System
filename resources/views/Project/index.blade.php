@@ -40,11 +40,11 @@
                     @foreach ($post as $posts)
                         <tr>
                             <td>{{ $posts->projectName }}</td>
-                            <td>{{ $posts->projectDev }}</td>
+                            <td>{{ $posts->resident->firstName }}</td>
                             <td>{{ $posts->description }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->dateStarted)->toFormattedDateString() }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->dateEnded)->toFormattedDateString() }}</td>
-                            <td>{{ $posts->officerCharge }}</td>
+                            <td>{{ $posts->officer->resident->firstName }}</td>
                             <td>
                                 <a href="{{ url('admin/Project/Edit/' . $posts->id) }}" class="btn btn-primary btn-sm"
                                     title="Update record">

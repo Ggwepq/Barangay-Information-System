@@ -13,6 +13,12 @@ return new class() extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id('id');
             $table
+                ->foreignId('residentId')
+                ->nullable()
+                ->constrained('residents')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+            $table
                 ->foreignId('officerId')
                 ->nullable()
                 ->constrained('officers')

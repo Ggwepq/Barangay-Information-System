@@ -2,8 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resident;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ResidentAccountController extends Controller
@@ -11,15 +12,16 @@ class ResidentAccountController extends Controller
     // Display a list of all resident users
     public function index()
     {
-        $residents = User::where('userRole', 3)->get();  // Get all users with role '3' (Residents)
-        dd($residents);
-        return view('Resident.Account.index', compact('residents'));
+        $post = User::where('userRole', 3)->get();
+        return view('Resident.Account.index', compact('post'));
     }
 
     // Show form to create a new resident user
     public function create()
     {
-        $residents = Resident::whereDoesntHave('user')->get();  // Residents without user accounts
+        $residents = Resident::whereDoesntHave('user')
+            ->whereDoesntHave('officer')
+            ->get();
         return view('Resident.Account.create', compact('residents'));
     }
 
@@ -29,7 +31,7 @@ class ResidentAccountController extends Controller
         $rules = [
             'residentId' => 'required|unique:users,residentId',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed',
         ];
 
         $validator = Validator::make($request->all(), $rules);

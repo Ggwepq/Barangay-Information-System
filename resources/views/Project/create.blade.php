@@ -45,10 +45,14 @@
                                             required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="projectDev">Project Developer <span class="text-danger">*</span></label>
-                                        <input type="text" id="projectDev" class="form-control" name="projectDev"
-                                            value="{{ old('projectDev') }}" placeholder="Project Developer" maxlength="100"
-                                            required>
+                                        <label>Project Developer <span class="text-danger">*</span></label>
+                                        <select class="form-control select2" name="projectDev">
+                                            @foreach ($resident as $res)
+                                                <option value="{{ $res->id }}">{{ $res->firstName }}
+                                                    {{ $res->middleName }}
+                                                    {{ $res->lastName }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="officerCharge">Officer-in-Charge <span
@@ -57,7 +61,7 @@
                                             required>
                                             <option value="" disabled selected>Select an Officer</option>
                                             @foreach ($officer as $of)
-                                                <option value="{{ $of->Resident->firstName }}">
+                                                <option value="{{ $of->id }}">
                                                     {{ $of->Resident->firstName }} {{ $of->Resident->middleName }}
                                                     {{ $of->Resident->lastName }}
                                                 </option>
@@ -126,7 +130,7 @@
         $(document).ready(function() {
             $('.select2').select2({
                 theme: 'bootstrap4'
-            });
+            })
 
             $('.datemask').inputmask('9999-99-99'); // Mask for date format
 

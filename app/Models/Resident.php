@@ -44,7 +44,7 @@ class Resident extends Model
 
     public function Officer()
     {
-        return $this->hasMany(Officer::class, 'officerId');
+        return $this->hasMany(Officer::class);
     }
 
     public function Voter()

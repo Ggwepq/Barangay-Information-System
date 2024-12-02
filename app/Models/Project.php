@@ -21,4 +21,14 @@ class Project extends Model
         'status',
         'isActive'
     ];
+
+    public function Resident()
+    {
+        return $this->belongsTo(Resident::class, 'projectDev');
+    }
+
+    public function Officer()
+    {
+        return $this->belongsTo(Officer::class, 'officerCharge');
+    }
 }

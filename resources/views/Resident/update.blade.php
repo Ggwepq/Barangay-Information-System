@@ -377,10 +377,41 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group float-right">
-                                        <a class="btn btn-secondary" href="{{ url('/admin/Resident') }}">Go Back</a>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <div class="card card-secondary collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Account Details</h3>
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool"
+                                                        data-card-widget="collapse">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label for="email">Email<span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" maxlength="70"
+                                                                value="{{ $user->email }}" id="email"
+                                                                placeholder="Email" name="email">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label for="password">Password<span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ old('password') }}" id="password"
+                                                                placeholder="Password" name="password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group float-right">
+                                            <a class="btn btn-secondary" href="{{ url()->previous() }}">Go Back</a>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Resident;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Resident>
@@ -17,6 +20,7 @@ class ResidentFactory extends Factory
     public function definition(): array
     {
         $gender = fake()->randomElement(['Male', 'Female']);  // Simplified gender
+        $number = '09' . (string) fake()->randomNumber(9);
         return [
             'firstName' => fake()->firstName($gender),
             'middleName' => fake()->lastName(),
@@ -30,16 +34,30 @@ class ResidentFactory extends Factory
             'religion' => fake()->word(),
             'dateCitizen' => fake()->date(),
             'occupation' => fake()->jobTitle(),
-            'gender' => $gender == 'Male' ? 1 : 0,  // 1 for Male, 0 for Female
+            'gender' => $gender == 'Male' ? 1 : 2,
             'birthdate' => fake()->date(),
             'birthPlace' => fake()->city(),
             'civilStatus' => fake()->randomElement(['Single', 'Married', 'Widow/er', 'Legally Separated']),
-            'contactNumber' => fake()->phoneNumber(),
+            'contactNumber' => $number,
             'image' => 'img/steve.jpg',  // Or use a placeholder image URL
             'isDerogatory' => 1,
             'isRegistered' => 1,
             'isActive' => 1,
-            'created_at' => fake()->date(),
+            'created_at' => fake()->dateTimeThisYear(),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Resident $resident) {
+            $email = $resident->firstName . $resident->lastName . fake()->numberBetween(1, 99) . '@gmail.com';
+            User::create([
+                'residentId' => $resident->id,
+                'email' => strtolower($email),  // Unique email for the user
+                'password' => Hash::make('password'),  // Default password
+                'userRole' => 3,  // Assuming userRole 3 is for residents
+                'isActive' => 1,
+            ]);
+        });
     }
 }

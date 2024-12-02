@@ -20,6 +20,24 @@
 @endsection
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Error!</h5>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Error!</h5>
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="container-fluid">
         <div class="row">
@@ -46,9 +64,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="projectDev">Project Developer <span class="text-danger">*</span></label>
-                                        <input type="text" id="projectDev" class="form-control" name="projectDev"
-                                            value="{{ $post->projectDev }}" placeholder="Project Developer" maxlength="100"
-                                            required>
+                                        <select class="form-control select2" name="projectDev">
+                                            @foreach ($resident as $res2)
+                                                <option value="{{ $res2->id }}"
+                                                    @if ($post->projectDev == $res2->id) selected="selected" @endif>
+                                                    {{ $res2->firstName }} {{ $res2->middleName }}
+                                                    {{ $res2->lastName }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="officerCharge">Officer-in-Charge <span
@@ -56,7 +79,7 @@
                                         <select id="officerCharge" class="form-control select2" name="officerCharge"
                                             required>
                                             @foreach ($officer as $of)
-                                                <option value="{{ $of->Resident->firstName }}"
+                                                <option value="{{ $of->id }}"
                                                     @if ($of->Resident->firstName === $post->officerCharge) selected @endif>
                                                     {{ $of->Resident->firstName }} {{ $of->Resident->middleName }}
                                                     {{ $of->Resident->lastName }}
@@ -124,6 +147,9 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            })
             $('.datemask').inputmask('9999-99-99'); // Mask for date format
 
             $('#dateEnded, #dateStarted').datetimepicker({

@@ -71,7 +71,7 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::get('/Resident/Account/Soft', 'soft2');
         Route::get('/Resident/Account/Reactivate/{id}', 'reactivate');
         Route::get('/Resident/Account/Remove/{id}', 'remove');
-        Route::post('/Resident/Account/Store', 'notResident');
+        Route::post('/Resident/Account/Store', 'store');
         Route::post('/Resident/Account/Update/{id}', 'update');
     });
 

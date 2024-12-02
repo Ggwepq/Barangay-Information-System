@@ -96,8 +96,7 @@
                                             <label>Officer-in-charge <span style="color:red;">*</span></label>
                                             <select class="form-control select2" name="officerCharge">
                                                 @foreach ($officer as $o)
-                                                    <option
-                                                        value="{{ $o->firstName }} {{ $o->Resident->middleName }} {{ $o->Resident->lastName }}">
+                                                    <option value="{{ $o->id }}">
                                                         {{ $o->Resident->firstName }} {{ $o->middleName }}
                                                         {{ $o->lastName }}</option>
                                                 @endforeach

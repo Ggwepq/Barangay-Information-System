@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Officer;
 use App\Models\Project;
+use App\Models\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -33,7 +34,8 @@ class ProjectController extends Controller
     public function create()
     {
         $officer = Officer::where('isActive', 1)->get();
-        return view('Project.create', compact('officer'));
+        $resident = Resident::where('isActive', 1)->get();
+        return view('Project.create', compact('officer', 'resident'));
     }
 
     /**
@@ -46,7 +48,7 @@ class ProjectController extends Controller
     {
         $rules = [
             'projectName' => ['required', 'unique:projects', 'max:150'],
-            'projectDev' => 'required|max:150',
+            'projectDev' => 'required',
             'description' => 'nullable|max:150',
             'officerCharge' => 'required',
             'dateStarted' => 'required',
@@ -109,8 +111,9 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $officer = Officer::where('isActive', 1)->get();
+        $resident = Resident::where('isActive', 1)->get();
         $post = Project::find($id);
-        return view('Project.update', compact('officer', 'post'));
+        return view('Project.update', compact('officer', 'post', 'resident'));
     }
 
     /**
@@ -124,7 +127,7 @@ class ProjectController extends Controller
     {
         $rules = [
             'projectName' => ['required', Rule::unique('projects')->ignore($id), 'max:150'],
-            'projectDev' => 'required|max:150',
+            'projectDev' => 'required',
             'description' => 'nullable|max:150',
             'officerCharge' => 'required',
             'dateStarted' => 'required',

@@ -11,6 +11,7 @@ use App\Models\Officer;
 use App\Models\Resident;
 use App\Models\ResidentParent;
 use App\Models\Schedule;
+use App\Models\User;
 use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -81,7 +82,9 @@ class ResidentController extends Controller
             'motherLastName' => 'nullable|max:50',
             'fatherFirstName' => 'nullable|max:70',
             'fatherMiddleName' => 'nullable|max:20',
-            'fatherLastName' => 'nullable|max:50'
+            'fatherLastName' => 'nullable|max:50',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
         $messages = [
             'unique' => ':attribute already exists.',
@@ -113,7 +116,9 @@ class ResidentController extends Controller
             'motherLastName' => 'Mother Last Name',
             'fatherFirstName' => 'Father First Name',
             'fatherMiddleName' => 'Father Middle Name',
-            'fatherLastName' => 'Father Last Name'
+            'fatherLastName' => 'Father Last Name',
+            'email' => 'Email',
+            'password' => 'Password',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         $validator->setAttributeNames($niceNames);
@@ -164,6 +169,13 @@ class ResidentController extends Controller
                     'fatherLastName' => $request->fatherLastName,
                 ]);
 
+                User::create([
+                    'residentId' => $resident->id,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                    'userRole' => 3,
+                ]);
+
                 if ($request->filled('voterId')) {
                     Voter::create([
                         'residentId' => $resident->id,
@@ -201,7 +213,14 @@ class ResidentController extends Controller
     public function edit($id)
     {
         $post = Resident::find($id);
-        return view('Resident.update', compact('post'));
+        $user = User::all()->find($id);
+
+        if ($user->officer)
+            $user = User::where('officerId', $id)->first();
+        else
+            $user = User::where('residentId', $id)->first();
+
+        return view('Resident.update', compact('post', 'user'));
     }
 
     /**
@@ -237,7 +256,9 @@ class ResidentController extends Controller
             'motherLastName' => 'nullable|max:50',
             'fatherFirstName' => 'nullable|max:70',
             'fatherMiddleName' => 'nullable|max:20',
-            'fatherLastName' => 'nullable|max:50'
+            'fatherLastName' => 'nullable|max:50',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
         $messages = [
             'unique' => ':attribute already exists.',
@@ -269,7 +290,9 @@ class ResidentController extends Controller
             'motherLastName' => 'Mother Last Name',
             'fatherFirstName' => 'Father First Name',
             'fatherMiddleName' => 'Father Middle Name',
-            'fatherLastName' => 'Father Last Name'
+            'fatherLastName' => 'Father Last Name',
+            'email' => 'Email',
+            'password' => 'Password',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         $validator->setAttributeNames($niceNames);
@@ -345,6 +368,11 @@ class ResidentController extends Controller
                         'fatherLastName' => $request->fatherLastName,
                     ]);
                 }
+
+                User::all()->find($id)->update([
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                ]);
 
                 if ($request->filled('voterId')) {
                     if (count($chkVoter) == 0) {

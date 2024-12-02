@@ -18,14 +18,17 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
+        $resident = Resident::all()->random();
+        // $projectDev = $resident->firstName . ' ' . $resident->middleName . ' ' . $resident->lastName;
+
         return [
             'projectName' => fake()->words(3, true),
-            'projectDev' => Resident::factory(),
-            'description' => fake()->paragraph(),
-            'officerCharge' => Officer::factory()->create()->id,
+            'projectDev' => $resident->id,
+            'description' => fake()->text(150),
+            'officerCharge' => Officer::all()->random()->id,
             'dateStarted' => fake()->date(),
             'dateEnded' => fake()->optional()->date(),  // Optional end date
-            'status' => fake()->randomElement([1, 2, 3]),  // Example statuses
+            'status' => fake()->numberBetween(1, 4),  // Example statuses
             'isActive' => 1,
         ];
     }

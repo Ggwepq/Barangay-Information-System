@@ -19,14 +19,16 @@ class BlotterFactory extends Factory
     public function definition(): array
     {
         $officer = Officer::all()->random();
+        $resident = Resident::all()->random();
+        $res = $resident->update(['isDerogatory' => 0]);
         // $randomOfficer = $officer->resident->firstName . ' ' . $officer->resident->middleName . ' ' . $officer->resident->lastName;
 
         return [
             'complainant' => Resident::all()->random()->id,
-            'complainedResident' => Resident::all()->random()->id,
+            'complainedResident' => $resident->id,
             'officerCharge' => $officer->id,
-            'description' => fake()->paragraph(),
-            'status' => fake()->randomElement([1, 2, 3]),
+            'description' => fake()->text(150),
+            'status' => fake()->numberBetween(1, 4),
             'isActive' => 1,
         ];
     }

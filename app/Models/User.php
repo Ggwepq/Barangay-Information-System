@@ -20,10 +20,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
         'isActive',
+        'residentId',
         'officerId',
         'userRole'
     ];
@@ -34,6 +34,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'password',
         'remember_token',
     ];
 
@@ -49,6 +50,11 @@ class User extends Authenticatable
     public function Officer()
     {
         return $this->belongsTo(Officer::class, 'officerId');
+    }
+
+    public function Resident()
+    {
+        return $this->belongsTo(Resident::class, 'residentId', 'id');
     }
 
     public function adminlte_image()
