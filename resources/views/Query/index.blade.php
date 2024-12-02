@@ -36,7 +36,7 @@
             </div>
 
             <!-- List of Registered Voters -->
-            <div class="card card-primary pan1 d-none">
+            <div class="card card-outline card-navy pan1 d-none">
                 <div class="card-header">List of Registered Voters</div>
                 <div class="card-body">
                     <table id="list1" class="table table-bordered table-striped">
@@ -61,7 +61,7 @@
             </div>
 
             <!-- List of Filed to Action Blotters -->
-            <div class="card card-primary pan2 d-none">
+            <div class="card card-outline card-navy pan2 d-none">
                 <div class="card-header">List of Filed to Action Blotters</div>
                 <div class="card-body">
                     <table id="list2" class="table table-bordered table-striped">
@@ -87,7 +87,7 @@
             </div>
 
             <!-- List of Senior Citizens -->
-            <div class="card card-primary pan3 d-none">
+            <div class="card card-outline card-navy pan3 d-none">
                 <div class="card-header">List of Senior Citizens Registered in the Barangay</div>
                 <div class="card-body">
                     <table id="list3" class="table table-bordered table-striped">

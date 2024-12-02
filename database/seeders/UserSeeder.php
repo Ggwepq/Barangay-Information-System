@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'id' => '2',
             'officerId' => '2',
             'email' => 'juan@gmail.com',
-            'userRole' => '2',
+            'userRole' => '1',
             'password' => bcrypt('juan'),
             'isActive' => 1,
             'created_at' => Carbon::now(),

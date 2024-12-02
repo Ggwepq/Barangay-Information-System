@@ -49,7 +49,7 @@ class OfficerController extends Controller
     {
         $rules = [
             'residentId' => ['required', 'unique:officers'],
-            'positionId' => 'required',
+            'position' => 'required',
             'email' => 'required|email',
             'password' => 'required',
             'conpassword' => 'required',
@@ -62,13 +62,14 @@ class OfficerController extends Controller
         ];
         $niceNames = [
             'residentId' => 'Resident',
-            'positionId' => 'Position',
+            'position' => 'Position',
             'email' => 'Email Address',
             'password' => 'Password',
             'conpassword' => 'Password Confirmation',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         $validator->setAttributeNames($niceNames);
+
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         } else {
@@ -76,7 +77,7 @@ class OfficerController extends Controller
                 try {
                     $officer = Officer::create([
                         'residentId' => $request->residentId,
-                        'positionId' => $request->positionId,
+                        'positionId' => $request->position,
                     ]);
 
                     User::create([
@@ -103,10 +104,7 @@ class OfficerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -133,7 +131,7 @@ class OfficerController extends Controller
     {
         $rules = [
             'residentId' => ['required', Rule::unique('officers')->ignore($id)],
-            'positionId' => 'required',
+            'position' => 'required',
             'email' => 'required|email',
             'password' => 'required',
             'conpassword' => 'required',
@@ -146,7 +144,7 @@ class OfficerController extends Controller
         ];
         $niceNames = [
             'residentId' => 'Resident',
-            'positionId' => 'Position',
+            'position' => 'Position',
             'email' => 'Email Address',
             'password' => 'Password',
             'conpassword' => 'Password Confirmation',
@@ -160,7 +158,7 @@ class OfficerController extends Controller
                 try {
                     $officer = Officer::find($id)->update([
                         'residentId' => $request->residentId,
-                        'positionId' => $request->positionId
+                        'positionId' => $request->position
                     ]);
 
                     User::find($request->userId)->update([

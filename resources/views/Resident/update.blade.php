@@ -41,7 +41,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-outline card-navy">
                         <div class="card-header with-border d-inline-flex">
                             <h5 class="mr-auto mt-2">Update Residents</h5>
                             <div class="card-tools float-right ml-auto mt-2">

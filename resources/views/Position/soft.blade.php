@@ -19,17 +19,17 @@
 @stop
 
 @section('content')
-    <div class="card card-danger">
+    <div class="card card-outline card-danger">
         <div class="card-header with-border d-inline-flex">
             <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Deactivated Positions</h6>
             <div class="card-tools ml-auto ">
-                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#createModal">
+                <button type="button" class="btn btn-navy btn-sm" data-toggle="modal" data-target="#createModal">
                     <i class="fa fa-plus" aria-hidden="true"></i> New Position
                 </button>
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
+            <table id="datatable" class="table table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Position</th>

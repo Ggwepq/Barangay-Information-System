@@ -31,7 +31,7 @@
         </script>
     @endif
 
-    <div class="card card-primary">
+    <div class="card card-outline card-navy">
         <div class="card-header">
             <h3 class="card-title">New Non-resident</h3>
             <p class="float-right"><b>Note:</b> Fields with <span class="text-danger">*</span> are required.</p>

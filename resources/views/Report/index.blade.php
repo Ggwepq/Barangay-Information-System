@@ -20,7 +20,7 @@
 
 @section('content')
 
-    <div class="card card-primary">
+    <div class="card card-outline card-navy">
         <div class="card-header">
             <h3 class="card-title">Generate Resident Reports</h3>
         </div>

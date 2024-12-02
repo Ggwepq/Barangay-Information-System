@@ -6,12 +6,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Projects</h1>
+                <h1 class="m-0">New Projects</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Project</li>
+                    <li class="breadcrumb-item"><a href="{{ url('/admin/Project') }}">Project</a></li>
+                    <li class="breadcrumb-item active">New Project</li>
                 </ol>
             </div>
         </div>
@@ -23,7 +24,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <div class="card card-primary">
+                <div class="card card-outline card-navy">
                     <div class="card-header">
                         <h3 class="card-title">Project Details</h3>
                         <div class="card-tools float-right">

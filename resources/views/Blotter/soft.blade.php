@@ -30,12 +30,12 @@
         </script>
     @endif
 
-    <div class="card card-danger">
+    <div class="card card-outline card-danger">
         <div class="card-header with-border d-inline-flex">
             <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Deactivated Blotter Records</h6>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
+            <table id="datatable" class="table table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
                         <th>Case No.</th>

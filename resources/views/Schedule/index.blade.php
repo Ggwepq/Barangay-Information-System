@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Home</a></li> {{-- Assuming your admin dashboard route is /admin/dashboard --}}
-                    <li class="breadcrumb-item active">Basketball Court Scheduling</li>
+                    <li class="breadcrumb-item active">Court Scheduling</li>
                 </ol>
             </div>
         </div>
@@ -19,12 +19,12 @@
 @stop
 
 @section('content')
-    <div class="card card-primary">
+    <div class="card card-outline card-navy">
         <div class="card-header with-border d-inline-flex">
             <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Court Schedules</h6>
         </div>
         <div class="card-body"> {{-- Changed box-body to card-body --}}
-            <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline">
+            <table id="datatable" class="table table-striped dataTable dtr-inline">
                 {{-- Updated table classes for AdminLTE --}}
                 <thead>
                     <tr>

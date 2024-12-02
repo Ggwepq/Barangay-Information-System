@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Officer;
+use App\Models\Resident;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,13 +18,13 @@ class BlotterFactory extends Factory
      */
     public function definition(): array
     {
-        $complainant = \App\Models\Resident::factory();
-        $complainedResident = \App\Models\Resident::factory();
+        $officer = Officer::all()->random();
+        // $randomOfficer = $officer->resident->firstName . ' ' . $officer->resident->middleName . ' ' . $officer->resident->lastName;
 
         return [
-            'complainant' => $complainant,
-            'complainedResident' => $complainedResident,
-            'officerCharge' => fake()->name(),
+            'complainant' => Resident::all()->random()->id,
+            'complainedResident' => Resident::all()->random()->id,
+            'officerCharge' => $officer->id,
             'description' => fake()->paragraph(),
             'status' => fake()->randomElement([1, 2, 3]),
             'isActive' => 1,

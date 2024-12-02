@@ -14,6 +14,7 @@ return new class() extends Migration {
             $table->id('id');
             $table
                 ->foreignId('officerId')
+                ->nullable()
                 ->constrained('officers')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');

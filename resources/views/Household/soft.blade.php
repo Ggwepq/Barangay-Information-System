@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    <div class="card card-primary">
+    <div class="card card-outline card-navy">
         <div class="card-header">
             <h3 class="card-title">Household Management</h3>
             <div class="card-tools">

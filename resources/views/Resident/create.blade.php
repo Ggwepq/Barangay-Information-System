@@ -25,9 +25,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-outline card-navy">
                         <div class="card-header with-border d-inline-flex">
-                            <h5 class="mr-auto mt-2"><i class="fa fa-plus"></i> New Resident Information</h5>
+                            <h6 class="mr-auto mt-2"> New Resident Information</h6>
                             <div class="card-tools float-right ml-auto mt-2">
                                 <p class="card-text"><b>Note</b>: Fields with <span style="color:red;">*</span> are
                                     needed to filled out.</p>

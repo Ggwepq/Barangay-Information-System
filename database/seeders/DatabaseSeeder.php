@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(ResidentSeeder::class);
-        $this->call(BarangaySeeder::class);
         $this->call(PositionSeeder::class);
         $this->call(OfficerSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(BarangaySeeder::class);
     }
 }
