@@ -30,6 +30,8 @@ return new class() extends Migration {
             $table->string('civilStatus');
             $table->string('contactNumber')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('isPWD')->default(0);
+            $table->boolean('is4Ps')->default(0);
             $table->boolean('isDerogatory')->default(1);
             $table->boolean('isRegistered')->default(1);
             $table->boolean('isActive')->default(1);

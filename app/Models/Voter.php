@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Voter extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'residentId',
+        'voterId',
+        'precintNo',
+        'isActive'
+    ];
 }

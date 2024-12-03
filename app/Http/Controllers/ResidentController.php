@@ -56,8 +56,6 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $rules = [
             'firstName' => ['required', 'max:70', 'unique:residents', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
             'middleName' => ['nullable', 'max:20', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
@@ -154,6 +152,8 @@ class ResidentController extends Controller
                     'birthPlace' => $request->birthPlace,
                     'civilStatus' => $request->civilStatus,
                     'occupation' => $request->occupation,
+                    'isPWD' => $request->pwd,
+                    'is4Ps' => $request->fourps,
                     'image' => $pic,
                     'contactNumber' => $request->contactNumber,
                     'created_at' => $request->created_at
@@ -232,8 +232,9 @@ class ResidentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $rules = [
-            'firstName' => ['required', 'max:70', Rule::unique('residents')->ignore($id), 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
+            'firstName' => ['required', 'max:70', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
             'middleName' => ['nullable', 'max:20', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
             'lastName' => ['required', 'max:50', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
             'house_no' => 'required',
@@ -258,7 +259,7 @@ class ResidentController extends Controller
             'fatherMiddleName' => 'nullable|max:20',
             'fatherLastName' => 'nullable|max:50',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'nullable',
         ];
         $messages = [
             'unique' => ':attribute already exists.',
@@ -329,6 +330,8 @@ class ResidentController extends Controller
                     'birthPlace' => $request->birthPlace,
                     'civilStatus' => $request->civilStatus,
                     'occupation' => $request->occupation,
+                    'isPWD' => $request->pwd,
+                    'is4Ps' => $request->fourps,
                     'image' => $pic,
                     'created_at' => $request->created_at
                 ]);
@@ -369,10 +372,16 @@ class ResidentController extends Controller
                     ]);
                 }
 
-                User::all()->find($id)->update([
-                    'email' => $request->email,
-                    'password' => bcrypt($request->password),
-                ]);
+                if ($request->password) {
+                    User::all()->find($id)->update([
+                        'email' => $request->email,
+                        'password' => bcrypt($request->password),
+                    ]);
+                } else {
+                    User::all()->find($id)->update([
+                        'email' => $request->email,
+                    ]);
+                }
 
                 if ($request->filled('voterId')) {
                     if (count($chkVoter) == 0) {

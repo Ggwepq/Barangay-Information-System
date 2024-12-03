@@ -77,6 +77,22 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group mb-2">
+                                            <input type="hidden" name="pwd" value="0">
+                                            <div class="icheck-midnightblue d-inline md-2" id="pwd">
+                                                <input type="checkbox" name="pwd" id="is_pwd" value="1"
+                                                    {{ $post->isPWD == 1 ? 'checked' : '' }}>
+                                                <label for="is_pwd">Person w/Disability</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="hidden" name="fourps" value="0">
+                                            <div class="icheck-midnightblue d-inline" id="4ps">
+                                                <input type="checkbox" name="fourps" id="is_4ps" value="1"
+                                                    {{ $post->is4Ps == 1 ? 'checked' : '' }}>
+                                                <label for="is_4ps">4Ps Recepient</label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="hidden" value="{{ $post->id }}" name="residentId">

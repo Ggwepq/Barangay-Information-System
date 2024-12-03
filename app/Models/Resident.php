@@ -30,6 +30,8 @@ class Resident extends Model
         'civilStatus',
         'periodResidence',
         'image',
+        'isPWD',
+        'is4Ps',
         'isActive',
         'isRegistered',
         'isDerogatory',
