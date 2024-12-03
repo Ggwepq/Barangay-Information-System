@@ -2,6 +2,7 @@
 
 // phpcs:ignoreFile
 
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\BusinessController;
@@ -40,6 +41,8 @@ Route::get('/Restricted', [HomeController::class, 'error']);
 Route::get('/RestrictedAuth', [HomeController::class, 'error2']);
 
 Auth::routes();
+
+Route::get('/checkRole', [HomeController::class, 'homepage'])->name('check-role');
 
 Route::prefix('admin')->middleware('officer')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -206,4 +209,6 @@ Route::prefix('admin')->middleware('officer')->group(function () {
     });
 });
 
-Route::prefix('user')->middleware('resident')->group(function () {});
+Route::prefix('user')->middleware('resident')->group(function () {
+    Route::get('/home', [UserController::class, 'index'])->name('user-home');
+});

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 
@@ -30,26 +31,70 @@ class EventServiceProvider extends ServiceProvider
 
         // Listen for the BuildingMenu event
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
-            $user = auth()->user();
+            $user = Auth::user();
 
             if ($user->userRole == 1) {  // Admin Menu
                 $this->adminMenu($event);
             }
 
             if ($user->userRole == 3) {  // Resident Menu
-                $event->menu->add([
-                    'text' => 'My Profile',
-                    'url' => '/resident/profile',
-                    'icon' => 'fas fa-user',
-                ]);
-
-                $event->menu->add([
-                    'text' => 'Request Services',
-                    'url' => '/resident/requests',
-                    'icon' => 'fas fa-envelope',
-                ]);
+                $this->userMenu($event);
             }
         });
+    }
+
+    public function userMenu(BuildingMenu $event)
+    {
+        $this->userNavbar($event);
+
+        $event->menu->add('Home');
+        $event->menu->add(
+            [
+                'text' => 'Dashboard',
+                'icon' => 'fas fa-fw fa-chart-line',
+                'url' => '',
+            ],
+        );
+        $event->menu->add('Document');
+        $event->menu->add(
+            [
+                'text' => 'Document Request',
+                'icon' => 'fas fa-fw fa-chart-line',
+                'url' => '',
+            ],
+        );
+        $event->menu->add('Utility');
+        $event->menu->add(
+            [
+                'text' => 'Profile',
+                'icon' => 'fas fa-fw fa-chart-line',
+                'url' => '',
+            ],
+        );
+    }
+
+    public function userNavbar(BuildingMenu $event)
+    {
+        $event->menu->add(
+            [
+                'text' => 'Home',
+                'topnav' => true,
+                'url' => '/user/home',
+            ],
+            [
+                'type' => 'navbar-search',
+                'text' => 'search',
+                'topnav_right' => true,
+            ],
+            [
+                'type' => 'fullscreen-widget',
+                'topnav_right' => true,
+            ],
+            [
+                'type' => 'darkmode-widget',
+                'topnav_right' => true,
+            ],
+        );
     }
 
     public function adminMenu(BuildingMenu $event)
@@ -70,6 +115,7 @@ class EventServiceProvider extends ServiceProvider
             [
                 'text' => 'Residents',
                 'icon' => 'fas fa-fw fa-users',
+                'active' => ['regex:@^/admin/Resident/Edit/[0-9]+$@'],
                 'submenu' => [
                     [
                         'text' => 'Resident List',

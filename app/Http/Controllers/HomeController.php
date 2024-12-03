@@ -8,6 +8,7 @@ use App\Models\Blotter;
 use App\Models\Resident;
 use App\Models\Voter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,17 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function homepage()
+    {
+        $user = Auth::user();
+
+        if ($user->userRole == 1) {
+            return redirect('/admin/');
+        } else {
+            return redirect('/user/home');
+        }
     }
 
     /**

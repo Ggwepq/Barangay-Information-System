@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Http\Middleware;
@@ -20,10 +19,8 @@ class ResidentMiddleware
     {
         if (Auth::guard($guard)->check()) {
             if ($request->user()->userRole == 3) {
-                return redirect('/user');
+                return $next($request);
             }
-
-            return $next($request);
         }
 
         if (Auth::guest()) {

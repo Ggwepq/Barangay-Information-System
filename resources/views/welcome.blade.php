@@ -38,15 +38,22 @@
 
             @if (Route::has('login'))
                 @auth
-                    <a href="{{ route('home') }}" id="login-btn"><i class="fas fa-user"></i>
-                        Home</a>
+                    @if (Auth::user()->userRole == 1)
+                        <a href="{{ route('home') }}" id="login-btn"><i class="fas fa-user"></i>
+                            Home</a>
+                    @else
+                        <a href="{{ route('user-home') }}" id="login-btn"><i class="fas fa-user"></i>
+                            Home</a>
+                    @endif
                 @else
                     <a href="{{ route('login') }}"id="login-btn"><i class="fas fa-user"></i> Login</a>
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" id="login-btn"><i class="fas fa-user"></i>
-                            Register</a>
-                    @endif
+                    <!-- @if (Route::has('register'))
+    -->
+                    <!--     <a href="{{ route('register') }}" id="login-btn"><i class="fas fa-user"></i> -->
+                    <!--         Register</a> -->
+                    <!--
+    @endif -->
                 @endauth
         </div>
         @endif
