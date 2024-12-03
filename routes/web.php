@@ -6,6 +6,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\DocumentRequestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HouseholdController;
 use App\Http\Controllers\LocationController;
@@ -207,8 +208,28 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::get('/BarangayClearance/{id}', 'index');
         Route::get('/FiletoAction/{id}', 'fileToAction');
     });
+
+    Route::controller(DocumentRequestController::class)->group(function () {
+        Route::get('/document', 'viewPendingRequests');
+        Route::get('/document/actioned', 'viewActionedRequests');
+        Route::get('/document/edit', 'createRequest');
+        Route::post('/document/update/{id}', 'reviewRequest');
+        Route::get('/document/delete/{id}', 'deleteRequest');
+    });
 });
 
 Route::prefix('user')->middleware('resident')->group(function () {
     Route::get('/home', [UserController::class, 'index'])->name('user-home');
+
+    Route::controller(DocumentRequestController::class)->group(function () {
+        Route::get('/document', 'viewRequests');
+        Route::get('/document/create', 'createRequest');
+        Route::get('/document/delete/{id}', 'deleteRequest');
+        Route::post('/document/store', 'requestDocument');
+    });
+
+    Route::controller(PdfController::class)->group(function () {
+        Route::get('/document/barangay-clearance/{id}', 'index');
+        Route::get('/document/certifcate-of-indigency/{id}', 'indigency');
+    });
 });

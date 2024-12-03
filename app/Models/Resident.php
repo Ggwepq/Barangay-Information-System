@@ -51,4 +51,9 @@ class Resident extends Model
     {
         return $this->hasMany(Voter::class, 'residentId');
     }
+
+    public function documentRequests()
+    {
+        return $this->hasMany(DocumentRequest::class);
+    }
 }

@@ -52,7 +52,7 @@ class EventServiceProvider extends ServiceProvider
             [
                 'text' => 'Dashboard',
                 'icon' => 'fas fa-fw fa-chart-line',
-                'url' => '',
+                'url' => '/user/home',
             ],
         );
         $event->menu->add('Document');
@@ -60,7 +60,18 @@ class EventServiceProvider extends ServiceProvider
             [
                 'text' => 'Document Request',
                 'icon' => 'fas fa-fw fa-chart-line',
-                'url' => '',
+                'submenu' => [
+                    [
+                        'text' => 'Request List',
+                        'icon' => 'fas fa-list',
+                        'url' => '/user/document',
+                    ],
+                    [
+                        'text' => 'Request Document',
+                        'icon' => 'fas fa-plus',
+                        'url' => '/user/document/create',
+                    ],
+                ]
             ],
         );
         $event->menu->add('Utility');
@@ -110,7 +121,7 @@ class EventServiceProvider extends ServiceProvider
         );
 
         // Sidebar Items
-        $event->menu->add('Resident Profiling');
+        $event->menu->add('Resident');
         $event->menu->add(
             [
                 'text' => 'Residents',
@@ -133,16 +144,16 @@ class EventServiceProvider extends ServiceProvider
                         'url' => '/admin/Resident/Soft',
                     ],
                     [
-                        'text' => 'Document Requests',
-                        'icon' => 'fas fa-list',
-                        'url' => '/admin/Resident/Soft',
-                    ],
-                    [
                         'text' => 'Resident Accounts',
                         'icon' => 'fas fa-fw fa-users',
                         'url' => '/admin/Resident/Account',
                     ],
                 ]
+            ],
+            [
+                'text' => 'Document Requests',
+                'icon' => 'fas fa-list',
+                'url' => '/admin/document',
             ],
         );
         $event->menu->add('Barangay Issues');
