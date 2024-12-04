@@ -74,6 +74,14 @@ class EventServiceProvider extends ServiceProvider
                 ]
             ],
         );
+        $event->menu->add('Announcements');
+        $event->menu->add(
+            [
+                'text' => 'Announcements',
+                'icon' => 'fas fa-bullhorn',
+                'url' => '/user/announcement',
+            ],
+        );
         $event->menu->add('Utility');
         $event->menu->add(
             [

@@ -31,7 +31,7 @@ class AnnouncementsController extends Controller
             $announcement = Announcement::create([
                 'title' => $request->title,
                 'content' => $request->content,
-                'created_by' => auth()->id(),
+                'created_by' => auth()->user()->residentId,
             ]);
 
             return redirect('/admin/announcement')->withSuccess('Announcement Created Successfully!');
@@ -45,7 +45,7 @@ class AnnouncementsController extends Controller
     public function list()
     {
         $announcements = Announcement::where('is_active', true)->get();
-        return view('User.Announcements.index', compact('announcements'));
+        return view('User.Announcement.index', compact('announcements'));
     }
 
     public function announce($id)

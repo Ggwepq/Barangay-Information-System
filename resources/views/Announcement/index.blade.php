@@ -39,16 +39,18 @@
                         <tr>
                             <td>{{ $posts->id }}</td>
                             <td>{{ $posts->title }}</td>
-                            <td class="text-truncate">{{ $posts->content }}</td>
+                            <td class="text-truncate" style="max-width: 150px;">
+                                {{ $posts->content }}
+                            </td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#notifyModal-{{ $posts->id }}">
-                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                    <i class="fa fa-bell" aria-hidden="true"></i> Notify
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                     data-target="#deactivateModal-{{ $posts->id }}">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
                                 </button>
 
                                 <!-- Update Modal -->

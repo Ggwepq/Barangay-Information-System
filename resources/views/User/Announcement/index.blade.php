@@ -40,10 +40,16 @@
                         <tr>
                             <td>{{ $posts->id }}</td>
                             <td>{{ $posts->title }}</td>
-                            <td class="text-truncate">{{ $posts->content }}</td>
+                            <td class="text-truncate" style="max-width: 150px;">
+                                {{ $posts->content }}
+                            </td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
-                            <td>{{ $posts->created_by->resident->firstName }}</td>
+                            <td>{{ $posts->users->officer->resident->firstName }}</td>
                             <td>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#notifyModal-{{ $posts->id }}">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> Read
+                                </button>
                                 <!-- Update Modal -->
                                 <div class="modal fade" id="notifyModal-{{ $posts->id }}" tabindex="-1"
                                     aria-labelledby="notifyModalLabel" aria-hidden="true">
