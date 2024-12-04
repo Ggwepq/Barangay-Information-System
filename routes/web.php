@@ -47,10 +47,15 @@ Route::get('/checkRole', [HomeController::class, 'homepage'])->name('check-role'
 
 Route::prefix('admin')->middleware('officer')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/month', [HomeController::class, 'month']);
     Route::get('/Workspace', function () {
         return view('iframe');
     });
+
+    // Ajax Routes
+    Route::get('/month', [HomeController::class, 'month']);
+    Route::get('/blotter-months', [HomeController::class, 'blotterMonths']);
+    Route::get('/age-groups', [HomeController::class, 'ageGroups']);
+    Route::get('/genders', [HomeController::class, 'genders']);
 
     Route::controller(ResidentController::class)->group(function () {
         // Residents

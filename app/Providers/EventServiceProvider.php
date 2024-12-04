@@ -227,7 +227,7 @@ class EventServiceProvider extends ServiceProvider
             ],
             [
                 'text' => 'Announcements',
-                'icon' => 'fas fa-fw fa-user-tie',
+                'icon' => 'fas fa-fw fa-bullhorn',
                 'submenu' => [
                     [
                         'text' => 'Officer List',
@@ -282,7 +282,7 @@ class EventServiceProvider extends ServiceProvider
             [
                 'text' => 'Positions',
                 'url' => '/admin/Position',
-                'icon' => 'fas fa-fw fa-user-tie',
+                'icon' => 'fas fa-fw fa-sitemap',
                 'submenu' => [
                     [
                         'text' => 'Position List',
@@ -299,28 +299,12 @@ class EventServiceProvider extends ServiceProvider
             [
                 'text' => 'Workspace',
                 'url' => '/admin/Workspace',
-                'icon' => 'fas fa-fw fa-user-tie',
+                'icon' => 'fas fa-fw fa-briefcase',
             ],
             [
                 'text' => 'Settings',
-                'icon' => 'fas fa-fw fa-user-tie',
-                'submenu' => [
-                    [
-                        'text' => 'Officer List',
-                        'icon' => 'fas fa-list',
-                        'url' => '/admin/Officer',
-                    ],
-                    [
-                        'text' => 'New Officer',
-                        'icon' => 'fas fa-plus',
-                        'url' => '/admin/Officer/Create',
-                    ],
-                    [
-                        'text' => 'Deactivated Officer',
-                        'icon' => 'fas fa-trash',
-                        'url' => '/admin/Officer/Soft',
-                    ],
-                ]
+                'icon' => 'fas fa-fw fa-cog',
+                'url' => '/admin/Workspace',
             ],
         );
     }

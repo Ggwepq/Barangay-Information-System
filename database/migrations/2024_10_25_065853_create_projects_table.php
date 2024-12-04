@@ -16,7 +16,7 @@ return new class() extends Migration {
             $table->foreignId('projectDev')->constrained('residents')->onDelete('restrict')->onUpdate('restrict');
             $table->text('description')->nullable();
             $table->foreignId('officerCharge')->constrained('residents')->onDelete('restrict')->onUpdate('restrict');
-            $table->date('dateStarted');
+            $table->date('dateStarted')->nullable();
             $table->date('dateEnded')->nullable();
             $table->integer('status')->default(1);
             $table->boolean('isActive')->default(1);

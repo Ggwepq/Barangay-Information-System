@@ -43,7 +43,6 @@
                         <th>Complained Resident</th>
                         <th>Date of Filing</th>
                         <th>Person-in-charge</th>
-                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -56,8 +55,7 @@
                             <td>{{ $posts->comRes->firstName }} {{ $posts->comRes->middleName }}
                                 {{ $posts->comRes->lastName }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
-                            <td>{{ $posts->officerCharge }}</td>
-                            <td>{{ $posts->description }}</td>
+                            <td>{{ $posts->officer->resident->firstName }}</td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                     data-target="#reactivateModal-{{ $posts->id }}">

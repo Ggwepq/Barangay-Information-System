@@ -14,8 +14,8 @@ class BarangaySeeder extends Seeder
      */
     public function run(): void
     {
-        Resident::factory(500)->create();
-        Blotter::factory(50)->create();
-        Project::factory(10)->create();
+        Resident::factory(1500)->create();
+        Blotter::factory(100)->create();
+        Project::factory(25)->create();
     }
 }

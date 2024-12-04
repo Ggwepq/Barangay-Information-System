@@ -47,6 +47,11 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     // ];
 
+    public function adminlte_image()
+    {
+        return '/img/logomanila.png';
+    }
+
     public function Officer()
     {
         return $this->belongsTo(Officer::class, 'officerId');
@@ -55,10 +60,5 @@ class User extends Authenticatable
     public function Resident()
     {
         return $this->belongsTo(Resident::class, 'residentId', 'id');
-    }
-
-    public function adminlte_image()
-    {
-        return '/img/logomanila.png';
     }
 }

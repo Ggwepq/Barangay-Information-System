@@ -21,7 +21,6 @@ class BlotterFactory extends Factory
         $officer = Officer::all()->random();
         $resident = Resident::all()->random();
         $res = $resident->update(['isDerogatory' => 0]);
-        // $randomOfficer = $officer->resident->firstName . ' ' . $officer->resident->middleName . ' ' . $officer->resident->lastName;
 
         return [
             'complainant' => Resident::all()->random()->id,
@@ -30,6 +29,7 @@ class BlotterFactory extends Factory
             'description' => fake()->text(150),
             'status' => fake()->numberBetween(1, 4),
             'isActive' => 1,
+            'created_at' => fake()->dateTimeThisYear(),
         ];
     }
 }

@@ -28,7 +28,7 @@ class ResidentSeeder extends Seeder
             'religion' => 'Catholic',
             'image' => 'img/sadface.png',
             'gender' => 1,
-            'birthdate' => '1997-09-09',
+            'birthdate' => '1950-09-09',
             'birthPlace' => 'Brunei',
             'civilStatus' => 'Single',
             'isActive' => 1,

@@ -31,4 +31,9 @@ class Blotter extends Model
     {
         return $this->belongsTo(Resident::class, 'complainant');
     }
+
+    public function officer()
+    {
+        return $this->belongsTo(Officer::class, 'officerCharge');
+    }
 }

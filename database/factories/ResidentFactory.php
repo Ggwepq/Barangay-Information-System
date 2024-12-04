@@ -25,6 +25,8 @@ class ResidentFactory extends Factory
         $number = '09' . (string) fake()->randomNumber(9);
         $randomBool = fake()->boolean(50);
 
+        $number = ['1', '2', '3', '4', '5'];
+
         $is = $randomBool ? 1 : 0;
         $occupation = $randomBool ? fake()->jobTitle() : null;
         return [
@@ -44,8 +46,8 @@ class ResidentFactory extends Factory
             'birthdate' => fake()->date(),
             'birthPlace' => fake()->city(),
             'civilStatus' => fake()->randomElement(['Single', 'Married', 'Widow/er', 'Legally Separated']),
-            'contactNumber' => $number,
-            'image' => 'img/steve.jpg',  // Or use a placeholder image URL
+            'contactNumber' => '09916759759',
+            'image' => 'img/avatar' . fake()->randomElement($number) . '.png',  // Or use a placeholder image URL
             'isPWD' => $is,
             'is4Ps' => $is,
             'isDerogatory' => 1,

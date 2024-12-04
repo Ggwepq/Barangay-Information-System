@@ -26,7 +26,25 @@ class PositionSeeder extends Seeder
         DB::table('positions')->insert([
             'id' => '2',
             'position_name' => 'Secretary',
-            'position_limit' => '2',
+            'position_limit' => '1',
+            'isActive' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('positions')->insert([
+            'id' => '3',
+            'position_name' => 'Kagawad',
+            'position_limit' => '7',
+            'isActive' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('positions')->insert([
+            'id' => '4',
+            'position_name' => 'SK Chairperson',
+            'position_limit' => '1',
             'isActive' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

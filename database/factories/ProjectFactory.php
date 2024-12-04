@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Officer;
 use App\Models\Resident;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,16 +20,19 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         $resident = Resident::all()->random();
-        // $projectDev = $resident->firstName . ' ' . $resident->middleName . ' ' . $resident->lastName;
+        $status = fake()->randomElement([1, 2, 3]);  // 1 Planned, 2 Ongoing, 3 Done
+
+        $startDate = $status != 1 ? fake()->dateTimeBetween('-1') : null;
+        $endDate = $status != 3 ? Carbon::now()->addYears($status) : fake()->dateTimeBetween('-5', '-1');
 
         return [
             'projectName' => fake()->words(3, true),
             'projectDev' => $resident->id,
             'description' => fake()->text(150),
             'officerCharge' => Officer::all()->random()->id,
-            'dateStarted' => fake()->date(),
-            'dateEnded' => fake()->optional()->date(),  // Optional end date
-            'status' => fake()->numberBetween(1, 4),  // Example statuses
+            'dateStarted' => $startDate,
+            'dateEnded' => $endDate,
+            'status' => fake()->numberBetween(1, 4),
             'isActive' => 1,
         ];
     }

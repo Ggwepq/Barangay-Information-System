@@ -45,7 +45,7 @@
                             <td>{{ $posts->comRes->firstName }} {{ $posts->comRes->middleName }}
                                 {{ $posts->comRes->lastName }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
-                            <td>{{ $posts->officerCharge }}</td>
+                            <td>{{ $posts->officer->resident->firstName }}</td>
                             <td>
                                 @if ($posts->status == 1)
                                     Pending
