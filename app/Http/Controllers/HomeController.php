@@ -159,7 +159,7 @@ class HomeController extends Controller
     public function getBlotterStatus()
     {
         $total = Blotter::where('isActive', 1)->count();
-        $filed = Blotter::where('isActive', 4)->where('status', 4)->count();
+        $filed = Blotter::where('isActive', 1)->where('status', 4)->count();
         $ongoing = Blotter::where('isActive', 1)->where('status', 2)->count();
         $resolved = Blotter::where('isActive', 1)->where('status', 3)->count();
 

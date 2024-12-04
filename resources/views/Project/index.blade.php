@@ -29,9 +29,9 @@
                     <tr>
                         <th>Project</th>
                         <th>Developer</th>
-                        <th>Description</th>
                         <th>Project Started</th>
                         <th>Project Ended</th>
+                        <th>Status</th>
                         <th>Officer in Charge</th>
                         <th>Actions</th>
                     </tr>
@@ -41,9 +41,15 @@
                         <tr>
                             <td>{{ $posts->projectName }}</td>
                             <td>{{ $posts->resident->firstName }}</td>
-                            <td>{{ $posts->description }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->dateStarted)->toFormattedDateString() }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->dateEnded)->toFormattedDateString() }}</td>
+                            @if ($posts->status == 1)
+                                <td><span class="badge bg-warning p-2">{{ $posts->status }}</span></td>
+                            @elseif($posts->status == 2)
+                                <td><span class="badge bg-primary p-2">{{ $posts->status }}</span></td>
+                            @else
+                                <td><span class="badge bg-success p-2">{{ $posts->status }}</span></td>
+                            @endif
                             <td>{{ $posts->officer->resident->firstName }}</td>
                             <td>
                                 <a href="{{ url('admin/Project/Edit/' . $posts->id) }}" class="btn btn-primary btn-sm"

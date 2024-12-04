@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PositionSeeder::class);
         $this->call(OfficerSeeder::class);
         $this->call(UserSeeder::class);
-        Blotter::factory(100)->create();
+        Blotter::factory(200)->create();
         Project::factory(25)->create();
     }
 }

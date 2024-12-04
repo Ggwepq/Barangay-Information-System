@@ -22,8 +22,16 @@ class ProjectFactory extends Factory
         $resident = Resident::all()->random();
         $status = fake()->randomElement([1, 2, 3]);  // 1 Planned, 2 Ongoing, 3 Done
 
-        $startDate = $status != 1 ? fake()->dateTimeBetween('-1') : null;
-        $endDate = $status != 3 ? Carbon::now()->addYears($status) : fake()->dateTimeBetween('-5', '-1');
+        if ($status == 1) {  // Planned
+            $startDate = null;
+            $endDate = Carbon::now()->addYears(fake()->numberBetween(1, 5));
+        } elseif ($status == 2) {  // Ongoing
+            $startDate = fake()->dateTimeBetween('-1 year', 'now');
+            $endDate = Carbon::now()->addYears(fake()->numberBetween(1, 3));
+        } else {  // Done
+            $startDate = fake()->dateTimeBetween('-5 years', '-1 year');
+            $endDate = fake()->dateTimeBetween($startDate, 'now');
+        }
 
         return [
             'projectName' => fake()->words(3, true),
@@ -32,7 +40,7 @@ class ProjectFactory extends Factory
             'officerCharge' => Officer::all()->random()->id,
             'dateStarted' => $startDate,
             'dateEnded' => $endDate,
-            'status' => fake()->numberBetween(1, 4),
+            'status' => $status,
             'isActive' => 1,
         ];
     }

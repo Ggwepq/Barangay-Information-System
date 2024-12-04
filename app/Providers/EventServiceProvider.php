@@ -230,19 +230,14 @@ class EventServiceProvider extends ServiceProvider
                 'icon' => 'fas fa-fw fa-bullhorn',
                 'submenu' => [
                     [
-                        'text' => 'Officer List',
+                        'text' => 'View Announcements',
                         'icon' => 'fas fa-list',
-                        'url' => '/admin/Officer',
+                        'url' => '/admin/announcement',
                     ],
                     [
-                        'text' => 'New Officer',
+                        'text' => 'New Announcements',
                         'icon' => 'fas fa-plus',
-                        'url' => '/admin/Officer/Create',
-                    ],
-                    [
-                        'text' => 'Deactivated Officer',
-                        'icon' => 'fas fa-trash',
-                        'url' => '/admin/Officer/Soft',
+                        'url' => '/admin/announcement/create',
                     ],
                 ]
             ],

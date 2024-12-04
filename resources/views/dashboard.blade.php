@@ -152,7 +152,7 @@
                             <!-- /.description-block -->
                             <div class="description-block mb-4">
                                 <h5 class="description-header">{{ $blotterStatus['filed'] }}</h5>
-                                <span class="description-text">Filed Cases</span>
+                                <span class="description-text">Filed to Action Cases</span>
                             </div>
                             <!-- /.description-block -->
                             <div class="description-block">

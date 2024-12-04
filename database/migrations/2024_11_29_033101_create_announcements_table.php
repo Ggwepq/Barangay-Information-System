@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->string('title');
             $table->text('content');
             $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->json('target_group')->nullable();  // For group-specific notifications
+            $table->string('category')->nullable();  // For announcement categories
+            $table->string('attachment')->nullable();  // Path to attachments
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
