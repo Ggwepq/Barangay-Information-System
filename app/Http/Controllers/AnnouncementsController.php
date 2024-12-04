@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 
 class AnnouncementsController extends Controller
 {
-    protected $sms = new SMSController();
-
     public function index()
     {
         $announcements = Announcement::where('is_active', 1)->get();
@@ -54,9 +52,10 @@ class AnnouncementsController extends Controller
     {
         // Notify users via SMS
         $announcement = Announcement::findOrFail($id);
+        $sms = new SMSController();
 
         $number = '09916759759';
-        $this->sms->notifyAnnouncement($number, $announcement->title);
+        $sms->notifyAnnouncement($number, $announcement->title);
 
         return redirect()->back();
     }

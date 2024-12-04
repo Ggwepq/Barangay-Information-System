@@ -21,8 +21,6 @@ use Illuminate\Validation\Rule;
 
 class ResidentController extends Controller
 {
-    protected $sms = new SMSController();
-
     public function index()
     {
         $post = Resident::where('isActive', 1)->where('isRegistered', 1)->get();
@@ -180,7 +178,8 @@ class ResidentController extends Controller
                     'password' => $request->password,
                 ];
 
-                $this->sms->accountCreated($phone, $account);
+                $sms = new SMSController();
+                $sms->accountCreated($phone, $account);
 
                 if ($request->filled('voterId')) {
                     Voter::create([
@@ -401,7 +400,8 @@ class ResidentController extends Controller
                     ];
                 }
 
-                $this->sms->accountUpdated($phone, $account);
+                $sms = new SMSController();
+                $sms->accountUpdated($phone, $account);
 
                 if ($request->filled('voterId')) {
                     if (count($chkVoter) == 0) {
