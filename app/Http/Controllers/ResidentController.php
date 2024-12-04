@@ -21,11 +21,8 @@ use Illuminate\Validation\Rule;
 
 class ResidentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $sms = new SMSController();
+
     public function index()
     {
         $post = Resident::where('isActive', 1)->where('isRegistered', 1)->get();
@@ -175,6 +172,15 @@ class ResidentController extends Controller
                     'password' => bcrypt($request->password),
                     'userRole' => 3,
                 ]);
+
+                $phone = $resident->contactNumber;
+                $account = [
+                    'residentName' => $resident->firstName,
+                    'email' => $resident->email,
+                    'password' => $request->password,
+                ];
+
+                $this->sms->accountCreated($phone, $account);
 
                 if ($request->filled('voterId')) {
                     Voter::create([
@@ -372,16 +378,30 @@ class ResidentController extends Controller
                     ]);
                 }
 
+                $phone = $resident->contactNumber;
                 if ($request->password) {
                     User::all()->find($id)->update([
                         'email' => $request->email,
                         'password' => bcrypt($request->password),
                     ]);
+
+                    $account = [
+                        'residentName' => $resident->firstName,
+                        'email' => $resident->email,
+                        'password' => $request->password,
+                    ];
                 } else {
                     User::all()->find($id)->update([
                         'email' => $request->email,
                     ]);
+
+                    $account = [
+                        'residentName' => $resident->firstName,
+                        'email' => $resident->email,
+                    ];
                 }
+
+                $this->sms->accountUpdated($phone, $account);
 
                 if ($request->filled('voterId')) {
                     if (count($chkVoter) == 0) {

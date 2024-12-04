@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\DocumentRequest;
+use App\Models\Resident;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DocumentRequestController extends Controller
 {
+    protected $sms = new SMSController();
+
     // User requesting a document
     public function requestDocument(Request $request)
     {
@@ -42,6 +45,7 @@ class DocumentRequestController extends Controller
 
         try {
             $documentRequest = DocumentRequest::findOrFail($id);
+            $resident = $documentRequest->resident;
 
             $documentRequest->status = $validated['status'];
 
@@ -52,6 +56,7 @@ class DocumentRequestController extends Controller
 
             $documentRequest->save();
 
+            $this->sms->documentActioned($resident->contactNumber, $documentRequest->document_type, $documentRequest->status);
             return redirect()->back()->with('success', 'Document request updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update document request. Please try again.');
