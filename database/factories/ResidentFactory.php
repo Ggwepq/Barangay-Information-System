@@ -47,7 +47,7 @@ class ResidentFactory extends Factory
             'birthPlace' => fake()->city(),
             'civilStatus' => fake()->randomElement(['Single', 'Married', 'Widow/er', 'Legally Separated']),
             'contactNumber' => '09916759759',
-            'image' => 'img/avatar' . fake()->randomElement($number) . '.png',  // Or use a placeholder image URL
+            'image' => 'img/uploads/avatar' . fake()->randomElement($number) . '.png',  // Or use a placeholder image URL
             'isPWD' => $is,
             'is4Ps' => $is,
             'isDerogatory' => 1,

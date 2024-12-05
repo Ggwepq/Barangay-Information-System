@@ -23,6 +23,9 @@
 
     @if ($errors->any())
         <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -106,7 +109,8 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">Personal Information</h3>
                                                 <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <button type="button" class="btn btn-tool"
+                                                        data-card-widget="collapse">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -390,6 +394,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                 @endforeach
                                             </div>
                                         </div>

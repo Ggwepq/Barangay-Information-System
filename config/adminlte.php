@@ -107,8 +107,8 @@ return [
         'mode' => 'fullscreen',
         'img' => [
             'path' => '/img/logomanila.png',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation_wobble',
+            'alt' => 'BIS Logo Img',
+            'effect' => 'animation__wobble',
             'width' => 60,
             'height' => 60,
         ],
@@ -243,7 +243,7 @@ return [
      * |
      */
     'use_route_url' => false,
-    'dashboard_url' => 'admin/dashboard',
+    'dashboard_url' => '/checkRole',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',

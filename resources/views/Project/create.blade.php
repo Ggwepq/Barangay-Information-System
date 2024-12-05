@@ -115,7 +115,7 @@
                             </div>
                             <div class="form-group text-right">
                                 <a class="btn btn-secondary" href="{{ url('/admin/Project') }}">Go Back</a>
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button id="submit" type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -145,7 +145,22 @@
 
                 if (startDate && endDate && startDate > endDate) {
                     toastr.error('Invalid End Date. It must be after the Start Date.', "Validation Error");
-                    $('#dateEnded').val('');
+                    $('#dateEnded').val(null);
+                }
+            });
+
+
+            $('#submit').on('click', function() {
+                const startDate = $('#dateStarted').datetimepicker('viewDate').format('YYYY-MM-DD');
+                const endDate = $('#dateEnded').datetimepicker('viewDate').format('YYYY-MM-DD');
+
+                if (startDate && endDate && startDate > endDate) {
+                    toastr.error('Invalid End Date. It must be after the Start Date.', "Validation Error");
+                    $('#dateEnded').removeAttr('value');
+                    $("form").submit(function(e) {
+                        e.preventDefault();
+                    });
+                    return;
                 }
             });
         });

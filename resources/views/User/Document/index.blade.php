@@ -61,14 +61,14 @@
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                                 @if ($posts->status == 'Approved')
-                                    @if ($posts->document_type = 'Barangay Clerance')
+                                    @if ($posts->document_type == 'Barangay Clearance')
                                         <a href="{{ url('/user/document/barangay-clearance/' . $posts->resident_id) }}"
                                             target="_blank" type="button" class="btn btn-success btn-sm"
                                             data-toggle="tooltip" data-placement="top" title="Barangay Certification">
                                             <i class="fa fa-print" aria-hidden="true"></i>
                                         </a>
-                                    @elseif ($posts->document_type = 'Certificate of Indigency')
-                                        <a href="{{ url('/user/document/certifate-of-indigency/' . $posts->resident_id) }}"
+                                    @elseif ($posts->document_type == 'Certificate of Indigency')
+                                        <a href="{{ url('/user/document/certificate-of-indigency/' . $posts->resident_id) }}"
                                             target="_blank" type="button" class="btn btn-success btn-sm"
                                             data-toggle="tooltip" data-placement="top" title="Certificate of Indigency">
                                             <i class="fa fa-print" aria-hidden="true"></i>

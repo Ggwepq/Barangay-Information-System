@@ -90,7 +90,7 @@
                                             <form action="{{ url('/admin/document/update/' . $posts->id) }}" method="post"
                                                 enctype="multipart/form-data">
                                                 @csrf
-                                                <div class="modal-body">
+                                                <div class="modal-body modal-sm">
                                                     <div class="col-md-9">
                                                         <div class="row">
                                                             <div class="form-group">

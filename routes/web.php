@@ -246,7 +246,7 @@ Route::prefix('user')->middleware('resident')->group(function () {
 
     Route::controller(PdfController::class)->group(function () {
         Route::get('/document/barangay-clearance/{id}', 'index');
-        Route::get('/document/certifcate-of-indigency/{id}', 'indigency');
+        Route::get('/document/certificate-of-indigency/{id}', 'indigency');
     });
     Route::controller(AnnouncementsController::class)->group(function () {
         Route::get('/announcement', 'list');

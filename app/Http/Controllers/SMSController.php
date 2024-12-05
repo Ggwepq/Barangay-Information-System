@@ -19,12 +19,7 @@ class SMSController extends Controller
         $email = $account['email'];
         $password = $account['password'];
 
-        $message = "Hi $name,
-
-        Your account for the Barangay Information System has been created successfully.
-
-        Here is your login details: Email: $email,Password:$password
-";
+        $message = "Hi $name, Your account for the Barangay Information System has been created successfully. Here is your login details: Email: $email, Password:$password";
         $this->send($number, $message);
     }
 
@@ -32,14 +27,9 @@ class SMSController extends Controller
     {
         $name = $account['residentName'];
         $email = $account['email'];
-        $password = $account['password'] ? $account['password'] : 'Still the old one';
+        $password = count($account) != 3 ? 'Still the old one' : $account['password'];
 
-        $message = "Hi $name,
-
-        Your account for the Barangay Information System has been updated successfully.
-
-        Here is your new login details: Email: $email,Password:$password
-";
+        $message = "Hi $name, Your account for the Barangay Information System has been updated successfully. Here is your new login details: Email: $email,Password:$password";
         $this->send($number, $message);
     }
 

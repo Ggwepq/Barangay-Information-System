@@ -57,6 +57,11 @@
             line-height: 1.8;
         }
 
+        .dear {
+            margin: 0px;
+            text-align: left;
+        }
+
         .footnote {
             text-align: center;
             font-size: 0.9rem;
@@ -101,7 +106,7 @@
 
         <!-- Main Content -->
         <div class="content">
-            <p>To whom it may concern:</p>
+            <p class="dear">To whom it may concern:</p>
             <p>
                 This is to certify that <b>{{ $post->lastName }}, {{ $post->firstName }} {{ $post->middleName }}</b>,
                 of legal age, presently residing at <b>{{ $post->street }} {{ $post->brgy }} {{ $post->city }}</b>,
@@ -115,10 +120,8 @@
                 @endif is known to be a person of good moral character and a law-abiding citizen.
             </p>
             <p>
-                For further information, _____________________ belongs to the indigent families of this barangay.
-            </p>
-            <p>
-                This certification is issued upon the bearer's request for whatever legal purposes it may serve best.
+                This certification is issued upon the bearer's request for
+                {{ !$request ? 'whatever legal purposes it may serve best' : $request->purpose }} .
             </p>
             <p>
                 Issued on <b>{{ Carbon\Carbon::now()->toFormattedDateString() }}</b> at Barangay 378, City of Manila,

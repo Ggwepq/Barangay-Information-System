@@ -44,11 +44,11 @@
                             <td>{{ Carbon\Carbon::parse($posts->dateStarted)->toFormattedDateString() }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->dateEnded)->toFormattedDateString() }}</td>
                             @if ($posts->status == 1)
-                                <td><span class="badge bg-warning p-2">{{ $posts->status }}</span></td>
+                                <td><span class="badge bg-warning p-2">Planned</span></td>
                             @elseif($posts->status == 2)
-                                <td><span class="badge bg-primary p-2">{{ $posts->status }}</span></td>
+                                <td><span class="badge bg-primary p-2">Ongoing</span></td>
                             @else
-                                <td><span class="badge bg-success p-2">{{ $posts->status }}</span></td>
+                                <td><span class="badge bg-success p-2">Finished</span></td>
                             @endif
                             <td>{{ $posts->officer->resident->firstName }}</td>
                             <td>

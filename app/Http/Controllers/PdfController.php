@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blotter;
 use App\Models\Business;
+use App\Models\DocumentRequest;
 use App\Models\Position;
 use App\Models\Resident;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -49,10 +50,11 @@ class PdfController extends Controller
     public function indigency($id)
     {
         $post = Resident::find($id);
+        $request = DocumentRequest::where('resident_id', $id)->first();
         $position = Position::all();
         $cman = $position->where('position_name', 'Chairman')->first()->officer->first();
         $sec = $position->where('position_name', 'Secretary')->first()->officer->first();
-        $pdf = PDF::loadView('Forms.CertificateIndigency', compact('post', 'cman', 'sec'));
+        $pdf = PDF::loadView('Forms.CertificateIndigency', compact('post', 'cman', 'sec', 'request'));
         $pdf->SetPaper('letter', 'portrait');;
         return $pdf->stream();
     }

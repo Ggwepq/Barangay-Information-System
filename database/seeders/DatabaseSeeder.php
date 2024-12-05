@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(ResidentSeeder::class);
-        Resident::factory(1500)->create();
+        Resident::factory(500)->create();
         $this->call(PositionSeeder::class);
         $this->call(OfficerSeeder::class);
         $this->call(UserSeeder::class);
-        Blotter::factory(200)->create();
+        Blotter::factory(100)->create();
         Project::factory(25)->create();
     }
 }

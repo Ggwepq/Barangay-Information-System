@@ -15,10 +15,9 @@ class ResidentSeeder extends Seeder
     public function run(): void
     {
         DB::table('residents')->insert([
-            'id' => '1',
-            'firstName' => 'The Admin',
-            'middleName' => 'admin',
-            'lastName' => 'Administrator',
+            'firstName' => 'Erica',
+            'middleName' => 'Magaro',
+            'lastName' => 'Salinas',
             'province' => 'NATIONAL CAPITAL REGION - THIRD DISTRICT',
             'house_no' => '123',
             'street' => 'Admin St.',
@@ -26,7 +25,7 @@ class ResidentSeeder extends Seeder
             'city' => 'CALOOCAN CITY',
             'citizenship' => 'Filipino',
             'religion' => 'Catholic',
-            'image' => 'img/sadface.png',
+            'image' => 'img/uploads/sadface.png',
             'gender' => 1,
             'birthdate' => '1950-09-09',
             'birthPlace' => 'Brunei',
@@ -38,10 +37,9 @@ class ResidentSeeder extends Seeder
         ]);
 
         DB::table('residents')->insert([
-            'id' => '2',
-            'firstName' => 'Juan',
+            'firstName' => 'Christian Gabriel',
             'middleName' => '',
-            'lastName' => 'Dela Cruz',
+            'lastName' => 'Manegkad',
             'province' => 'NATIONAL CAPITAL REGION - THIRD DISTRICT',
             'house_no' => '123',
             'street' => 'Heroes St.',
@@ -49,7 +47,7 @@ class ResidentSeeder extends Seeder
             'city' => 'CALOOCAN CITY',
             'citizenship' => 'Filipino',
             'religion' => 'Catholic',
-            'image' => 'img/steve.jpg',
+            'image' => 'img/uploads/steve.jpg',
             'gender' => 1,
             'birthdate' => '1990-09-09',
             'birthPlace' => 'Manila',
@@ -61,7 +59,6 @@ class ResidentSeeder extends Seeder
         ]);
 
         DB::table('parents')->insert([
-            'id' => '1',
             'residentId' => 1,
             'motherfirstName' => 'Ada',
             'motherlastName' => 'Administrator',
@@ -73,7 +70,6 @@ class ResidentSeeder extends Seeder
         ]);
 
         DB::table('parents')->insert([
-            'id' => '2',
             'residentId' => 2,
             'motherfirstName' => 'Juana',
             'motherlastName' => 'Dela Cruz',

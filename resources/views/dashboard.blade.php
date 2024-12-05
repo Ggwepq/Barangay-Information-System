@@ -274,7 +274,7 @@
                                                 Ongoing
                                             </span> </td>
                                         <td>
-                                            {{ \Carbon\Carbon::parse($proj->endDate)->format('F j, Y') }}
+                                            {{ \Carbon\Carbon::parse($proj->dateEnded)->format('F j, Y') }}
                                         </td>
                                     </tr>
                                 @endforeach
