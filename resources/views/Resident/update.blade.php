@@ -480,7 +480,24 @@
                 }
             });
 
+            $('#birthdate').ready(function() {
+                var e = $('#birthdate').data("datetimepicker").date();
+                var today = new Date();
+                var birthDate = moment(e).toDate();
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (birthDate >= today) {
+                    alert('Invalid Birthdate');
+                } else {
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    $('#age').val(age);
+                }
+            });
+
             $('#birthdate').on('change.datetimepicker', function(e) {
+                console.log(e);
                 var today = new Date();
                 var birthDate = moment(e.date).toDate();
                 var age = today.getFullYear() - birthDate.getFullYear();

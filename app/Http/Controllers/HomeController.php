@@ -4,7 +4,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Blotter;
+use App\Models\DocumentRequest;
 use App\Models\Officer;
 use App\Models\Project;
 use App\Models\Resident;
@@ -57,15 +59,20 @@ class HomeController extends Controller
         $projects = Project::where('status', 2)->take(8)->get();
         $ageGroups = $this->ageGroups();
         $blotterStatus = $this->getBlotterStatus();
+        $civilStatus = $this->civilStatus()->original;
+        $resRequest = DocumentRequest::where('status', 'Pending')->take(8)->get();
 
+        $announcements = Announcement::where('is_active', 1)->orderBy('created_at', 'desc')->take(4)->get();
+
+        $record = Resident::where('isActive', 1)->where('isDerogatory', 0)->count();
         $slider = [
             'maleSlider' => $this->percent($male, $resident) . '%',
             'femaleSlider' => $this->percent($female, $resident) . '%',
-            'resRecord' => $this->percent($record, $resident) . '%',
+            'fourps' => $this->percent($fourps, $resident) . '%',
             'pwdSlider' => $this->percent($pwd, $resident) . '%',
         ];
 
-        return view('dashboard', compact('voter', 'male', 'female', 'resident', 'employed', 'pwd', 'fourps', 'recent', 'officers', 'kagawad', 'projects', 'ageGroups', 'record', 'slider', 'blotterStatus'));
+        return view('dashboard', compact('voter', 'male', 'female', 'resident', 'employed', 'pwd', 'fourps', 'recent', 'officers', 'kagawad', 'projects', 'ageGroups', 'record', 'slider', 'blotterStatus', 'resRequest', 'civilStatus', 'announcements'));
     }
 
     private function percent($part, $whole)
@@ -114,6 +121,18 @@ class HomeController extends Controller
         }));
 
         return $ageGroups;
+    }
+
+    public function civilStatus()
+    {
+        $civilStatus = [
+            'Single' => Resident::where('isActive', 1)->where('civilStatus', 'Single')->count(),
+            'Separated' => Resident::where('isActive', 1)->where('civilStatus', 'Legally Separated')->count(),
+            'Married' => Resident::where('isActive', 1)->where('civilStatus', 'Married')->count(),
+            'Widow/er' => Resident::where('isActive', 1)->where('civilStatus', 'Widow/er')->count(),
+        ];
+
+        return response()->json($civilStatus);
     }
 
     public function month()

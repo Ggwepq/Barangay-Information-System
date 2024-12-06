@@ -166,13 +166,13 @@ class ResidentController extends Controller
     public function destroy($id)
     {
         Resident::find($id)->update(['isActive' => 0]);
-        return redirect('/admin/Resident');
+        return redirect('/admin/Resident')->withSuccess('Successfully Deactivated.');
     }
 
     public function reactivate($id)
     {
         Resident::find($id)->update(['isActive' => 1]);
-        return redirect('/admin/Resident');
+        return redirect('/admin/Resident/Soft')->withSuccess('Successfully Reactivated.');
     }
 
     public function remove($id)

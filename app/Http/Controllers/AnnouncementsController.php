@@ -51,13 +51,18 @@ class AnnouncementsController extends Controller
     public function announce($id)
     {
         // Notify users via SMS
-        $announcement = Announcement::findOrFail($id);
+        $announce = Announcement::findOrFail($id);
         $sms = new SMSController();
 
         $number = '09916759759';
-        $sms->notifyAnnouncement($number, $announcement->title);
+        $announcement = [
+            'title' => $announce->title,
+            'content' => $announce->content,
+        ];
 
-        return redirect()->back();
+        $sms->notifyAnnouncement($number, $announcement);
+
+        return redirect()->back()->withSuccess('Successfully Announced.');
     }
 
     public function remove($id)

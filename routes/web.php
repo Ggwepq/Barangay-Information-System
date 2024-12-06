@@ -57,6 +57,7 @@ Route::prefix('admin')->middleware('officer')->group(function () {
     Route::get('/blotter-months', [HomeController::class, 'blotterMonths']);
     Route::get('/age-groups', [HomeController::class, 'ageGroups']);
     Route::get('/genders', [HomeController::class, 'genders']);
+    Route::get('/civil-status', [HomeController::class, 'civilStatus']);
 
     Route::controller(ResidentController::class)->group(function () {
         // Residents
@@ -248,7 +249,12 @@ Route::prefix('user')->middleware('resident')->group(function () {
         Route::get('/document/barangay-clearance/{id}', 'index');
         Route::get('/document/certificate-of-indigency/{id}', 'indigency');
     });
+
     Route::controller(AnnouncementsController::class)->group(function () {
         Route::get('/announcement', 'list');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/profile', 'profile');
     });
 });

@@ -125,3 +125,31 @@
     </div>
 
 @endsection
+
+@section('js')
+    <script>
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+    </script>
+
+    @if (session('success'))
+        <script type="text/javascript">
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            })
+        </script>
+    @endif
+    @if (session('error'))
+        <script type="text/javascript">
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('error') }}'
+            })
+        </script>
+    @endif
+@stop

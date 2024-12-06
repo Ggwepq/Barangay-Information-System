@@ -35,7 +35,9 @@ class SMSController extends Controller
 
     public function notifyAnnouncement($number, $announcement)
     {
-        $message = "ANNOUNCEMENT: $announcement. Stay updated via the Barangay Information System.";
+        $title = $announcement['title'];
+        $content = $announcement['content'];
+        $message = "ANNOUNCEMENT!! $title: $content. Stay updated via the Barangay Information System.";
         $this->send($number, $message);
     }
 

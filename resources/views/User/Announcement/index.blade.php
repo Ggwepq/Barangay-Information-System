@@ -44,7 +44,7 @@
                                 {{ $posts->content }}
                             </td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
-                            <td>{{ $posts->users->officer->resident->firstName }}</td>
+                            <td>{{ $posts->users ? $posts->user->officer->resident->firstName : '-' }}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#notifyModal-{{ $posts->id }}">

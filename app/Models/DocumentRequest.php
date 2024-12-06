@@ -19,6 +19,11 @@ class DocumentRequest extends Model
         'status',
     ];
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\DocRequestFactory::new();
+    }
+
     public function resident()
     {
         return $this->belongsTo(Resident::class);

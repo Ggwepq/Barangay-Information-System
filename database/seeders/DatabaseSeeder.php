@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Blotter;
+use App\Models\DocumentRequest;
 use App\Models\Project;
 use App\Models\Resident;
 use Illuminate\Database\Seeder;
@@ -30,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         Blotter::factory(100)->create();
         Project::factory(25)->create();
+        DocumentRequest::factory(50)->create();
     }
 }

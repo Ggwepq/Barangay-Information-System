@@ -40,8 +40,8 @@
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box"> <span class="info-box-icon bg-success shadow-sm"> <i class="fa fa-university"></i>
                 </span>
-                <div class="info-box-content"> <span class="info-box-text">Residents w/Records</span> <span
-                        class="info-box-number">{{ number_format($record) }}</span> </div> <!-- /.info-box-content -->
+                <div class="info-box-content"> <span class="info-box-text">4Ps Recepients</span> <span
+                        class="info-box-number">{{ number_format($fourps) }}</span> </div> <!-- /.info-box-content -->
             </div> <!-- /.info-box -->
         </div> <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
@@ -83,15 +83,15 @@
                                 </div>
                             </div> <!-- /.progress-group -->
                             <div class="progress-group"> <span class="progress-text">
-                                    Resident w/Records
-                                </span> <span class="float-end"><b>{{ $record }}</b>/{{ $resident }}</span>
+                                    4Ps Recepients
+                                </span> <span class="float-end"><b>{{ $fourps }}</b>/{{ $resident }}</span>
                                 <div class="progress progress-sm">
-                                    <div class="progress-bar bg-warning" style="width:{{ $slider['resRecord'] }};">
+                                    <div class="progress-bar bg-warning" style="width:{{ $slider['fourps'] }};">
                                     </div>
                                 </div>
                             </div> <!-- /.progress-group -->
                             <div class="progress-group">
-                                PWD Residents
+                                Residents with Disabilities
                                 <span class="float-end"><b>{{ $pwd }}</b>/{{ $resident }}</span>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-success" style="width:{{ $slider['pwdSlider'] }};">
@@ -290,26 +290,42 @@
             </div> <!-- /.card -->
         </div> <!-- /.col -->
         <div class="col-md-4"> <!-- Info Boxes Style 2 -->
-            <div class="info-box mb-3 bg-warning"> <span class="info-box-icon"> <i class="fa fa-mars"></i>
-                </span>
-                <div class="info-box-content"> <span class="info-box-text">Male</span> <span
-                        class="info-box-number">{{ $male }}</span> </div> <!-- /.info-box-content -->
-            </div> <!-- /.info-box -->
-            <div class="info-box mb-3 bg-success"> <span class="info-box-icon"> <i class="fa fa-venus"></i>
-                </span>
-                <div class="info-box-content"> <span class="info-box-text">Female</span> <span
-                        class="info-box-number">{{ $female }}</span> </div> <!-- /.info-box-content -->
-            </div> <!-- /.info-box -->
-            <div class="info-box mb-3 bg-danger"> <span class="info-box-icon"> <i class="fa fa-wheelchair"></i>
-                </span>
-                <div class="info-box-content"> <span class="info-box-text">PWDs</span> <span
-                        class="info-box-number">{{ $pwd }}</span> </div> <!-- /.info-box-content -->
-            </div> <!-- /.info-box -->
-            <div class="info-box mb-3 bg-info"> <span class="info-box-icon"> <i class="fa fa-university"></i>
-                </span>
-                <div class="info-box-content"> <span class="info-box-text">4Ps Recepient</span> <span
-                        class="info-box-number">{{ $fourps }}</span> </div> <!-- /.info-box-content -->
-            </div> <!-- /.info-box -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title">Civil Status</h3>
+                </div> <!-- /.card-header -->
+                <div class="card-body"> <!--begin::Row-->
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="civil-chart"></div>
+                        </div> <!-- /.col -->
+                    </div> <!--end::Row-->
+                </div> <!-- /.card-body -->
+                <div class="card-footer p-0">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item"> <a href="#" class="nav-link">
+                                Single
+                                <span class="float-end text-success"> <i class="bi bi-arrow-up fs-7"></i>
+                                    {{ $civilStatus['Single'] }}
+                                </span> </a> </li>
+                        <li class="nav-item"> <a href="#" class="nav-link">
+                                Married
+                                <span class="float-end text-info"> <i class="bi bi-arrow-left fs-7"></i>
+                                    {{ $civilStatus['Married'] }}
+                                </span> </a> </li>
+                        <li class="nav-item"> <a href="#" class="nav-link">
+                                Legally Separated
+                                <span class="float-end text-warning"> <i class="bi bi-arrow-up fs-7"></i>
+                                    {{ $civilStatus['Separated'] }}
+                                </span> </a> </li>
+                        <li class="nav-item"> <a href="#" class="nav-link">
+                                Widow/er
+                                <span class="float-end text-danger"> <i class="bi bi-arrow-up fs-7"></i>
+                                    {{ $civilStatus['Widow/er'] }}
+                                </span> </a> </li>
+                    </ul>
+                </div> <!-- /.footer -->
+            </div> <!-- /.card --> <!-- PRODUCT LIST -->
             <div class="card mb-4">
                 <div class="card-header">
                     <h3 class="card-title">Resident's Gender</h3>
@@ -338,82 +354,34 @@
             </div> <!-- /.card --> <!-- PRODUCT LIST -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Barangay Officials</h3>
+                    <h3 class="card-title">Residents with Pending Document Request</h3>
                 </div> <!-- /.card-header -->
                 <div class="card-body p-0">
                     <div class="px-2">
-                        @foreach ($officers as $staff)
+                        @foreach ($resRequest as $res)
                             <div class="d-flex border-top py-2 px-1">
                                 <div class="col-2">
-                                    <img src="{{ asset($staff->resident->image) }}" alt="Staff Image"
-                                        class="img-size-50">
+                                    <img src="{{ asset($res->resident->image) }}" alt="Staff Image" class="img-size-50">
                                 </div>
                                 <div class="col-10 ml-2">
                                     <a href="javascript:void(0)" class="fw-bold text-truncate">
-                                        {{ $staff->resident->firstName }}
-                                        {{ $staff->resident->lastName }}
+                                        {{ $res->resident->firstName }}
+                                        {{ $res->resident->lastName }}
+                                        <span class="badge badge-warning float-right">{{ $res->status }}</span>
                                     </a>
                                     <div class="text-truncate text-secondary text-sm">
-                                        {{ $staff->position->position_name }}
+                                        {{ $res->document_type }}
                                     </div>
                                 </div>
                             </div> <!-- /.item -->
                         @endforeach
                     </div>
                 </div> <!-- /.card-body -->
-                <div class="card-footer text-center"> <a href="{{ url('/admin/Officer') }}" class="uppercase">
-                        View All Officer
+                <div class="card-footer text-center"> <a href="{{ url('/admin/document') }}" class="uppercase">
+                        View All Pending Request
                     </a> </div> <!-- /.card-footer -->
             </div> <!-- /.card -->
         </div> <!-- /.col -->
-    </div> <!--end::Row-->
-
-    <h5 class="mb-2">News and Announcements</h5>
-    <div class="card card-success">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12 col-lg-6 col-xl-4">
-                    <div class="card mb-2 bg-gradient-dark">
-                        <img class="card-img-top" src="../dist/img/photo1.png" alt="Dist Photo 1">
-                        <div class="card-img-overlay d-flex flex-column justify-content-end">
-                            <h5 class="card-title text-primary text-white">Card Title</h5>
-                            <p class="card-text text-white pb-2 pt-1">Lorem ipsum dolor sit amet, consectetur
-                                adipisicing
-                                elit sed do eiusmod tempor.</p>
-                            <a href="#" class="text-white">Last update 2 mins ago</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-6 col-xl-4">
-                    <div class="card mb-2">
-                        <img class="card-img-top" src="../dist/img/photo2.png" alt="Dist Photo 2">
-                        <div class="card-img-overlay d-flex flex-column justify-content-center">
-                            <h5 class="card-title text-white mt-5 pt-2">Card Title</h5>
-                            <p class="card-text pb-2 pt-1 text-white">
-                                Lorem ipsum dolor sit amet, <br>
-                                consectetur adipisicing elit <br>
-                                sed do eiusmod tempor.
-                            </p>
-                            <a href="#" class="text-white">Last update 15 hours ago</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-6 col-xl-4">
-                    <div class="card mb-2">
-                        <img class="card-img-top" src="../dist/img/photo3.jpg" alt="Dist Photo 3">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title text-primary">Card Title</h5>
-                            <p class="card-text pb-1 pt-1 text-white">
-                                Lorem ipsum dolor <br>
-                                sit amet, consectetur <br>
-                                adipisicing elit sed <br>
-                                do eiusmod tempor. </p>
-                            <a href="#" class="text-primary">Last update 3 days ago</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @stop
 
@@ -560,6 +528,41 @@
                 };
 
                 var chart = new ApexCharts(document.querySelector("#gender-chart"), options);
+                chart.render();
+
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "admin/civil-status",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+
+                var options = {
+                    series: Object.values(response),
+                    chart: {
+                        width: 250,
+                        height: 300,
+                        type: 'pie',
+                    },
+                    labels: Object.keys(response),
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+
+                var chart = new ApexCharts(document.querySelector("#civil-chart"), options);
                 chart.render();
 
             }

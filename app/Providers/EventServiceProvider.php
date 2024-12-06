@@ -50,7 +50,7 @@ class EventServiceProvider extends ServiceProvider
         $event->menu->add('Home');
         $event->menu->add(
             [
-                'text' => 'Dashboard',
+                'text' => 'Home',
                 'icon' => 'fas fa-fw fa-chart-line',
                 'url' => '/user/home',
             ],
@@ -87,7 +87,7 @@ class EventServiceProvider extends ServiceProvider
             [
                 'text' => 'Profile',
                 'icon' => 'fas fa-fw fa-chart-line',
-                'url' => '',
+                'url' => '/user/profile',
             ],
         );
     }
@@ -99,11 +99,6 @@ class EventServiceProvider extends ServiceProvider
                 'text' => 'Home',
                 'topnav' => true,
                 'url' => '/user/home',
-            ],
-            [
-                'type' => 'navbar-search',
-                'text' => 'search',
-                'topnav_right' => true,
             ],
             [
                 'type' => 'fullscreen-widget',
@@ -299,16 +294,6 @@ class EventServiceProvider extends ServiceProvider
                     ],
                 ]
             ],
-            [
-                'text' => 'Workspace',
-                'url' => '/admin/Workspace',
-                'icon' => 'fas fa-fw fa-briefcase',
-            ],
-            [
-                'text' => 'Settings',
-                'icon' => 'fas fa-fw fa-cog',
-                'url' => '/admin/Workspace',
-            ],
         );
     }
 
@@ -319,11 +304,6 @@ class EventServiceProvider extends ServiceProvider
                 'text' => 'Home',
                 'topnav' => true,
                 'url' => '/admin',
-            ],
-            [
-                'type' => 'navbar-search',
-                'text' => 'search',
-                'topnav_right' => true,
             ],
             [
                 'type' => 'fullscreen-widget',
