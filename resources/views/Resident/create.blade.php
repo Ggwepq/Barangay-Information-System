@@ -42,7 +42,7 @@
                                         <div class="form-group">
                                             <center>
                                                 <img class="img-fluid img-thumbnail" id="pic"
-                                                    src="{{ URL::asset('img/steve.jpg') }}" alt="Resident Photo"
+                                                    src="{{ URL::asset('img/uploads/steve.jpg') }}" alt="Resident Photo"
                                                     style="max-width: 200px; background-size: contain;">
                                             </center>
                                             <label for="exampleInputFile" class="form-label">Photo Upload</label>
@@ -78,320 +78,337 @@
                                         </div>
                                     </div>
                                     <div class="col-md-9">
-                                        <div class="card card-secondary ">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Personal Information</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                        <div class="card">
+                                            <div class="card-header d-flex p-2">
+                                                <ul class="nav nav-pills ml-auto">
+                                                    <li class="nav-item "><a class="nav-link nav-navy active"
+                                                            href="#personal" data-toggle="tab">Personal Information</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#address"
+                                                            data-toggle="tab">Address</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#parent"
+                                                            data-toggle="tab">Parent's Information</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#account"
+                                                            data-toggle="tab">Account</a></li>
+                                                </ul>
+                                            </div><!-- /.card-header -->
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <label for="firstName">First Name<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ old('firstName') }}" id="firstName"
-                                                                placeholder="First Name" name="firstName">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="middleName">Middle Name</label>
-                                                            <input type="text" class="form-control" maxlength="20"
-                                                                value="{{ old('middleName') }}" id="middleName"
-                                                                placeholder="Middle Name" name="middleName">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="lastName">Last Name<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('lastName') }}" id="lastName"
-                                                                placeholder="Last Name" name="lastName">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <label for="gender">Gender<span
-                                                                    style="color:red;">*</span></label>
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input"
-                                                                    name="gender" id="male" value="1"
-                                                                    {{ old('gender') == 1 ? 'checked' : '' }}>
-                                                                <label class="form-check-label"
-                                                                    for="male">Male</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input"
-                                                                    name="gender" id="female" value="2"
-                                                                    {{ old('gender') == 2 ? 'checked' : '' }}>
-                                                                <label class="form-check-label"
-                                                                    for="female">Female</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="birthdate">Birthdate<span
-                                                                    style="color:red;">*</span></label>
-                                                            <div class="input-group date" id="birthdate"
-                                                                data-target-input="nearest">
-                                                                <input type="text" name="birthdate"
-                                                                    placeholder="YYYY-MM-DD"
-                                                                    value="{{ old('birthdate') }}"
-                                                                    class="form-control datetimepicker-input"
-                                                                    data-target="#birthdate">
-                                                                <div class="input-group-append" data-target="#birthdate"
-                                                                    data-toggle="datetimepicker">
-                                                                    <div class="input-group-text"><i
-                                                                            class="fa fa-calendar"></i></div>
+                                                <div class="tab-content">
+                                                    <div class="active tab-pane" id="personal">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label for="firstName">First Name<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="70" value="{{ old('firstName') }}"
+                                                                        id="firstName" placeholder="First Name"
+                                                                        name="firstName">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="middleName">Middle Name</label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="20" value="{{ old('middleName') }}"
+                                                                        id="middleName" placeholder="Middle Name"
+                                                                        name="middleName">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="lastName">Last Name<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" value="{{ old('lastName') }}"
+                                                                        id="lastName" placeholder="Last Name"
+                                                                        name="lastName">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="birthPlace">Birthplace<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="100"
-                                                                value="{{ old('birthPlace') }}" id="birthPlace"
-                                                                placeholder="Place of Birth" name="birthPlace">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <label for="gender">Gender<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <div class="form-check">
+                                                                        <input type="radio" class="form-check-input"
+                                                                            name="gender" id="male" value="1"
+                                                                            {{ old('gender') == 1 ? 'checked' : '' }}>
+                                                                        <label class="form-check-label"
+                                                                            for="male">Male</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input type="radio" class="form-check-input"
+                                                                            name="gender" id="female" value="2"
+                                                                            {{ old('gender') == 2 ? 'checked' : '' }}>
+                                                                        <label class="form-check-label"
+                                                                            for="female">Female</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="birthdate">Birthdate<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <div class="input-group date" id="birthdate"
+                                                                        data-target-input="nearest">
+                                                                        <input type="text" name="birthdate"
+                                                                            placeholder="YYYY-MM-DD"
+                                                                            value="{{ old('birthdate') }}"
+                                                                            class="form-control datetimepicker-input"
+                                                                            data-target="#birthdate">
+                                                                        <div class="input-group-append"
+                                                                            data-target="#birthdate"
+                                                                            data-toggle="datetimepicker">
+                                                                            <div class="input-group-text"><i
+                                                                                    class="fa fa-calendar"></i></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="birthPlace">Birthplace<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="100" value="{{ old('birthPlace') }}"
+                                                                        id="birthPlace" placeholder="Place of Birth"
+                                                                        name="birthPlace">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="age">Age</label>
+                                                                    <input type="text" name="age" value="18"
+                                                                        id="age" class="form-control">
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="age">Age</label>
-                                                            <input type="text" value="18" id="age"
-                                                                class="form-control" disabled>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label for="civilStatus">Civil Status<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control" name="civilStatus">
+                                                                        <option value="Single"
+                                                                            {{ old('civilStatus') == 'Single' ? 'selected' : '' }}>
+                                                                            Single</option>
+                                                                        <option value="Married"
+                                                                            {{ old('civilStatus') == 'Married' ? 'selected' : '' }}>
+                                                                            Married</option>
+                                                                        <option value="Widow/er"
+                                                                            {{ old('civilStatus') == 'Widow/er' ? 'selected' : '' }}>
+                                                                            Widow/er</option>
+                                                                        <option value="Legally Separated"
+                                                                            {{ old('civilStatus') == 'Legally Separated' ? 'selected' : '' }}>
+                                                                            Legally Separated</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="occupation">Occupation</label>
+                                                                    <select class="form-control typeable-select2"
+                                                                        name="occupation">
+                                                                        @for ($i = 0; $i <= count($occupations) - 1; $i++)
+                                                                            <option value="{{ $occupations[$i] }}"
+                                                                                {{ old('occupation') == $occupations[$i] ? 'selected' : '' }}>
+                                                                                {{ $occupations[$i] }}</option>
+                                                                        @endfor
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="religion">Religion<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control typeable-select2"
+                                                                        name="religion">
+                                                                        @for ($i = 0; $i <= count($religions) - 1; $i++)
+                                                                            <option value="{{ $religions[$i] }}"
+                                                                                {{ old('religion') == $religions[$i] ? 'selected' : '' }}>
+                                                                                {{ $religions[$i] }}</option>
+                                                                        @endfor
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label for="contactNumber">Contact Number<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" value="{{ old('contactNumber') }}"
+                                                                        id="contactNumber" placeholder="Contact Number"
+                                                                        name="contactNumber">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="voterId">Voter's Id No.</label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" value="{{ old('voterId') }}"
+                                                                        id="voterId" placeholder="Voter's Id No."
+                                                                        name="voterId">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="precintNo">Precint Assignment No.</label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" value="{{ old('precintNo') }}"
+                                                                        id="precintNo"
+                                                                        placeholder="Precint Assignment No."
+                                                                        name="precintNo">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <label for="civilStatus">Civil Status<span
-                                                                    style="color:red;">*</span></label>
-                                                            <select class="form-control" name="civilStatus">
-                                                                <option value="Single"
-                                                                    {{ old('civilStatus') == 'Single' ? 'selected' : '' }}>
-                                                                    Single</option>
-                                                                <option value="Married"
-                                                                    {{ old('civilStatus') == 'Married' ? 'selected' : '' }}>
-                                                                    Married</option>
-                                                                <option value="Widow/er"
-                                                                    {{ old('civilStatus') == 'Widow/er' ? 'selected' : '' }}>
-                                                                    Widow/er</option>
-                                                                <option value="Legally Separated"
-                                                                    {{ old('civilStatus') == 'Legally Separated' ? 'selected' : '' }}>
-                                                                    Legally Separated</option>
-                                                            </select>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="address">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <label for="house_no">House Number<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" value="{{ old('house_no') }}"
+                                                                        id="house_no" placeholder="House Number"
+                                                                        name="house_no">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <label for="street">Street<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="70" value="{{ old('street') }}"
+                                                                        id="street" placeholder="Street"
+                                                                        name="street">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="citizenship">Citizenship<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control" name="citizenship">
+                                                                        <option value="Filipino"
+                                                                            {{ old('citizenship') == 'Filipino' ? 'selected' : '' }}>
+                                                                            Filipino</option>
+                                                                        <option value="Foreign"
+                                                                            {{ old('citizenship') == 'Foreign' ? 'selected' : '' }}>
+                                                                            Foreign</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="occupation">Occupation</label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ old('occupation') }}" id="occupation"
-                                                                placeholder="Occupation" name="occupation">
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="religion">Religion<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('religion') }}" id="religion"
-                                                                placeholder="Religion" name="religion">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="province">Province</label>
+                                                                    <select class="form-control select2" id="province"
+                                                                        name="province">
+                                                                        <option value="">Select a province</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="city">City<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control select2" id="city"
+                                                                        name="city" disabled>
+                                                                        <option value="">Select a city</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="brgy">Brgy.<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control select2" id="brgy"
+                                                                        name="brgy" disabled>
+                                                                        <option value="">Select a barangay</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <label for="contactNumber">Contact Number<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('contactNumber') }}" id="contactNumber"
-                                                                placeholder="Contact Number" name="contactNumber">
+
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="parent">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label for="motherFirstName">Mother First Name<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="70"
+                                                                        value="{{ old('motherFirstName') }}"
+                                                                        id="motherFirstName" placeholder="First Name"
+                                                                        name="motherFirstName">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="motherMiddleName">Mother Middle
+                                                                        Name</label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="20"
+                                                                        value="{{ old('motherMiddleName') }}"
+                                                                        id="motherMiddleName" placeholder="Middle Name"
+                                                                        name="motherMiddleName">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="motherLastName">Mother Last Name<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50"
+                                                                        value="{{ old('motherLastName') }}"
+                                                                        id="motherLastName" placeholder="Last Name"
+                                                                        name="motherLastName">
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="voterId">Voter's Id No.</label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('voterId') }}" id="voterId"
-                                                                placeholder="Voter's Id No." name="voterId">
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="precintNo">Precint Assignment No.</label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('precintNo') }}" id="precintNo"
-                                                                placeholder="Precint Assignment No." name="precintNo">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label for="fatherFirstName">Father First Name<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="70"
+                                                                        value="{{ old('fatherFirstName') }}"
+                                                                        id="fatherFirstName" placeholder="First Name"
+                                                                        name="fatherFirstName">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="fatherMiddleName">Father Middle
+                                                                        Name</label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="20"
+                                                                        value="{{ old('fatherMiddleName') }}"
+                                                                        id="fatherMiddleName" placeholder="Middle Name"
+                                                                        name="fatherMiddleName">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="fatherLastName">Father Last Name<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50"
+                                                                        value="{{ old('fatherLastName') }}"
+                                                                        id="fatherLastName" placeholder="Last Name"
+                                                                        name="fatherLastName">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="account">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label for="email">Email<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="70" value="{{ old('email') }}"
+                                                                        id="email" placeholder="Email"
+                                                                        name="email">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <label for="password">Password<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{ old('password') }}" id="password"
+                                                                        placeholder="Password" name="password">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.tab-pane -->
                                                 </div>
-                                            </div>
+                                                <!-- /.tab-content -->
+                                            </div><!-- /.card-body -->
                                         </div>
-                                        <div class="card card-secondary collapsed-card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Address Information</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <label for="house_no">House Number<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('house_no') }}" id="house_no"
-                                                                placeholder="House Number" name="house_no">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <label for="street">Street<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ old('street') }}" id="street"
-                                                                placeholder="Street" name="street">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="citizenship">Citizenship<span
-                                                                    style="color:red;">*</span></label>
-                                                            <select class="form-control" name="citizenship">
-                                                                <option value="Filipino"
-                                                                    {{ old('citizenship') == 'Filipino' ? 'selected' : '' }}>
-                                                                    Filipino</option>
-                                                                <option value="Foreign"
-                                                                    {{ old('citizenship') == 'Foreign' ? 'selected' : '' }}>
-                                                                    Foreign</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-5">
-                                                            <label for="province">Province</label>
-                                                            <select class="form-control select2" id="province"
-                                                                name="province">
-                                                                <option value="">Select a province</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="city">City<span
-                                                                    style="color:red;">*</span></label>
-                                                            <select class="form-control select2" id="city"
-                                                                name="city" disabled>
-                                                                <option value="">Select a city</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="brgy">Brgy.<span
-                                                                    style="color:red;">*</span></label>
-                                                            <select class="form-control select2" id="brgy"
-                                                                name="brgy" disabled>
-                                                                <option value="">Select a barangay</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-secondary collapsed-card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Parent's Information</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <label for="motherFirstName">Mother First Name<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ old('motherFirstName') }}" id="motherFirstName"
-                                                                placeholder="First Name" name="motherFirstName">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="motherMiddleName">Mother Middle Name</label>
-                                                            <input type="text" class="form-control" maxlength="20"
-                                                                value="{{ old('motherMiddleName') }}"
-                                                                id="motherMiddleName" placeholder="Middle Name"
-                                                                name="motherMiddleName">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="motherLastName">Mother Last Name<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('motherLastName') }}" id="motherLastName"
-                                                                placeholder="Last Name" name="motherLastName">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <label for="fatherFirstName">Father First Name<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ old('fatherFirstName') }}" id="fatherFirstName"
-                                                                placeholder="First Name" name="fatherFirstName">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="fatherMiddleName">Father Middle Name</label>
-                                                            <input type="text" class="form-control" maxlength="20"
-                                                                value="{{ old('fatherMiddleName') }}"
-                                                                id="fatherMiddleName" placeholder="Middle Name"
-                                                                name="fatherMiddleName">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="fatherLastName">Father Last Name<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ old('fatherLastName') }}" id="fatherLastName"
-                                                                placeholder="Last Name" name="fatherLastName">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-secondary collapsed-card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Account Details</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <label for="email">Email<span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ old('email') }}" id="email"
-                                                                placeholder="Email" name="email">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <label for="password">Password<span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ old('password') }}" id="password"
-                                                                placeholder="Password" name="password">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <a href="/admin/Resident" class="btn btn-secondary mr-2">Go Back</a>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
+                                        <!-- /.card -->
                                     </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="d-flex justify-content-end">
+                                    <a href="/admin/Resident" class="btn btn-secondary mr-2">Go Back</a>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -409,6 +426,14 @@
             $('.select2').select2({
                 theme: 'bootstrap4'
             })
+
+            $('.typeable-select2').select2({
+                theme: 'bootstrap4',
+                tags: true,
+                placeholder: 'Select or type option',
+                allowClear: true,
+            })
+
             //Initialize Date Range Picker
             $('#date, #birthdate').datetimepicker({
                 format: 'YYYY-MM-DD',

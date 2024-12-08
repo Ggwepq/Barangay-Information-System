@@ -27,6 +27,7 @@ return new class() extends Migration {
             $table->boolean('gender');
             $table->date('birthdate');
             $table->string('birthPlace');
+            $table->integer('age');
             $table->string('civilStatus');
             $table->string('contactNumber')->nullable();
             $table->string('image')->nullable();

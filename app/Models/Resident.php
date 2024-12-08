@@ -27,6 +27,7 @@ class Resident extends Model
         'gender',
         'birthdate',
         'birthPlace',
+        'age',
         'civilStatus',
         'periodResidence',
         'image',
@@ -52,6 +53,11 @@ class Resident extends Model
     public function Voter()
     {
         return $this->hasMany(Voter::class, 'residentId');
+    }
+
+    public function User()
+    {
+        return $this->hasOne(User::class, 'residentId');
     }
 
     public function documentRequests()

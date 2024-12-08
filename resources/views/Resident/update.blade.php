@@ -105,330 +105,352 @@
                                         @foreach ($post->Voter as $voter)
                                             <input type="hidden" value="{{ $voter->id }}" name="vId">
                                         @endforeach
-                                        <div class="card card-secondary">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Personal Information</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                        <div class="card">
+                                            <div class="card-header d-flex p-2">
+                                                <ul class="nav nav-pills ml-auto">
+                                                    <li class="nav-item "><a class="nav-link nav-navy active"
+                                                            href="#personal" data-toggle="tab">Personal Information</a>
+                                                    </li>
+                                                    <li class="nav-item"><a class="nav-link" href="#address"
+                                                            data-toggle="tab">Address</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#parent"
+                                                            data-toggle="tab">Parent's Information</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#account"
+                                                            data-toggle="tab">Account</a></li>
+                                                </ul>
+                                            </div><!-- /.card-header -->
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label>First Name<span style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ $post->firstName }}" id="firstName"
-                                                                placeholder="First Name" name="firstName">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label>Middle Name</label>
-                                                            <input type="text" class="form-control" maxlength="20"
-                                                                value="{{ $post->middleName }}" id="middleName"
-                                                                placeholder="Middle Name" name="middleName">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label>Last Name<span style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ $post->lastName }}" id="lastName"
-                                                                placeholder="Last Name" name="lastName">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <label for="gender">Gender<span
-                                                                    style="color:red;">*</span></label>
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input"
-                                                                    name="gender" id="male" value="1"
-                                                                    @if ($post->gender == 1) checked @endif>
-                                                                <label class="form-check-label"
-                                                                    for="male">Male</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input"
-                                                                    name="gender" id="female" value="2"
-                                                                    @if ($post->gender == 2) checked @endif>
-                                                                <label class="form-check-label"
-                                                                    for="female">Female</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="birthdate">Birthdate<span
-                                                                    style="color:red;">*</span></label>
-                                                            <div class="input-group date" id="birthdate"
-                                                                data-target-input="nearest">
-                                                                <input type="text" name="birthdate"
-                                                                    placeholder="YYYY-MM-DD"
-                                                                    value="{{ $post->birthdate }}"
-                                                                    class="form-control datetimepicker-input"
-                                                                    data-target="#birthdate">
-                                                                <div class="input-group-append" data-target="#birthdate"
-                                                                    data-toggle="datetimepicker">
-                                                                    <div class="input-group-text"><i
-                                                                            class="fa fa-calendar"></i></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label>Birthplace<span style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="100"
-                                                                name="birthPlace" value="{{ $post->birthPlace }}"
-                                                                id="birthPlace" placeholder="Place of Birth">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label>Age</label>
-                                                            <input type="text" value="18" id="age"
-                                                                class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Civil Status<span style="color:red;">*</span></label>
-                                                            <select class="form-control select2" name="civilStatus">
-                                                                <option value="0" disabled>Please select your civil
-                                                                    status</option>
-                                                                <option value="Single"
-                                                                    @if ($post->civilStatus == 'Single') selected ="selected" @endif>
-                                                                    Single
-                                                                </option>
-                                                                <option value="Married"
-                                                                    @if ($post->civilStatus == 'Married') selected ="selected" @endif>
-                                                                    Married
-                                                                </option>
-                                                                <option value="Widow/er"
-                                                                    @if ($post->civilStatus == 'Widow/er') selected ="selected" @endif>
-                                                                    Widow/er
-                                                                </option>
-                                                                <option value="Legally Separated"
-                                                                    @if ($post->civilStatus == 'Legally Separated') selected ="selected" @endif>
-                                                                    Legally
-                                                                    Separated</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Profession/Occupation</label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                name="occupation" value="{{ $post->occupation }}"
-                                                                id="occupation" placeholder="Profession/Occupation">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Religion<span style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ $post->religion }}" id="religion"
-                                                                placeholder="Religion" name="religion">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Contact Number<span style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                name="contactNumber" value="{{ $post->contactNumber }}"
-                                                                id="contactNumber" placeholder="Contact Number">
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                            <label>Voter's Id No.</label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                name="voterId"
-                                                                @foreach ($post->Voter as $voter) value='{{ $voter->voterId }}' @endforeach
-                                                                id="voterId" placeholder="Voter's Id No.">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Precint Assignment No.</label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                name="precintNo"
-                                                                @foreach ($post->Voter as $voter) value="{{ $voter->precintNo }}" @endforeach
-                                                                id="precint" placeholder="Precint Assignment No.">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-secondary collapsed-card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Residence Information</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <label for="house_no">House Number<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="50"
-                                                                value="{{ $post->house_no }}" id="house_no"
-                                                                placeholder="House Number" name="house_no">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <label for="street">Street<span
-                                                                    style="color:red;">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ $post->street }}" id="street"
-                                                                placeholder="Street" name="street">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label>Citizenship<span style="color:red;">*</span></label>
-                                                            <select class="form-control select2" name="citizenship">
-                                                                <option value="0" disabled>Please select your
-                                                                    citizenship</option>
-                                                                <option value="Filipino"
-                                                                    @if ($post->citizenship == 'Filipino') selected ="selected" @endif>
-                                                                    Filipino
-                                                                </option>
-                                                                <option value="Foreign"
-                                                                    @if ($post->citizenship == 'Foreign') selected ="selected" @endif>
-                                                                    Foreign
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-5">
-                                                            <label for="province">Province</label>
-                                                            <select class="form-control select2" id="province"
-                                                                name="province">
-                                                                <option value="{{ $post->province }}">
-                                                                    {{ $post->province }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="city">City<span
-                                                                    style="color:red;">*</span></label>
-                                                            <select class="form-control select2" id="city"
-                                                                name="city">
-                                                                <option value="{{ $post->city }}">{{ $post->city }}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label for="brgy">Brgy.<span
-                                                                    style="color:red;">*</span></label>
-                                                            <select class="form-control select2" id="brgy"
-                                                                name="brgy">
-                                                                <option value="{{ $post->brgy }}">{{ $post->brgy }}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-secondary collapsed-card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Parent's Information</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                @foreach ($post->Parents as $parent)
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>First Name<span style="color:red;">*</span></label>
-                                                                <input type="text" class="form-control" maxlength="70"
-                                                                    name="motherFirstName"
-                                                                    value="{{ $parent->motherfirstName }}"
-                                                                    id="motherFirstName" placeholder="First Name">
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label>Middle Name</label>
-                                                                <input type="text" class="form-control" maxlength="20"
-                                                                    name="motherMiddleName"
-                                                                    value="{{ $parent->mothermiddleName }}"
-                                                                    id="motherMiddleName" placeholder="Middle Name">
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label>Last Name<span style="color:red;">*</span></label>
-                                                                <input type="text" class="form-control" maxlength="50"
-                                                                    name="motherLastName"
-                                                                    value="{{ $parent->motherlastName }}"
-                                                                    id="motherLastName" placeholder="Last Name">
-                                                            </div>
-                                                        </div>
+                                                <div class="tab-content">
+                                                    <div class="active tab-pane" id="personal">
                                                         <div class="form-group">
                                                             <div class="row">
-
                                                                 <div class="col-md-6">
                                                                     <label>First Name<span
                                                                             style="color:red;">*</span></label>
                                                                     <input type="text" class="form-control"
-                                                                        maxlength="70" name="fatherFirstName"
-                                                                        value="{{ $parent->fatherfirstName }}"
-                                                                        id="fatherFirstName" placeholder="First Name">
+                                                                        maxlength="70" value="{{ $post->firstName }}"
+                                                                        id="firstName" placeholder="First Name"
+                                                                        name="firstName">
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label>Middle Name</label>
                                                                     <input type="text" class="form-control"
-                                                                        maxlength="20" name="fatherMiddleName"
-                                                                        value="{{ $parent->fathermiddleName }}"
-                                                                        id="fatherMiddleName" placeholder="Middle Name">
+                                                                        maxlength="20" value="{{ $post->middleName }}"
+                                                                        id="middleName" placeholder="Middle Name"
+                                                                        name="middleName">
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label>Last Name<span
                                                                             style="color:red;">*</span></label>
                                                                     <input type="text" class="form-control"
-                                                                        maxlength="50" name="fatherLastName"
-                                                                        value="{{ $parent->fatherlastName }}"
-                                                                        id="fatherLastName" placeholder="Last Name">
+                                                                        maxlength="50" value="{{ $post->lastName }}"
+                                                                        id="lastName" placeholder="Last Name"
+                                                                        name="lastName">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <label for="gender">Gender<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <div class="form-check">
+                                                                        <input type="radio" class="form-check-input"
+                                                                            name="gender" id="male" value="1"
+                                                                            @if ($post->gender == 1) checked @endif>
+                                                                        <label class="form-check-label"
+                                                                            for="male">Male</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input type="radio" class="form-check-input"
+                                                                            name="gender" id="female" value="2"
+                                                                            @if ($post->gender == 2) checked @endif>
+                                                                        <label class="form-check-label"
+                                                                            for="female">Female</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="birthdate">Birthdate<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <div class="input-group date" id="birthdate"
+                                                                        data-target-input="nearest">
+                                                                        <input type="text" name="birthdate"
+                                                                            placeholder="YYYY-MM-DD"
+                                                                            value="{{ $post->birthdate }}"
+                                                                            class="form-control datetimepicker-input"
+                                                                            data-target="#birthdate">
+                                                                        <div class="input-group-append"
+                                                                            data-target="#birthdate"
+                                                                            data-toggle="datetimepicker">
+                                                                            <div class="input-group-text"><i
+                                                                                    class="fa fa-calendar"></i></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <label>Birthplace<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="100" name="birthPlace"
+                                                                        value="{{ $post->birthPlace }}" id="birthPlace"
+                                                                        placeholder="Place of Birth">
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <label>Age</label>
+                                                                    <input type="text" name="age" value="18"
+                                                                        id="age" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>Civil Status<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control select2"
+                                                                        name="civilStatus">
+                                                                        <option value="0" disabled>Please select your
+                                                                            civil
+                                                                            status</option>
+                                                                        <option value="Single"
+                                                                            @if ($post->civilStatus == 'Single') selected ="selected" @endif>
+                                                                            Single
+                                                                        </option>
+                                                                        <option value="Married"
+                                                                            @if ($post->civilStatus == 'Married') selected ="selected" @endif>
+                                                                            Married
+                                                                        </option>
+                                                                        <option value="Widow/er"
+                                                                            @if ($post->civilStatus == 'Widow/er') selected ="selected" @endif>
+                                                                            Widow/er
+                                                                        </option>
+                                                                        <option value="Legally Separated"
+                                                                            @if ($post->civilStatus == 'Legally Separated') selected ="selected" @endif>
+                                                                            Legally
+                                                                            Separated</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label>Profession/Occupation</label>
+                                                                    <select class="form-control typeable-select2"
+                                                                        name="occupation" id="occupation">
+                                                                        <option value="{{ $post->occupation }}" selected>
+                                                                            {{ $post->occupation }}</option>
+
+                                                                        @foreach ($occupations as $occupation)
+                                                                            <option value="{{ $occupation }}">
+                                                                                {{ $occupation }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label>Religion<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control typeable-select2"
+                                                                        name="religion" id="religion">
+                                                                        <option value="{{ $post->religion }}" selected>
+                                                                            {{ $post->religion }}</option>
+
+                                                                        @foreach ($religions as $religion)
+                                                                            <option value="{{ $religion }}">
+                                                                                {{ $religion }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>Contact Number<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" name="contactNumber"
+                                                                        value="{{ $post->contactNumber }}"
+                                                                        id="contactNumber" placeholder="Contact Number">
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <label>Voter's Id No.</label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" name="voterId"
+                                                                        @foreach ($post->Voter as $voter) value='{{ $voter->voterId }}' @endforeach
+                                                                        id="voterId" placeholder="Voter's Id No.">
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label>Precint Assignment No.</label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="50" name="precintNo"
+                                                                        @foreach ($post->Voter as $voter) value="{{ $voter->precintNo }}" @endforeach
+                                                                        id="precint"
+                                                                        placeholder="Precint Assignment No.">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="card card-secondary collapsed-card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Account Details</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <label for="email">Email<span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" class="form-control" maxlength="70"
-                                                                value="{{ $user->email }}" id="email"
-                                                                placeholder="Email" name="email">
+                                                    <div class="tab-pane" id="address">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <label for="house_no">House Number<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="number" class="form-control"
+                                                                        maxlength="50" value="{{ $post->house_no }}"
+                                                                        id="house_no" placeholder="House Number"
+                                                                        name="house_no">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <label for="street">Street<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="70" value="{{ $post->street }}"
+                                                                        id="street" placeholder="Street"
+                                                                        name="street">
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <label>Citizenship<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control select2"
+                                                                        name="citizenship">
+                                                                        <option value="0" disabled>Please select your
+                                                                            citizenship</option>
+                                                                        <option value="Filipino"
+                                                                            @if ($post->citizenship == 'Filipino') selected ="selected" @endif>
+                                                                            Filipino
+                                                                        </option>
+                                                                        <option value="Foreign"
+                                                                            @if ($post->citizenship == 'Foreign') selected ="selected" @endif>
+                                                                            Foreign
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-6">
-                                                            <label for="password">Password<span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ old('password') }}" id="password"
-                                                                placeholder="Password" name="password">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="province">Province</label>
+                                                                    <select class="form-control select2" id="province"
+                                                                        name="province">
+                                                                        <option value="{{ $post->province }}">
+                                                                            {{ $post->province }}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <label for="city">City<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control select2" id="city"
+                                                                        name="city">
+                                                                        <option value="{{ $post->city }}">
+                                                                            {{ $post->city }}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="brgy">Brgy.<span
+                                                                            style="color:red;">*</span></label>
+                                                                    <select class="form-control select2" id="brgy"
+                                                                        name="brgy">
+                                                                        <option value="{{ $post->brgy }}">
+                                                                            {{ $post->brgy }}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="parent">
+                                                        @foreach ($post->Parents as $parent)
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <label>First Name<span
+                                                                                style="color:red;">*</span></label>
+                                                                        <input type="text" class="form-control"
+                                                                            maxlength="70" name="motherFirstName"
+                                                                            value="{{ $parent->motherfirstName }}"
+                                                                            id="motherFirstName" placeholder="First Name">
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <label>Middle Name</label>
+                                                                        <input type="text" class="form-control"
+                                                                            maxlength="20" name="motherMiddleName"
+                                                                            value="{{ $parent->mothermiddleName }}"
+                                                                            id="motherMiddleName"
+                                                                            placeholder="Middle Name">
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <label>Last Name<span
+                                                                                style="color:red;">*</span></label>
+                                                                        <input type="text" class="form-control"
+                                                                            maxlength="50" name="motherLastName"
+                                                                            value="{{ $parent->motherlastName }}"
+                                                                            id="motherLastName" placeholder="Last Name">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-6">
+                                                                            <label>First Name<span
+                                                                                    style="color:red;">*</span></label>
+                                                                            <input type="text" class="form-control"
+                                                                                maxlength="70" name="fatherFirstName"
+                                                                                value="{{ $parent->fatherfirstName }}"
+                                                                                id="fatherFirstName"
+                                                                                placeholder="First Name">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label>Middle Name</label>
+                                                                            <input type="text" class="form-control"
+                                                                                maxlength="20" name="fatherMiddleName"
+                                                                                value="{{ $parent->fathermiddleName }}"
+                                                                                id="fatherMiddleName"
+                                                                                placeholder="Middle Name">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label>Last Name<span
+                                                                                    style="color:red;">*</span></label>
+                                                                            <input type="text" class="form-control"
+                                                                                maxlength="50" name="fatherLastName"
+                                                                                value="{{ $parent->fatherlastName }}"
+                                                                                id="fatherLastName"
+                                                                                placeholder="Last Name">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="account">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label for="email">Email<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        maxlength="70" value="{{ $user->email }}"
+                                                                        id="email" placeholder="Email"
+                                                                        name="email">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <label for="password">Password<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{ old('password') }}" id="password"
+                                                                        placeholder="Password" name="password">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.tab-pane -->
                                                 </div>
-                                            </div>
+                                                <!-- /.tab-content -->
+                                            </div><!-- /.card-body -->
                                         </div>
+                                        <!-- /.card -->
                                         <div class="form-group float-right">
                                             <a class="btn btn-secondary" href="{{ url()->previous() }}">Go Back</a>
                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -449,6 +471,13 @@
         $(document).ready(function() {
             $('.select2').select2({
                 theme: 'bootstrap4'
+            })
+
+            $('.typeable-select2').select2({
+                theme: 'bootstrap4',
+                tags: true,
+                placeholder: 'Select or type option',
+                allowClear: true,
             })
 
             $('#date, #birthdate').datetimepicker({
@@ -542,9 +571,15 @@
                 url: '/admin/get-provinces',
                 method: 'GET',
                 success: function(data) {
+                    var currentProvince = "{{ $post->province }}";
                     data.forEach(province => {
-                        provinceDropdown.append(
-                            `<option value="${province}">${province}</option>`);
+                        if (currentProvince == province) {
+                            provinceDropdown.append(
+                                `<option value="${province}" selected>${province}</option>`);
+                        } else {
+                            provinceDropdown.append(
+                                `<option value="${province}">${province}</option>`);
+                        }
                     });
                 }
             });
@@ -563,9 +598,16 @@
                             province: selectedProvince
                         },
                         success: function(data) {
+                            var currentCity = "{{ $post->city }}";
                             data.forEach(city => {
-                                cityDropdown.append(
-                                    `<option value="${city}">${city}</option>`);
+                                if (currentCity == province) {
+                                    cityDropdown.append(
+                                        `<option value="${city}" selected>${city}</option>`
+                                    );
+                                } else {
+                                    cityDropdown.append(
+                                        `<option value="${city}">${city}</option>`);
+                                }
                             });
                             cityDropdown.prop('disabled', false);
                         }
@@ -579,8 +621,6 @@
                 const selectedCity = $(this).val();
                 resetDropdown(barangayDropdown, "Select a barangay");
 
-                console.log(selectedProvince)
-
                 if (selectedCity) {
                     $.ajax({
                         url: '/admin/get-barangays',
@@ -590,11 +630,17 @@
                             city: selectedCity
                         },
                         success: function(data) {
+                            var currentBrgy = "{{ $post->brgy }}";
                             data.forEach(barangay => {
-                                console.log(barangay)
-                                barangayDropdown.append(
-                                    `<option value="${barangay}">${barangay}</option>`
-                                );
+                                if (currentBrgy == barangay) {
+                                    barangayDropdown.append(
+                                        `<option value="${barangay}" selected>${barangay}</option>`
+                                    );
+                                } else {
+                                    barangayDropdown.append(
+                                        `<option value="${barangay}">${barangay}</option>`
+                                    );
+                                }
                             });
                             barangayDropdown.prop('disabled', false);
                         }

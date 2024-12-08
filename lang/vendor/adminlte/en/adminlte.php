@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'full_name' => 'Full name',
     'email' => 'Email',
     'password' => 'Password',
@@ -14,7 +13,7 @@ return [
     'sign_in' => 'Sign In',
     'log_out' => 'Log Out',
     'toggle_navigation' => 'Toggle navigation',
-    'login_message' => 'Sign in to start your session',
+    'login_message' => 'Sign in to access the system',
     'register_message' => 'Register a new membership',
     'password_reset_message' => 'Reset Password',
     'reset_password' => 'Reset Password',

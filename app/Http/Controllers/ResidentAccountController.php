@@ -25,6 +25,8 @@ class ResidentAccountController extends Controller
         return view('Resident.Account.create', compact('residents'));
     }
 
+    protected function stored() {}
+
     // Store a new resident user
     public function store(Request $request)
     {
