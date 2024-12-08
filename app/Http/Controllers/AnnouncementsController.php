@@ -12,6 +12,8 @@ class AnnouncementsController extends Controller
     public function index()
     {
         $announcements = Announcement::where('is_active', 1)->get();
+
+        // dd($announcements->first());
         return view('Announcement.index', compact('announcements'));
     }
 
@@ -31,7 +33,7 @@ class AnnouncementsController extends Controller
             $announcement = Announcement::create([
                 'title' => $request->title,
                 'content' => $request->content,
-                'created_by' => auth()->user()->residentId,
+                'created_by' => auth()->user()->officerId,
             ]);
 
             return redirect('/admin/announcement')->withSuccess('Announcement Created Successfully!');
@@ -45,6 +47,7 @@ class AnnouncementsController extends Controller
     public function list()
     {
         $announcements = Announcement::where('is_active', true)->get();
+        // dd($announcements->first()->users->officer->position->position_name);
         return view('User.Announcement.index', compact('announcements'));
     }
 
@@ -52,15 +55,18 @@ class AnnouncementsController extends Controller
     {
         // Notify users via SMS
         $announce = Announcement::findOrFail($id);
-        $sms = new SMSController();
+        // $sms = new SMSController();
+        //
+        // $number = '09916759759';
+        // $announcement = [
+        //     'title' => $announce->title,
+        //     'content' => $announce->content,
+        // ];
+        //
+        // $sms->notifyAnnouncement($number, $announcement);
 
-        $number = '09916759759';
-        $announcement = [
-            'title' => $announce->title,
-            'content' => $announce->content,
-        ];
-
-        $sms->notifyAnnouncement($number, $announcement);
+        $email = 'abaloyan_johncedric@spcc.edu.ph';
+        (new EmailController)->sendAnnouncementMail($email, $announce->title, $announce->content);
 
         return redirect()->back()->withSuccess('Successfully Announced.');
     }

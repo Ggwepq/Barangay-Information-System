@@ -45,7 +45,7 @@ class DocumentRequestController extends Controller
 
         try {
             $documentRequest = DocumentRequest::findOrFail($id);
-            $resident = $documentRequest->resident;
+            $residentEmail = $documentRequest->resident->user->email;
 
             $documentRequest->status = $validated['status'];
 
@@ -56,7 +56,12 @@ class DocumentRequestController extends Controller
 
             $documentRequest->save();
 
-            $sms->documentActioned($resident->contactNumber, $documentRequest->document_type, $documentRequest->status);
+            // $sms->documentActioned($resident->contactNumber, $documentRequest->document_type, $documentRequest->status);
+            (new EmailController)->sendDocumentMail(
+                $residentEmail,
+                $documentRequest->document_type,
+                $documentRequest->status,
+            );
             return redirect()->back()->with('success', 'Document request updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update document request. Please try again.');

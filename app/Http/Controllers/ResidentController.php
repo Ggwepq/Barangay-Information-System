@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use PharIo\Manifest\Email;
 
 class ResidentController extends Controller
 {
@@ -25,7 +25,7 @@ class ResidentController extends Controller
         'firstName' => ['required', 'max:70', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
         'middleName' => ['nullable', 'max:20', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
         'lastName' => ['required', 'max:50', 'regex:/^[^~`!@#*_={}|\;<>,?()$%&^]+$/'],
-        'house_no' => 'required',
+        'house_no' => 'required|integer',
         'street' => 'required|max:70',
         'brgy' => 'required|max:50',
         'city' => 'required|max:50',
@@ -35,10 +35,11 @@ class ResidentController extends Controller
         'religion' => 'required|max:50',
         'birthdate' => 'required',
         'birthPlace' => 'required|max:100',
+        'age' => 'required|integer',
         'civilStatus' => 'required',
         'occupation' => 'nullable|max:50',
         'image' => 'image|mimes:jpeg,png,jpg,svg',
-        'contactNumber' => ['nullable', 'regex:/^[^_]+$/'],
+        'contactNumber' => ['required', 'regex:/^[^_]+$/'],
         'created_at' => 'required',
         'motherFirstName' => 'nullable|max:70',
         'motherMiddleName' => 'nullable|max:20',
@@ -71,6 +72,7 @@ class ResidentController extends Controller
         'religion' => 'Religion',
         'birthdate' => 'Birthdate',
         'birthPlace' => 'Birthplace',
+        'age' => 'Age',
         'civilStatus' => 'Civil Status',
         'occupation' => 'Occupation',
         'image' => 'Image',
@@ -98,7 +100,9 @@ class ResidentController extends Controller
 
     public function create()
     {
-        return view('Resident.create');
+        $religions = Resident::distinct()->pluck('religion');
+        $occupations = Resident::distinct()->pluck('occupation');
+        return view('Resident.create', compact('religions', 'occupations'));
     }
 
     public function soft()
@@ -116,12 +120,17 @@ class ResidentController extends Controller
         DB::beginTransaction();
         try {
             $pic = $this->saveImage($request);
+
             $resident = Resident::create(array_merge($request->all(), ['image' => $pic]));
             ResidentParent::create(array_merge($request->only(['motherFirstName', 'motherMiddleName', 'motherLastName', 'fatherFirstName', 'fatherMiddleName', 'fatherLastName']), ['residentId' => $resident->id]));
             User::create(array_merge($request->only(['email', 'password']), ['residentId' => $resident->id, 'password' => bcrypt($request->password), 'userRole' => 3]));
+
             if ($request->filled('voterId'))
                 Voter::create(array_merge($request->only(['voterId', 'precintNo']), ['residentId' => $resident->id]));
-            (new SMSController)->accountCreated($resident->contactNumber, ['residentName' => $resident->firstName, 'email' => $resident->email, 'password' => $request->password]);
+
+            // (new SMSController)->accountCreated($resident->contactNumber, ['residentName' => $resident->firstName, 'email' => $resident->email, 'password' => $request->password]);
+            $fullName = $resident->firsName . ' ' . $resident->lastName;
+            (new EmailController)->sendAccountCreatedMail($request->email, $fullName, $request->email, $request->password);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -133,13 +142,17 @@ class ResidentController extends Controller
     public function edit($id)
     {
         $post = Resident::find($id);
-        $user = User::where('officerId', $id)->first();  // Simplified user retrieval
+        $occupations = Resident::whereNotNull('occupation')->where('occupation', '!=', $post->occupation)->distinct()->pluck('occupation');
+        $religions = Resident::whereNotNull('religion')->where('religion', '!=', $post->religion)->distinct()->pluck('religion');
+        $user = User::where('officerId', $id)->first();
         $user = $user ? $user : User::where('residentId', $id)->first();
-        return view('Resident.update', compact('post', 'user'));
+        return view('Resident.update', compact('post', 'user', 'occupations', 'religions'));
     }
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
+
         $this->rules['password'] = 'nullable';  // Allow password update or skip
         $validator = Validator::make($request->all(), $this->rules, $this->messages);
         $validator->setAttributeNames($this->niceNames);
@@ -151,10 +164,15 @@ class ResidentController extends Controller
         try {
             $pic = $this->saveImage($request, $id);
             $res = Resident::find($id);
+
             $resident = $res->update(array_merge($request->except('password'), ['image' => $pic]));  // Remove password from update
             $this->updateRelatedRecords($request, $id);
             $account = array_merge(['residentName' => $request->firstName, 'email' => $request->email], ($request->filled('password')) ? ['password' => $request->password] : []);
-            (new SMSController)->accountUpdated($res->contactNumber, $account);
+
+            // (new SMSController)->accountUpdated($res->contactNumber, $account);
+
+            (new EmailController)->sendAccountUpdatedMail($account['email'], $account['residentEmail'], $account['email'], $account['password']);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

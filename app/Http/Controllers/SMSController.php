@@ -19,7 +19,10 @@ class SMSController extends Controller
         $email = $account['email'];
         $password = $account['password'];
 
-        $message = "Hi $name, Your account for the Barangay Information System has been created successfully. Here is your login details: Email: $email, Password:$password";
+        $message = " Hello👋$name,\n\nYour account for the Barangay Information System has been created.\n\nLogin Details:\nEmail: $email\nPassword: $password";
+
+        // dd(mb_substr($message, 0, 160), strlen($message));
+
         $this->send($number, $message);
     }
 
@@ -27,23 +30,29 @@ class SMSController extends Controller
     {
         $name = $account['residentName'];
         $email = $account['email'];
-        $password = count($account) != 3 ? 'Still the old one' : $account['password'];
+        $password = count($account) != 3 ? 'UNCHANGED' : $account['password'];
 
-        $message = "Hi $name, Your account for the Barangay Information System has been updated successfully. Here is your new login details: Email: $email,Password:$password";
+        $message = "Hello👋 $name,\n\nYour account has been updated successfully.\n\nLogin Details:\nEmail: $email\nPassword: $password";
+
+        // dd(mb_substr($message, 0, 160), strlen($message));
+
         $this->send($number, $message);
     }
 
     public function notifyAnnouncement($number, $announcement)
     {
-        $title = $announcement['title'];
-        $content = $announcement['content'];
-        $message = "ANNOUNCEMENT!! $title: $content. Stay updated via the Barangay Information System.";
+        $title = strip_tags($announcement['title']);
+
+        $message = "📢 ANNOUNCEMENT 📢\n\n$title\n\nCheck your account to see the full announcement.\nStay updated via the Barangay Information System!";
+
+        // dd(mb_substr($message, 0, 160), strlen($message));
+
         $this->send($number, $message);
     }
 
     public function documentActioned($number, $docType, $action)
     {
-        $message = "Your $docType has been $action by the Barangay office. Please check the system for updates.";
+        $message = "📄 Document Update:\n\nYour request for '$docType' has been $action by the Barangay Office.\n\nPlease check the system for more details.";
         $this->send($number, $message);
     }
 
@@ -62,7 +71,6 @@ class SMSController extends Controller
             destinations: [
                 new SmsDestination(to: $number)
             ],
-            from: 'Barangay',
             text: $text
         );
 
