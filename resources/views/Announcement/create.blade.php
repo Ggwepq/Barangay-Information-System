@@ -40,7 +40,7 @@
                         <div class="form-group row">
                             <label for="description" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="description" name="content" placeholder="Type the announcement description...">{{ old('description') }}</textarea>
+                                <textarea class="form-control" id="description" name="content">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -63,6 +63,39 @@
                 allowClear: true,
                 theme: 'bootstrap4',
             });
+
+            $('#description').summernote({
+                height: 600,
+            });
+
+            // Adjust dropdowns to use Bootstrap 5 attributes
+            setTimeout(function() {
+                var elements = document.querySelectorAll('[data-toggle="dropdown"]');
+                elements.forEach(function(element) {
+                    element.setAttribute('data-bs-toggle', 'dropdown');
+                    element.setAttribute('data-bs-auto-close', 'outside');
+                    element.removeAttribute('data-toggle');
+
+                    // Handle dropdown toggle
+                    $(element.nextElementSibling).on('click', function(e) {
+                        element.click();
+                    });
+                });
+
+                // Add event listener to close dropdowns when clicking outside
+                document.addEventListener('click', function(event) {
+                    elements.forEach(function(element) {
+                        var dropdownMenu = element.nextElementSibling;
+                        if (
+                            !dropdownMenu.contains(event.target) &&
+                            !element.contains(event.target)
+                        ) {
+                            // Close the dropdown
+                            $(element).dropdown('hide');
+                        }
+                    });
+                });
+            }, 1000);
         });
     </script>
 @endsection

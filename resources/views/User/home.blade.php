@@ -72,7 +72,13 @@
                                         <div class="callout callout-info">
                                             <h5>{{ $announce->title }}</h5>
 
-                                            <p class="text-truncate">{{ $announce->content }}</p>
+                                            <div class="announcement-content" id="announce-{{ $announce->id }}">
+                                                {!! $announce->content !!}
+                                            </div>
+                                            <button class="btn btn-link toggle-content"
+                                                data-target="#announce-{{ $announce->id }}">
+                                                Read More
+                                            </button>
                                         </div>
                                     @endforeach
                                 @endif
@@ -90,4 +96,37 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+@endsection
+
+@section('css')
+    <style>
+        .announcement-content {
+            max-height: 1px;
+            /* Limit the visible height */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .announcement-content.expanded {
+            max-height: none;
+            /* Remove height limit when expanded */
+        }
+    </style>
+@endsection
+
+@section('js')
+
+    <script>
+        $(document).on('click', '.toggle-content', function() {
+            const target = $(this).data('target');
+            const content = $(target);
+            content.toggleClass('expanded');
+
+            if (content.hasClass('expanded')) {
+                $(this).text('Read Less');
+            } else {
+                $(this).text('Read More');
+            }
+        });
+    </script>
 @endsection

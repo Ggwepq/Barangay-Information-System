@@ -53,32 +53,14 @@
 @stop
 
 @section('adminlte_js')
-    @stack('js')
-    @yield('js')
     <script>
         $(document).ready(function() {
             $('#datatable').DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                layout: {
-                    topStart: {
-                        pageLength: {
-                            menu: [1, 10, 25, 50, 100]
-                        }
-                    },
-                    topEnd: {
-                        search: {
-                            placeholder: 'Type search here'
-                        }
-                    },
-                    bottomEnd: {
-                        paging: {
-                            buttons: 3
-                        }
-                    }
-                }
+                select: true
             });
         });
     </script>
+
+    @stack('js')
+    @yield('js')
 @stop

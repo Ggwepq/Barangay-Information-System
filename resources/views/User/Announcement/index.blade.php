@@ -41,10 +41,10 @@
                             <td>{{ $posts->id }}</td>
                             <td>{{ $posts->title }}</td>
                             <td class="text-truncate" style="max-width: 150px;">
-                                {{ $posts->content }}
+                                {{ strip_tags($posts->content) }}
                             </td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
-                            <td>{{ $posts->users ? $posts->user->officer->resident->firstName : '-' }}</td>
+                            <td>{{ $posts->users ? $posts->users->officer->position->position_name : '-' }}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#notifyModal-{{ $posts->id }}">
@@ -63,7 +63,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                {{ $posts->content }}
+                                                {!! $posts->content !!}
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"

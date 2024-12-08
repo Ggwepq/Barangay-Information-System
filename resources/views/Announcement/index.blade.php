@@ -40,10 +40,14 @@
                             <td>{{ $posts->id }}</td>
                             <td>{{ $posts->title }}</td>
                             <td class="text-truncate" style="max-width: 150px;">
-                                {{ $posts->content }}
+                                {{ strip_tags($posts->content) }}
                             </td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
                             <td>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#readModal-{{ $posts->id }}">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> Read
+                                </button>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#notifyModal-{{ $posts->id }}">
                                     <i class="fa fa-bell" aria-hidden="true"></i> Notify
@@ -52,6 +56,29 @@
                                     data-target="#deactivateModal-{{ $posts->id }}">
                                     <i class="fa fa-trash" aria-hidden="true"></i> Delete
                                 </button>
+
+                                <!-- Update Modal -->
+                                <div class="modal fade" id="readModal-{{ $posts->id }}" tabindex="-1"
+                                    aria-labelledby="readModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="readModalLabel">{{ $posts->title }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {!! $posts->content !!}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- Update Modal -->
                                 <div class="modal fade" id="notifyModal-{{ $posts->id }}" tabindex="-1"
