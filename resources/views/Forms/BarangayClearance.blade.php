@@ -15,14 +15,6 @@
             text-align: center;
         }
 
-        .header-content {
-            margin-top: 20px;
-        }
-
-        .header p {
-            margin: 0;
-        }
-
         .header img {
             height: 120px;
             opacity: 0.5;
@@ -36,6 +28,17 @@
             float: right;
         }
 
+        .header-title {
+            position: relative;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .header-title h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
         .watermark {
             position: absolute;
             top: 170px;
@@ -45,7 +48,7 @@
         }
 
         .main-content {
-            margin: 150px auto 0;
+            margin: 25px auto 0;
             text-align: center;
             line-height: 1.5;
         }
@@ -99,14 +102,15 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <img src="{{ public_path('img/logo.png') }}" class="left" alt="Barangay Logo">
+            <img src="{{ public_path($settings->logo) }}" class="left" alt="Barangay Logo">
             <img src="{{ public_path('img/logomanila.png') }}" class="right" alt="Manila Logo">
 
-            <div class="header-content">
-                <p>Republic of the Philippines</p>
-                <p>City of Manila</p>
-                <p>District III, Barangay 378</p>
-            </div>
+            <p>Republic of the Philippines</p>
+            <p>City of {{ ucwords(strtolower(str_replace('CITY', '', $settings->city))) }}</p>
+            <p><u>OFFICE OF THE PUNONG BARANGAY</u></p>
+            <p>{{ ucwords(strtolower($settings->barangay_name)) }} Zone {{ $settings->zone }}, District
+                {{ $settings->district }}</p>
+            <hr style="width: 85%; margin: 10px auto; opacity: 0.75;">
         </div>
 
         <!-- Watermark -->
@@ -131,7 +135,8 @@
                 @endif
                 <b>{{ $post->lastName }}, {{ $post->firstName }} {{ $post->middleName }}</b>, of legal age, is a bona
                 fide resident of this barangay, residing at
-                <b>{{ $post->street }} {{ $post->brgy }} {{ $post->city }}</b>. They are known to me to be of good
+                <b>{{ $post->street }} {{ $post->brgy }} {{ $post->city }}</b>. They are known to me to be of
+                good
                 moral character.
             </p>
             <p>
@@ -166,7 +171,9 @@
             </div>
 
             <p class="certification-details">
-                Given this <b>{{ Carbon\Carbon::now()->toFormattedDateString() }}</b> at Barangay 378, City of Manila,
+                Given this <b>{{ Carbon\Carbon::now()->toFormattedDateString() }}</b> at
+                {{ ucwords(strtolower($settings->barangay_name)) }}, City of
+                {{ ucwords(strtolower(str_replace('CITY', '', $settings->city))) }},
                 Philippines.
             </p>
         </div>

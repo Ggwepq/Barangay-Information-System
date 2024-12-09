@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
         // Resident Role
         DB::table('users')->insert([
             'residentId' => Resident::where('lastName', 'Abaloyan')->first()->id,
-            'email' => 'juan@gmail.com',
+            'email' => 'abaloyan_johncedric@spcc.edu.ph',
             'userRole' => '3',
             'password' => bcrypt('juan'),
             'isActive' => 1,

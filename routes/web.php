@@ -21,6 +21,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResidentAccountController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Auth;
@@ -212,12 +213,6 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::get('/FiletoAction/Print/{id}', 'file');
     });
 
-    // Test Routes
-    Route::controller(TestController::class)->group(function () {
-        Route::get('/BarangayClearance/{id}', 'index');
-        Route::get('/FiletoAction/{id}', 'fileToAction');
-    });
-
     // Document
     Route::controller(DocumentRequestController::class)->group(function () {
         Route::get('/document', 'viewPendingRequests');
@@ -234,6 +229,12 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::get('/announcement/announce/{id}', 'announce');
         Route::post('/announcement/store', 'store');
         Route::get('/announcement/remove/{id}', 'remove');
+    });
+
+    // Settings
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/settings', 'index');
+        Route::post('/settings/update', 'updateSettings');
     });
 });
 
@@ -262,6 +263,11 @@ Route::prefix('user')->middleware('resident')->group(function () {
 });
 
 // Test Routes
+Route::controller(TestController::class)->group(function () {
+    Route::get('/BarangayClearance/{id}', 'index');
+    Route::get('/FiletoAction/{id}', 'fileToAction');
+});
+
 Route::get('/new-account-sms', function () {
     $contact = '09916759759';
     $firstName = 'Juan';

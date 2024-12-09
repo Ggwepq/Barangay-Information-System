@@ -494,11 +494,17 @@
             }
         }
     </script>
+
     <script>
         $(document).ready(function() {
             const provinceDropdown = $('#province');
             const cityDropdown = $('#city');
             const barangayDropdown = $('#brgy');
+
+            // Get current address
+            var currentProvince = "{{ $post->province }}";
+            var currentCity = "{{ $post->city }}";
+            var currentBarangay = "{{ $post->barangay_name }}";
 
             function resetDropdown(dropdown, placeholder = "Select") {
                 dropdown.html(`<option value="">${placeholder}</option>`);
@@ -511,11 +517,19 @@
                 method: 'GET',
                 success: function(data) {
                     data.forEach(province => {
-                        provinceDropdown.append(
-                            `<option value="${province}">${province}</option>`);
+                        if (currentProvince == province) {
+                            provinceDropdown.append(
+                                `<option value="${province}" selected>${province}</option>`);
+                        } else {
+                            provinceDropdown.append(
+                                `<option value="${province}">${province}</option>`);
+                        }
                     });
                 }
             });
+
+            loadCityDropdown(currentProvince, cityDropdown);
+            loadBarangayDropdown(currentProvince, currentCity, barangayDropdown);
 
             // On Province Change
             provinceDropdown.change(function() {
@@ -524,20 +538,7 @@
                 resetDropdown(barangayDropdown, "Select a barangay");
 
                 if (selectedProvince) {
-                    $.ajax({
-                        url: '/admin/get-cities',
-                        method: 'GET',
-                        data: {
-                            province: selectedProvince
-                        },
-                        success: function(data) {
-                            data.forEach(city => {
-                                cityDropdown.append(
-                                    `<option value="${city}">${city}</option>`);
-                            });
-                            cityDropdown.prop('disabled', false);
-                        }
-                    });
+                    loadCityDropdown(selectedProvince, cityDropdown);
                 }
             });
 
@@ -547,29 +548,64 @@
                 const selectedCity = $(this).val();
                 resetDropdown(barangayDropdown, "Select a barangay");
 
-                console.log(selectedProvince)
-
                 if (selectedCity) {
-                    $.ajax({
-                        url: '/admin/get-barangays',
-                        method: 'GET',
-                        data: {
-                            province: selectedProvince,
-                            city: selectedCity
-                        },
-                        success: function(data) {
-                            data.forEach(barangay => {
-                                console.log(barangay)
-                                barangayDropdown.append(
-                                    `<option value="${barangay}">${barangay}</option>`
-                                );
-                            });
-                            barangayDropdown.prop('disabled', false);
-                        }
-                    });
+                    loadBarangayDropdown(selectedProvince, selectedCity, barangayDropdown);
                 }
             });
         });
+
+        function loadCityDropdown(selectedProvince, cityDropdown) {
+            console.log(selectedProvince);
+            $.ajax({
+                url: '/admin/get-cities',
+                method: 'GET',
+                data: {
+                    province: selectedProvince
+                },
+                success: function(data) {
+                    var currentCity = "{{ $post->city }}";
+                    data.forEach(city => {
+                        if (currentCity == city) {
+                            cityDropdown.append(
+                                `<option value="${city}" selected>${city}</option>`
+                            );
+                        } else {
+                            cityDropdown.append(
+                                `<option value="${city}">${city}</option>`);
+                        }
+                    });
+                    cityDropdown.prop('disabled', false);
+                }
+            });
+        }
+
+
+        function loadBarangayDropdown(selectedProvince, selectedCity, barangayDropdown) {
+            $.ajax({
+                url: '/admin/get-barangays',
+                method: 'GET',
+                data: {
+                    province: selectedProvince,
+                    city: selectedCity
+                },
+                success: function(data) {
+                    var currentBrgy = "{{ $post->barangay_name }}";
+                    data.forEach(barangay => {
+                        if (currentBrgy == barangay) {
+                            barangayDropdown.append(
+                                `<option value="${barangay}" selected>${barangay}</option>`
+                            );
+                        } else {
+                            barangayDropdown.append(
+                                `<option value="${barangay}">${barangay}</option>`
+                            );
+                        }
+                    });
+                    barangayDropdown.prop('disabled', false);
+                }
+            });
+
+        }
     </script>
 
     @if ($errors->any())

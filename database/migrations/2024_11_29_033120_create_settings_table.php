@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->string('district')->nullable();
             $table->string('city');
             $table->string('province');
+            $table->enum('notification_method', ['SMS', 'EMAIL'])->default('EMAIL');
+            $table->timestamps();
         });
     }
 

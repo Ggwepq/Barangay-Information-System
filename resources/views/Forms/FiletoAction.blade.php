@@ -92,13 +92,15 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <img src="{{ public_path('img/logo.png') }}" class="left" alt="Barangay Logo">
+            <img src="{{ public_path($settings->logo) }}" class="left" alt="Barangay Logo">
             <img src="{{ public_path('img/logomanila.png') }}" class="right" alt="Manila Logo">
             <div class="header-content">
                 <p>Republic of the Philippines</p>
-                <p>City of Manila</p>
+                <p>City of {{ ucwords(strtolower(str_replace('CITY', '', $settings->city))) }}</p>
                 <p><u>OFFICE OF THE PUNONG BARANGAY</u></p>
-                <p>Barangay 378 Zone 38, District III</p>
+                <p>{{ ucwords(strtolower($settings->barangay_name)) }} Zone {{ $settings->zone }}, District
+                    {{ $settings->district }}</p>
+                <hr style="width: 85%; margin: 10px auto; opacity: 0.75;">
             </div>
         </div>
 
@@ -120,8 +122,9 @@
                 <p>THIS IS TO CERTIFY THAT:</p>
                 <p>No settlement/conciliation was reached by both parties and therefore the responding complaint may now
                     be filed in court.</p>
-                <p>Issued on <strong>{{ Carbon\Carbon::now()->toFormattedDateString() }}</strong> at Barangay 378, City
-                    of Manila, Philippines.</p>
+                <p>Issued on <strong>{{ Carbon\Carbon::now()->toFormattedDateString() }}</strong> at
+                    {{ ucwords(strtolower($settings->barangay_name)) }}, City of
+                    {{ ucwords(strtolower(str_replace('CITY', '', $settings->city))) }}, Philippines.</p>
             </div>
 
             <!-- Footer -->

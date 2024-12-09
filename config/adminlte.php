@@ -59,7 +59,7 @@ return [
      * |
      */
     'logo' => '<b>Barangay 73</b>',
-    'logo_img' => '/img/logo.png',
+    'logo_img' => 'img/uploads/settings/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-2 me-2',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',

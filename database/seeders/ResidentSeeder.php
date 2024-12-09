@@ -71,7 +71,7 @@ class ResidentSeeder extends Seeder
             'city' => 'CALOOCAN CITY',
             'citizenship' => 'Filipino',
             'religion' => 'Catholic',
-            'image' => 'img/uploads/avatar1.jpg',
+            'image' => 'img/uploads/avatar1.png',
             'gender' => 1,
             'birthdate' => '2004-06-28',
             'birthPlace' => 'Manila',

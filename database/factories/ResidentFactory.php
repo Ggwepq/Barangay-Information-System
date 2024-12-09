@@ -66,7 +66,7 @@ class ResidentFactory extends Factory
             $email = $resident->firstName . $resident->lastName . fake()->numberBetween(1, 99) . '@gmail.com';
             User::create([
                 'residentId' => $resident->id,
-                'email' => strtolower('abaloyan_johncedric@spcc.edu.ph'),  // Unique email for the user
+                'email' => strtolower($email),  // Unique email for the user
                 'password' => Hash::make('resident'),  // Default password
                 'userRole' => 3,  // Assuming userRole 3 is for residents
                 'isActive' => 1,

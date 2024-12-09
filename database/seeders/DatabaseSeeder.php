@@ -32,5 +32,6 @@ class DatabaseSeeder extends Seeder
         Blotter::factory(100)->create();
         Project::factory(25)->create();
         DocumentRequest::factory(50)->create();
+        $this->call(BarangaySeeder::class);
     }
 }

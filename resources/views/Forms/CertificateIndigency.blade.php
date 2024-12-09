@@ -53,7 +53,7 @@
 
         .content {
             margin: 50px auto 0;
-            text-align: center;
+            text-align: justify;
             line-height: 1.8;
         }
 
@@ -87,12 +87,13 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <img src="{{ public_path('img/logo.png') }}" class="left" alt="Barangay Logo">
+            <img src="{{ public_path($settings->logo) }}" class="left" alt="Barangay Logo">
             <img src="{{ public_path('img/logomanila.png') }}" class="right" alt="Manila Logo">
             <p>Republic of the Philippines</p>
-            <p>City of Manila</p>
+            <p>City of {{ ucwords(strtolower(str_replace('CITY', '', $settings->city))) }}</p>
             <p><u>OFFICE OF THE PUNONG BARANGAY</u></p>
-            <p>Barangay 378 Zone 38, District III</p>
+            <p>{{ ucwords(strtolower($settings->barangay_name)) }} Zone {{ $settings->zone }}, District
+                {{ $settings->district }}</p>
             <hr style="width: 85%; margin: 10px auto; opacity: 0.75;">
         </div>
 
@@ -109,8 +110,11 @@
             <p class="dear">To whom it may concern:</p>
             <p>
                 This is to certify that <b>{{ $post->lastName }}, {{ $post->firstName }} {{ $post->middleName }}</b>,
-                of legal age, presently residing at <b>{{ $post->street }} {{ $post->brgy }} {{ $post->city }}</b>,
-                is a bona fide resident of Barangay 378, Zone 38, 3rd District, Manila.
+                of legal age, presently residing at <b>{{ $post->street }} {{ $post->brgy }}
+                    {{ $post->city }}</b>,
+                is a bona fide resident of {{ ucwords(strtolower($settings->barangay_name)) }}, Zone
+                {{ $settings->zone }}, District {{ $settings->district }},
+                {{ ucwords(strtolower(str_replace('CITY', '', $settings->city))) }}.
             </p>
             <p>
                 @if ($post->gender == 1)
@@ -121,10 +125,12 @@
             </p>
             <p>
                 This certification is issued upon the bearer's request for
-                {{ !$request ? 'whatever legal purposes it may serve best' : $request->purpose }} .
+                <strong>{{ !$request ? 'whatever legal purposes it may serve best' : $request->purpose }}</strong> .
             </p>
             <p>
-                Issued on <b>{{ Carbon\Carbon::now()->toFormattedDateString() }}</b> at Barangay 378, City of Manila,
+                Issued on <b>{{ Carbon\Carbon::now()->toFormattedDateString() }}</b> at
+                {{ ucwords(strtolower($settings->barangay_name)) }}, City of
+                {{ ucwords(strtolower(str_replace('CITY', '', $settings->city))) }},
                 Philippines.
             </p>
 

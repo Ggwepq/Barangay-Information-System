@@ -332,8 +332,7 @@
                                                                     <label for="province">Province</label>
                                                                     <select class="form-control select2" id="province"
                                                                         name="province">
-                                                                        <option value="{{ $post->province }}">
-                                                                            {{ $post->province }}</option>
+                                                                        <option value="">Select a city</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-sm-3">
@@ -341,9 +340,7 @@
                                                                             style="color:red;">*</span></label>
                                                                     <select class="form-control select2" id="city"
                                                                         name="city">
-                                                                        <option value="{{ $post->city }}">
-                                                                            {{ $post->city }}
-                                                                        </option>
+                                                                        <option value="">Select a city</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-sm-4">
@@ -351,9 +348,7 @@
                                                                             style="color:red;">*</span></label>
                                                                     <select class="form-control select2" id="brgy"
                                                                         name="brgy">
-                                                                        <option value="{{ $post->brgy }}">
-                                                                            {{ $post->brgy }}
-                                                                        </option>
+                                                                        <option value="">Select a barangay</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -561,6 +556,11 @@
             const cityDropdown = $('#city');
             const barangayDropdown = $('#brgy');
 
+            // Get current address
+            var currentProvince = "{{ $post->province }}";
+            var currentCity = "{{ $post->city }}";
+            var currentBarangay = "{{ $post->brgy }}";
+
             function resetDropdown(dropdown, placeholder = "Select") {
                 dropdown.html(`<option value="">${placeholder}</option>`);
                 dropdown.prop('disabled', true);
@@ -571,7 +571,6 @@
                 url: '/admin/get-provinces',
                 method: 'GET',
                 success: function(data) {
-                    var currentProvince = "{{ $post->province }}";
                     data.forEach(province => {
                         if (currentProvince == province) {
                             provinceDropdown.append(
@@ -584,6 +583,9 @@
                 }
             });
 
+            loadCityDropdown(currentProvince, cityDropdown);
+            loadBarangayDropdown(currentProvince, currentCity, barangayDropdown);
+
             // On Province Change
             provinceDropdown.change(function() {
                 const selectedProvince = $(this).val();
@@ -591,27 +593,7 @@
                 resetDropdown(barangayDropdown, "Select a barangay");
 
                 if (selectedProvince) {
-                    $.ajax({
-                        url: '/admin/get-cities',
-                        method: 'GET',
-                        data: {
-                            province: selectedProvince
-                        },
-                        success: function(data) {
-                            var currentCity = "{{ $post->city }}";
-                            data.forEach(city => {
-                                if (currentCity == province) {
-                                    cityDropdown.append(
-                                        `<option value="${city}" selected>${city}</option>`
-                                    );
-                                } else {
-                                    cityDropdown.append(
-                                        `<option value="${city}">${city}</option>`);
-                                }
-                            });
-                            cityDropdown.prop('disabled', false);
-                        }
-                    });
+                    loadCityDropdown(selectedProvince, cityDropdown);
                 }
             });
 
@@ -622,31 +604,62 @@
                 resetDropdown(barangayDropdown, "Select a barangay");
 
                 if (selectedCity) {
-                    $.ajax({
-                        url: '/admin/get-barangays',
-                        method: 'GET',
-                        data: {
-                            province: selectedProvince,
-                            city: selectedCity
-                        },
-                        success: function(data) {
-                            var currentBrgy = "{{ $post->brgy }}";
-                            data.forEach(barangay => {
-                                if (currentBrgy == barangay) {
-                                    barangayDropdown.append(
-                                        `<option value="${barangay}" selected>${barangay}</option>`
-                                    );
-                                } else {
-                                    barangayDropdown.append(
-                                        `<option value="${barangay}">${barangay}</option>`
-                                    );
-                                }
-                            });
-                            barangayDropdown.prop('disabled', false);
-                        }
-                    });
+                    loadBarangayDropdown(selectedProvince, selectedCity, barangayDropdown);
                 }
             });
         });
+
+        function loadCityDropdown(selectedProvince, cityDropdown) {
+            console.log(selectedProvince);
+            $.ajax({
+                url: '/admin/get-cities',
+                method: 'GET',
+                data: {
+                    province: selectedProvince
+                },
+                success: function(data) {
+                    var currentCity = "{{ $post->city }}";
+                    data.forEach(city => {
+                        if (currentCity == city) {
+                            cityDropdown.append(
+                                `<option value="${city}" selected>${city}</option>`
+                            );
+                        } else {
+                            cityDropdown.append(
+                                `<option value="${city}">${city}</option>`);
+                        }
+                    });
+                    cityDropdown.prop('disabled', false);
+                }
+            });
+        }
+
+
+        function loadBarangayDropdown(selectedProvince, selectedCity, barangayDropdown) {
+            $.ajax({
+                url: '/admin/get-barangays',
+                method: 'GET',
+                data: {
+                    province: selectedProvince,
+                    city: selectedCity
+                },
+                success: function(data) {
+                    var currentBrgy = "{{ $post->brgy }}";
+                    data.forEach(barangay => {
+                        if (currentBrgy == barangay) {
+                            barangayDropdown.append(
+                                `<option value="${barangay}" selected>${barangay}</option>`
+                            );
+                        } else {
+                            barangayDropdown.append(
+                                `<option value="${barangay}">${barangay}</option>`
+                            );
+                        }
+                    });
+                    barangayDropdown.prop('disabled', false);
+                }
+            });
+
+        }
     </script>
 @stop

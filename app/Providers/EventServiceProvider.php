@@ -33,6 +33,15 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
             $user = Auth::user();
 
+            $settings = \App\Models\Setting::first();
+
+            if ($settings && $settings->logo) {
+                config(['adminlte.logo_img' => $settings->logo]);
+                config(['adminlte.title' => $settings->barangay_name]);
+                config(['adminlte.logo' => '<b>' . $settings->barangay_name . '</b>']);
+                config(['adminlte.logo_img_class' => 'brand-image img-circle elevation-3']);
+            }
+
             if ($user->userRole == 1) {  // Admin Menu
                 $this->adminMenu($event);
             }
@@ -293,6 +302,11 @@ class EventServiceProvider extends ServiceProvider
                         'url' => '/admin/Position/Soft',
                     ],
                 ]
+            ],
+            [
+                'text' => 'Settings',
+                'icon' => 'fas fa-cog',
+                'url' => '/admin/settings',
             ],
         );
     }
