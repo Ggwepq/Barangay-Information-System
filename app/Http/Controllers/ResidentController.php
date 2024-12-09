@@ -11,6 +11,7 @@ use App\Models\Officer;
 use App\Models\Resident;
 use App\Models\ResidentParent;
 use App\Models\Schedule;
+use App\Models\Setting;
 use App\Models\User;
 use App\Models\Voter;
 use Illuminate\Http\Request;
@@ -100,9 +101,10 @@ class ResidentController extends Controller
 
     public function create()
     {
+        $post = Setting::first();
         $religions = Resident::distinct()->pluck('religion');
         $occupations = Resident::distinct()->pluck('occupation');
-        return view('Resident.create', compact('religions', 'occupations'));
+        return view('Resident.create', compact('religions', 'occupations', 'post'));
     }
 
     public function soft()
@@ -128,15 +130,32 @@ class ResidentController extends Controller
             if ($request->filled('voterId'))
                 Voter::create(array_merge($request->only(['voterId', 'precintNo']), ['residentId' => $resident->id]));
 
-            // (new SMSController)->accountCreated($resident->contactNumber, ['residentName' => $resident->firstName, 'email' => $resident->email, 'password' => $request->password]);
-            $fullName = $resident->firsName . ' ' . $resident->lastName;
-            (new EmailController)->sendAccountCreatedMail($request->email, $fullName, $request->email, $request->password);
+            $this->sendNotification($resident, $request);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors($e->getMessage());
         }
         return redirect('/admin/Resident')->withSuccess('Successfully inserted.');
+    }
+
+    public function sendNotification($resident, $request, $create = true)
+    {
+        $method = Setting::first()->notification_method;
+        if ($create) {
+            if ($method == 'EMAIL') {
+                $fullName = $resident->firsName . ' ' . $resident->lastName;
+                (new EmailController)->sendAccountCreatedMail($request->email, $fullName, $request->email, $request->password);
+            } else {
+                (new SMSController)->accountCreated($resident->contactNumber, ['residentName' => $resident->firstName, 'email' => $resident->email, 'password' => $request->password]);
+            }
+        } else {
+            if ($method == 'EMAIL') {
+                (new EmailController)->sendAccountUpdatedMail($resident['email'], $resident['residentEmail'], $resident['email'], $resident['password']);
+            } else {
+                (new SMSController)->accountUpdated($request->contactNumber, $resident);
+            }
+        }
     }
 
     public function edit($id)
@@ -169,10 +188,7 @@ class ResidentController extends Controller
             $this->updateRelatedRecords($request, $id);
             $account = array_merge(['residentName' => $request->firstName, 'email' => $request->email], ($request->filled('password')) ? ['password' => $request->password] : []);
 
-            // (new SMSController)->accountUpdated($res->contactNumber, $account);
-
-            (new EmailController)->sendAccountUpdatedMail($account['email'], $account['residentEmail'], $account['email'], $account['password']);
-
+            $this->sendNotification($account, $res, false);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

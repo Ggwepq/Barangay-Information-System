@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendSMSNotification;
 use App\Models\Announcement;
+use App\Models\Resident;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -53,22 +55,29 @@ class AnnouncementsController extends Controller
 
     public function announce($id)
     {
-        // Notify users via SMS
         $announce = Announcement::findOrFail($id);
-        // $sms = new SMSController();
-        //
-        // $number = '09916759759';
-        // $announcement = [
-        //     'title' => $announce->title,
-        //     'content' => $announce->content,
-        // ];
-        //
-        // $sms->notifyAnnouncement($number, $announcement);
 
-        $email = 'abaloyan_johncedric@spcc.edu.ph';
-        (new EmailController)->sendAnnouncementMail($email, $announce->title, $announce->content);
+        // Change this to true to announce to all, Sending to all can have some issue.
+        $all = false;
+
+        // Default Number
+        $number = $all ? Resident::where('isActive', 1)->pluck('contactNumber') : '09916759759';
+        $email = $all ? User::where('residentId', '!=', 'null')->pluck('email') : 'abaloyan_johncedric@spcc.edu.ph';
+
+        $this->sendNotification($announce, $email, $number);
 
         return redirect()->back()->withSuccess('Successfully Announced.');
+    }
+
+    public function sendNotification($announce, $email = null, $number = null)
+    {
+        $method = Setting::first()->notification_method;
+
+        if ($method == 'EMAIL') {
+            (new EmailController)->sendAnnouncementMail($email, $announce->title, $announce->content);
+        } else {
+            (new SMSController)->notifyAnnouncement($number, $announce->title);
+        }
     }
 
     public function remove($id)

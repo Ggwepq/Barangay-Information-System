@@ -41,7 +41,7 @@ class SMSController extends Controller
 
     public function notifyAnnouncement($number, $announcement)
     {
-        $title = strip_tags($announcement['title']);
+        $title = strip_tags($announcement);
 
         $message = "📢 ANNOUNCEMENT 📢\n\n$title\n\nCheck your account to see the full announcement.\nStay updated via the Barangay Information System!";
 

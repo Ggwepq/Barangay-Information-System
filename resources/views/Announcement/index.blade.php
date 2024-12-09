@@ -38,7 +38,7 @@
                     @foreach ($announcements as $posts)
                         <tr>
                             <td>{{ $posts->id }}</td>
-                            <td>{{ $posts->title }}</td>
+                            <td class="text-truncate" style="max-width:200px;">{{ $posts->title }}</td>
                             <td class="text-truncate" style="max-width: 150px;">
                                 {{ strip_tags($posts->content) }}
                             </td>
@@ -60,7 +60,7 @@
                                 <!-- Update Modal -->
                                 <div class="modal fade" id="readModal-{{ $posts->id }}" tabindex="-1"
                                     aria-labelledby="readModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="readModalLabel">{{ $posts->title }}</h5>
@@ -138,6 +138,18 @@
     </div>
 @stop
 
+@section('css')
+    <style>
+        .modal.fade .modal-dialog {
+            -webkit-transition: -webkit-transform 0.3s ease-out;
+            -moz-transition: -moz-transform 0.3s ease-out;
+            -o-transition: -o-transform 0.3s ease-out;
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal.in .modal-dialog {}
+    </style>
+@endsection
 
 @section('js')
     <script>

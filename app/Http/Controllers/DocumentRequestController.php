@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentRequest;
 use App\Models\Resident;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -37,15 +38,13 @@ class DocumentRequestController extends Controller
     // Admin reviewing a document request
     public function reviewRequest($id, Request $request)
     {
-        $sms = new SMSController();
-
         $validated = $request->validate([
             'status' => 'required|in:Approved,Rejected',
         ]);
 
         try {
             $documentRequest = DocumentRequest::findOrFail($id);
-            $residentEmail = $documentRequest->resident->user->email;
+            $resident = $documentRequest->resident;
 
             $documentRequest->status = $validated['status'];
 
@@ -56,15 +55,25 @@ class DocumentRequestController extends Controller
 
             $documentRequest->save();
 
-            // $sms->documentActioned($resident->contactNumber, $documentRequest->document_type, $documentRequest->status);
-            (new EmailController)->sendDocumentMail(
-                $residentEmail,
-                $documentRequest->document_type,
-                $documentRequest->status,
-            );
+            $this->sendNotification($resident, $documentRequest);
+
             return redirect()->back()->with('success', 'Document request updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update document request. Please try again.');
+        }
+    }
+
+    public function sendNotification($resident, $documentRequest)
+    {
+        $method = Setting::first()->notification_method;
+        if ($method == 'EMAIL') {
+            (new EmailController)->sendDocumentMail(
+                $resident->user->email,
+                $documentRequest->document_type,
+                $documentRequest->status,
+            );
+        } else {
+            (new SMSController)->documentActioned($resident->contactNumber, $documentRequest->document_type, $documentRequest->status);
         }
     }
 
