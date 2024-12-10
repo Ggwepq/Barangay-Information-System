@@ -116,8 +116,10 @@ class OfficerController extends Controller
     {
         $resident = Resident::where('isActive', 1)->get();
         $position = Position::where('isActive', 1)->get();
-        $post = Officer::with('User')->find($id);
-        return view('Officer.update', compact('resident', 'position', 'post'));
+        $post = Officer::find($id);
+        $posts = count($post->user) == 0 ? $post->resident->user : $post->user->first();
+
+        return view('Officer.update', compact('resident', 'position', 'post', 'posts'));
     }
 
     /**

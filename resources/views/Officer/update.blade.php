@@ -86,16 +86,16 @@
                                                 <div class="card-header">Account Information</div>
                                             </div>
 
-                                            @foreach ($post->User as $user)
-                                                <input type="hidden" value="{{ $user->id }}" name="userId">
-                                                <input type="hidden" value="{{ $user->officerId }}" name="officerId">
+                                            @php($user = $posts)
+                                            <input type="hidden" value="{{ $user->id }}" name="userId">
+                                            <input type="hidden" value="{{ $user->officerId ?? $user->residentId }}"
+                                                name="officerId">
 
-                                                <div class="form-group">
-                                                    <label>Email Address<span style="color:Red;">*</span></label>
-                                                    <input type="email" class="form-control" value="{{ $user->email }}"
-                                                        name="email" placeholder="Email Address" required>
-                                                </div>
-                                            @endforeach
+                                            <div class="form-group">
+                                                <label>Email Address<span style="color:Red;">*</span></label>
+                                                <input type="email" class="form-control" value="{{ $user->email }}"
+                                                    name="email" placeholder="Email Address" required>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label>Password</label>
@@ -129,7 +129,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                theme: bootstrap4
+                theme: 'bootstrap4'
             });
         });
     </script>

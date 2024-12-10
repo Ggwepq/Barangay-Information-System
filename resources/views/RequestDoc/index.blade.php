@@ -19,6 +19,47 @@
 @stop
 
 @section('content')
+    <div class="card card-outline card-navy collapsed-card">
+        <div class="card-header">
+            <h5 class="card-title">Filter Document Requests</h5>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <form action="{{ url('/admin/document') }}" method="GET">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="type">Document Type</label>
+                        <select class="form-control select2" name="type">
+                            <option value="" {{ request('officer') == '' ? 'selected' : '' }}>Any</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>
+                                    {{ $type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="purpose">Document Type</label>
+                        <select class="form-control select2" name="purpose">
+                            <option value="" {{ request('purpose') == '' ? 'selected' : '' }}>Any</option>
+                            @foreach ($purposes as $purpose)
+                                <option value="{{ $purpose }}" {{ request('purpose') == $purpose ? 'selected' : '' }}>
+                                    {{ $purpose }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Submit -->
+                    <div class="col-md-4 mt-4">
+                        <a href="{{ url('/admin/document') }}" class="btn btn-secondary btn-inline row-md-2 ">Reset</a>
+                        <button type="submit" class="btn btn-primary btn-inline row-md-2">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card card-outline card-navy">
         <div class="card-header with-border d-inline-flex">
             <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Requested Documents</h6>
@@ -170,6 +211,15 @@
             showConfirmButton: false,
             timer: 5000
         });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            })
+        })
     </script>
 
     @if (session('success'))

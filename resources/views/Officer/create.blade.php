@@ -116,7 +116,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                theme: 'bootstrap4'
+                'theme': 'bootstrap4'
             }); // Initialize Select2
             $('#email').inputmask('email'); //If using Inputmask
         });

@@ -56,17 +56,78 @@
                     </div>
                     <!-- /.card -->
 
-                    <!-- About Me Box -->
+                    <div class="card card-danger card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-bullhorn"></i>
+                                Emergency Hotlines
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active text-center">
+                                        <img src="{{ asset('/img/images/c1.png') }}" class="mx-auto d-block img-thumbnail"
+                                            alt="..." data-toggle="lightbox" data-gallery="hotline"
+                                            data-max-width="600">
+                                    </div>
+                                    <div class="carousel-item text-center">
+                                        <img src="{{ asset('/img/images/c2.png') }}" class="mx-auto d-block img-thumbnail"
+                                            alt="..." data-toggle="lightbox" data-gallery="hotline"
+                                            data-max-width="600">
+                                    </div>
+                                    <div class="carousel-item text-center">
+                                        <img src="{{ asset('/img/images/c3.png') }}" class="mx-auto d-block img-thumbnail"
+                                            alt="..." data-toggle="lightbox" data-gallery="hotline"
+                                            data-max-width="600">
+                                    </div>
+                                    <div class="carousel-item text-center">
+                                        <img src="{{ asset('/img/images/c4.png') }}" class="mx-auto d-block img-thumbnail"
+                                            alt="..." data-toggle="lightbox" data-gallery="hotline"
+                                            data-max-width="600">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-target="#carouselExampleIndicators" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-target="#carouselExampleIndicators" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
                 </div>
                 <!-- /.col -->
                 <div class="col-md-9">
-                    <div class="card">
+                    <div class="card card-outline card-primary collapsed-card">
                         <div class="card-header p-2">
                             <i class="fas fa-bullhorn"></i>
                             Announcements
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div><!-- /.card-header -->
+
                         <div class="card-body">
                             <div class="tab-pane" id="settings">
+                                <img src="{{ asset('/img/images/c3.png') }}" class="mx-auto d-block img-thumbnail"
+                                    alt="..." data-toggle="lightbox" data-gallery="hotline" data-max-width="600">
                                 @if (count($announcements) != 0)
                                     @foreach ($announcements as $announce)
                                         <div class="callout callout-info">
@@ -128,5 +189,16 @@
                 $(this).text('Read More');
             }
         });
+    </script>
+
+    <script>
+        $(function() {
+            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            })
+        })
     </script>
 @endsection

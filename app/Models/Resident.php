@@ -47,7 +47,7 @@ class Resident extends Model
 
     public function Officer()
     {
-        return $this->hasMany(Officer::class);
+        return $this->hasMany(Officer::class, 'residentId', 'id');
     }
 
     public function Voter()
@@ -60,8 +60,18 @@ class Resident extends Model
         return $this->hasOne(User::class, 'residentId');
     }
 
+    public function UserOfficer()
+    {
+        return $this->hasOne(User::class, 'officerId', 'id');
+    }
+
     public function documentRequests()
     {
         return $this->hasMany(DocumentRequest::class);
+    }
+
+    public function Blotter()
+    {
+        return $this->hasMany(Blotter::class, 'complainedResident', 'id');
     }
 }

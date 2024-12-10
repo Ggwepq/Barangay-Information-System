@@ -19,6 +19,61 @@
 @endsection
 
 @section('content')
+    <div class="card card-outline card-navy collapsed-card">
+        <div class="card-header">
+            <h5 class="card-title">Filter Blotter Records</h5>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <form action="{{ url('/admin/Blotter') }}" method="GET">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="officer">Officer in Charge</label>
+                        <select class="form-control select2" name="officer">
+                            <option value="" {{ request('officer') == '' ? 'selected' : '' }}>Any</option>
+                            @foreach ($officers as $officer)
+                                <option value="{{ $officer->id }}"
+                                    {{ request('officer') == $officer->id ? 'selected' : '' }}>
+                                    {{ $officer->resident->firstName }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="status">Status</label>
+                        <select class="form-control select2" name="status">
+                            <option value="" {{ request('status') == '' ? 'selected' : '' }}>Any</option>
+                            @foreach ($status as $stats)
+                                @if ($stats == 1)
+                                    <option value="{{ $stats }}"{{ request('status') == $stats ? 'selected' : '' }}>
+                                        Pending</option>
+                                @elseif($stats == 2)
+                                    <option value="{{ $stats }}"{{ request('status') == $stats ? 'selected' : '' }}>
+                                        Ongoing</option>
+                                @elseif($stats == 3)
+                                    <option
+                                        value="{{ $stats }}"{{ request('status') == $stats ? 'selected' : '' }}>
+                                        Resolved Issue</option>
+                                @else
+                                    <option
+                                        value="{{ $stats }}"{{ request('status') == $stats ? 'selected' : '' }}>
+                                        File to Action</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Submit -->
+                    <div class="col-md-4 mt-4">
+                        <a href="{{ url('/admin/Blotter') }}" class="btn btn-secondary btn-inline row-md-2 ">Reset</a>
+                        <button type="submit" class="btn btn-primary btn-inline row-md-2">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card card-outline card-navy">
         <div class="card-header with-border d-inline-flex">
             <h6 class="mr-auto mt-2"><i class="fa fa-list"></i> List of Blotter Records</h6>
@@ -41,7 +96,8 @@
                         <tr>
                             <?php $caseNo = str_pad($posts->id, 5, '0', STR_PAD_LEFT); ?>
                             <td><span style="color:red;">{{ $caseNo }}</span></td>
-                            <td>{{ $posts->com->firstName }} {{ $posts->com->middleName }} {{ $posts->com->lastName }}</td>
+                            <td>{{ $posts->com->firstName }} {{ $posts->com->middleName }} {{ $posts->com->lastName }}
+                            </td>
                             <td>{{ $posts->comRes->firstName }} {{ $posts->comRes->middleName }}
                                 {{ $posts->comRes->lastName }}</td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
@@ -137,7 +193,15 @@
     </div>
 @endsection
 
-@section('script')
+@section('js')
+    <script>
+        $(document).ready(function() {
+
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            })
+        })
+    </script>
     <script>
         function updateForm() {
             var x = confirm("Are you sure you want to modify this record?");

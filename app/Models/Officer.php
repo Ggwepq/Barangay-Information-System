@@ -29,6 +29,6 @@ class Officer extends Model
 
     public function User()
     {
-        return $this->hasMany(User::class, 'officerId');
+        return $this->hasMany(User::class, 'officerId', 'id');
     }
 }

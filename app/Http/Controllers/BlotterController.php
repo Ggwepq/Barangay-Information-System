@@ -20,10 +20,30 @@ class BlotterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $post = Blotter::where('isActive', 1)->get();
-        return view('Blotter.index', compact('post'));
+        $query = Blotter::query();
+        $query->where('isActive', 1);
+
+        $officers = Officer::all();
+        $status = Blotter::distinct()->pluck('status');
+
+        // List of filters to apply
+        $filters = [
+            'status' => fn($query, $value) => $query->where('status', 'like', '%' . $value . '%'),
+            'officer' => fn($query, $value) => $query->where('officerCharge', 'like', '%' . $value . '%'),
+        ];
+
+        // Apply filters
+        foreach ($filters as $field => $filter) {
+            if ($request->filled($field)) {
+                $filter($query, $request->get($field));
+            }
+        }
+
+        $post = $query->get();
+
+        return view('Blotter.index', compact('post', 'status', 'officers'));
     }
 
     /**

@@ -138,11 +138,30 @@ class DocumentRequestController extends Controller
     }
 
     // Admin viewing all requests
-    public function viewPendingRequests()
+    public function viewPendingRequests(Request $request)
     {
-        $requests = DocumentRequest::all()->where('status', 'Pending');
+        $query = DocumentRequest::query();
+        $query->where('status', 'Pending');
 
-        return view('RequestDoc.index', compact('requests'));
+        $types = DocumentRequest::distinct()->pluck('document_type');
+        $purposes = DocumentRequest::distinct()->pluck('purpose');
+
+        // List of filters to apply
+        $filters = [
+            'type' => fn($query, $value) => $query->where('document_type', 'like', '%' . $value . '%'),
+            'purpose' => fn($query, $value) => $query->where('purpose', 'like', '%' . $value . '%'),
+        ];
+
+        // Apply filters
+        foreach ($filters as $field => $filter) {
+            if ($request->filled($field)) {
+                $filter($query, $request->get($field));
+            }
+        }
+
+        $requests = $query->get();
+
+        return view('RequestDoc.index', compact('requests', 'types', 'purposes'));
     }
 
     // Admin viewing all requests

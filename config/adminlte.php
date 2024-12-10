@@ -572,6 +572,21 @@ return [
                 ],
             ],
         ],
+        'Ekko-Lightbox' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/ekko-lightbox/ekko-lightbox.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/ekko-lightbox/ekko-lightbox.css',
+                ],
+            ],
+        ],
     ],
 
     /*

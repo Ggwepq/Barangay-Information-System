@@ -245,7 +245,7 @@
                                                         <p><strong>Civil Status:</strong> {{ $posts->civilStatus }}</p>
                                                         <p><strong>Religion:</strong> {{ $posts->religion }}</p>
                                                         <p><strong>Profession/Occupation:</strong>
-                                                            {{ $posts->profession ?? 'N/A' }}</p>
+                                                            {{ $posts->profession ?? 'Unemployed' }}</p>
                                                         <p><strong>Precinct Assignment No.:</strong>
                                                             {{ $posts->voter->first()->precintNo ?? 'N/A' }}</p>
                                                         <p><strong>Person w/ Disability:</strong>
@@ -256,10 +256,62 @@
                                                     <div class="col-md-6">
                                                         <h5>Contact Details</h5>
                                                         <p><strong>Contact Number:</strong> {{ $posts->contactNumber }}</p>
+                                                        <p><strong>Email Address:</strong>
+                                                            {{ $posts->userofficer->email ?? $posts->user->email }}
+                                                        </p>
                                                         <p><strong>Voter's ID No.:</strong>
                                                             {{ $posts->voter->first()->voterId ?? 'N/A' }}</p>
                                                     </div>
                                                 </div>
+
+                                                <hr>
+                                                <h4 class="text-center">Cases</h4>
+                                                @if (!$posts->isDerogatory)
+                                                    <div class="col mt-2">
+                                                        <table id="datatable"
+                                                            class="table table-striped dataTable dtr-inline">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Case No.</th>
+                                                                    <th>Complainant</th>
+                                                                    <th>Date of Filing</th>
+                                                                    <th>Person-in-charge</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($posts->blotter as $blotter)
+                                                                    <tr>
+                                                                        <?php $caseNo = str_pad($posts->id, 5, '0', STR_PAD_LEFT); ?>
+                                                                        <td><span
+                                                                                style="color:red;">{{ $caseNo }}</span>
+                                                                        </td>
+                                                                        <td>{{ $blotter->com->firstName }}
+                                                                            {{ $blotter->com->middleName }}
+                                                                            {{ $blotter->com->lastName }}</td>
+                                                                        <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}
+                                                                        </td>
+                                                                        <td>{{ $blotter->officer->resident->firstName }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if ($blotter->status == 1)
+                                                                                Pending
+                                                                            @elseif($blotter->status == 2)
+                                                                                Ongoing
+                                                                            @elseif($blotter->status == 3)
+                                                                                Resolved Issue
+                                                                            @else
+                                                                                File to Action
+                                                                            @endif
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                @else
+                                                    <h6 class="text-center text-secondary"> - No cases found - </h6>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="modal-footer">
