@@ -66,7 +66,7 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         // Residents
         Route::get('/Resident', 'index');
         Route::get('/Resident/Create', 'create');
-        Route::get('/Resident/Edit/{id}', 'edit');
+        Route::get('/Resident/Edit/{id}', 'edit')->name('residents.edit');
         Route::get('/Resident/Deactivate/{id}', 'destroy');
         Route::get('/Resident/Soft', 'soft');
         Route::post('/Resident/Store', 'store');
@@ -217,6 +217,7 @@ Route::prefix('admin')->middleware('officer')->group(function () {
     Route::controller(DocumentRequestController::class)->group(function () {
         Route::get('/document', 'viewPendingRequests');
         Route::get('/document/actioned', 'viewActionedRequests');
+        Route::get('/document/foruser', 'viewGenerateForUser');
         Route::get('/document/edit', 'createRequest');
         Route::post('/document/update/{id}', 'reviewRequest');
         Route::get('/document/delete/{id}', 'deleteRequest');

@@ -18,7 +18,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use PharIo\Manifest\Email;
 
 class ResidentController extends Controller
 {
@@ -89,9 +88,50 @@ class ResidentController extends Controller
         'password' => 'Password',
     ];
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('Resident.index', ['post' => Resident::where('isActive', 1)->where('isRegistered', 1)->get()]);
+        $query = Resident::query();
+        $civilStatus = Resident::distinct()->pluck('civilStatus');
+        $religions = Resident::distinct()->pluck('religion');
+        $occupations = Resident::distinct()->pluck('occupation');
+
+        // List of filters to apply
+        $filters = [
+            'name' => function ($query, $value) {
+                $query->where(function ($q) use ($value) {
+                    $q
+                        ->where('firstName', 'like', '%' . $value . '%')
+                        ->orWhere('middleName', 'like', '%' . $value . '%')
+                        ->orWhere('lastName', 'like', '%' . $value . '%');
+                });
+            },
+            'gender' => fn($query, $value) => $query->where('gender', $value),
+            'min_age' => fn($query, $value) => $query->where('age', '>=', $value),
+            'max_age' => fn($query, $value) => $query->where('age', '<=', $value),
+            'civil_status' => fn($query, $value) => $query->where('civilStatus', $value),
+            'blotter' => fn($query, $value) => $query->where('isDerogatory', $value),
+            'isPWD' => fn($query, $value) => $query->where('isPWD', $value),
+            'is4Ps' => fn($query, $value) => $query->where('is4Ps', $value),
+            'religion' => fn($query, $value) => $query->where('religion', 'like', '%' . $value . '%'),
+            'occupation' => function ($query, $value) {
+                if ($value === 'Unemployed') {
+                    $query->whereNull('occupation');
+                } else {
+                    $query->where('occupation', 'like', '%' . $value . '%');
+                }
+            },
+        ];
+
+        // Apply filters
+        foreach ($filters as $field => $filter) {
+            if ($request->filled($field)) {
+                $filter($query, $request->get($field));
+            }
+        }
+
+        $post = $query->get();
+
+        return view('Resident.index', compact('post', 'civilStatus', 'religions', 'occupations'));
     }
 
     public function index2()
@@ -151,7 +191,7 @@ class ResidentController extends Controller
             }
         } else {
             if ($method == 'EMAIL') {
-                (new EmailController)->sendAccountUpdatedMail($resident['email'], $resident['residentEmail'], $resident['email'], $resident['password']);
+                (new EmailController)->sendAccountUpdatedMail($resident['email'], $resident['residentName'], $resident['email'], $resident['password'] ?? null);
             } else {
                 (new SMSController)->accountUpdated($request->contactNumber, $resident);
             }

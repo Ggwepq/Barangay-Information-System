@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        $this->call(BarangaySeeder::class);
         $this->call(ResidentSeeder::class);
         Resident::factory(500)->create();
         $this->call(PositionSeeder::class);
@@ -32,6 +33,5 @@ class DatabaseSeeder extends Seeder
         Blotter::factory(100)->create();
         Project::factory(25)->create();
         DocumentRequest::factory(50)->create();
-        $this->call(BarangaySeeder::class);
     }
 }

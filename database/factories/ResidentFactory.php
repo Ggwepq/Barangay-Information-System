@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Resident;
 use App\Models\ResidentParent;
+use App\Models\Setting;
 use App\Models\Voter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Auth\User;
@@ -35,11 +36,11 @@ class ResidentFactory extends Factory
             'firstName' => fake()->firstName($gender),
             'middleName' => fake()->lastName(),
             'lastName' => fake()->lastName(),
-            'province' => 'NATIONAL CAPITAL REGION - THIRD DISTRICT',
+            'province' => Setting::first()->province,
             'house_no' => fake()->buildingNumber(),
             'street' => fake()->streetName(),
-            'brgy' => fake()->citySuffix(),  // Barangay
-            'city' => fake()->city(),
+            'brgy' => Setting::first()->barangay_name,  // Barangay
+            'city' => Setting::first()->city,
             'citizenship' => 'Filipino',
             'religion' => $religion,
             'dateCitizen' => fake()->date(),

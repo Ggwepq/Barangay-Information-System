@@ -6,15 +6,12 @@
 
     <div class="container-fluid"> <!--begin::Row-->
         <div class="row">
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <h3 class="mb-0">Dashboard</h3>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-end">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Dashboard
-                    </li>
+                    <li id="clock" class="breadcrumb-item"></li>
                 </ol>
             </div>
         </div> <!--end::Row-->
@@ -385,12 +382,42 @@
     </div>
 @stop
 
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
-
 @section('js')
+    <script>
+        $(document).ready(function() {
+            setInterval('updateClock()', 1000);
+        });
+
+        function updateClock() {
+            var currentTime = new Date();
+            var currentHours = currentTime.getHours();
+            var currentMinutes = currentTime.getMinutes();
+            var currentSeconds = currentTime.getSeconds();
+
+            // Get Today's Date
+            var date = new Date().toDateString();
+
+            // Pad the minutes and seconds with leading zeros, if required
+            currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+            currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+            // Choose either "AM" or "PM" as appropriate
+            var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+
+            // Convert the hours component to 12-hour format if needed
+            currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
+
+            // Convert an hours component of "0" to "12"
+            currentHours = (currentHours == 0) ? 12 : currentHours;
+
+            // Compose the string for display
+            var currentTimeString = date + " " + currentHours + ":" + currentMinutes + ":" + currentSeconds + " " +
+                timeOfDay;
+
+
+            $("#clock").html(currentTimeString);
+        }
+    </script>
 
     <script>
         $.ajax({

@@ -163,9 +163,20 @@ class EventServiceProvider extends ServiceProvider
                 ]
             ],
             [
-                'text' => 'Document Requests',
-                'icon' => 'fas fa-list',
-                'url' => '/admin/document',
+                'text' => 'Document Request',
+                'icon' => 'fas fa-fw fa-book',
+                'submenu' => [
+                    [
+                        'text' => 'Document Requests',
+                        'icon' => 'fas fa-file',
+                        'url' => '/admin/document',
+                    ],
+                    [
+                        'text' => 'Create for Resident',
+                        'icon' => 'fas fa-file',
+                        'url' => '/admin/document/foruser',
+                    ],
+                ]
             ],
         );
         $event->menu->add('Barangay Issues');

@@ -91,6 +91,52 @@ class DocumentRequestController extends Controller
         return view('User.Document.create');
     }
 
+    public function viewGenerateForUser(Request $request)
+    {
+        $query = Resident::query();
+        $civilStatus = Resident::distinct()->pluck('civilStatus');
+        $religions = Resident::distinct()->pluck('religion');
+        $occupations = Resident::distinct()->pluck('occupation');
+
+        // List of filters to apply
+        $filters = [
+            'name' => function ($query, $value) {
+                $query->where(function ($q) use ($value) {
+                    $q
+                        ->where('firstName', 'like', '%' . $value . '%')
+                        ->orWhere('middleName', 'like', '%' . $value . '%')
+                        ->orWhere('lastName', 'like', '%' . $value . '%');
+                });
+            },
+            'gender' => fn($query, $value) => $query->where('gender', $value),
+            'min_age' => fn($query, $value) => $query->where('age', '>=', $value),
+            'max_age' => fn($query, $value) => $query->where('age', '<=', $value),
+            'civil_status' => fn($query, $value) => $query->where('civilStatus', $value),
+            'blotter' => fn($query, $value) => $query->where('isDerogatory', $value),
+            'isPWD' => fn($query, $value) => $query->where('isPWD', $value),
+            'is4Ps' => fn($query, $value) => $query->where('is4Ps', $value),
+            'religion' => fn($query, $value) => $query->where('religion', 'like', '%' . $value . '%'),
+            'occupation' => function ($query, $value) {
+                if ($value === 'Unemployed') {
+                    $query->whereNull('occupation');
+                } else {
+                    $query->where('occupation', 'like', '%' . $value . '%');
+                }
+            },
+        ];
+
+        // Apply filters
+        foreach ($filters as $field => $filter) {
+            if ($request->filled($field)) {
+                $filter($query, $request->get($field));
+            }
+        }
+
+        $post = $query->get();
+
+        return view('RequestDoc.generate-user', compact('post', 'civilStatus', 'religions', 'occupations'));
+    }
+
     // Admin viewing all requests
     public function viewPendingRequests()
     {

@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ url('/admin/Resident') }}" method="GET">
+            <form action="{{ url('/admin/document/foruser') }}" method="GET">
                 <div class="row">
                     <!-- Name -->
                     <div class="col-md-4">
@@ -179,121 +179,22 @@
                         <td>{{ $posts->religion }}</td>
                         <td>{{ $posts->occupation ?? 'Unemployed' }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                data-target="#showProfile-{{ $posts->id }}">
-                                <i class="fa fa-eye" aria-hidden="true"></i> Details
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                data-target="#deactivateModal-{{ $posts->id }}">
-                                <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                            </button>
-
-                            <!-- Show Profile Modal -->
-                            <div class="modal fade show" data-backdrop="static" data-keyboard="false"
-                                id="showProfile-{{ $posts->id }}" tabindex="-1" aria-labelledby="showProfileLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="showProfileLabel">{{ $posts->firstName }}
-                                                {{ $posts->middleName }} {{ $posts->lastName }}</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <!-- Profile Picture -->
-                                                    <div class="col-md-4 text-center">
-                                                        <img src="{{ asset($posts->image) }}" alt="Profile Picture"
-                                                            class="img-fluid rounded-circle mb-3">
-                                                        <p class="text-muted">Date of Registration:
-                                                            {{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}
-                                                        </p>
-                                                    </div>
-                                                    <!-- Personal Details -->
-                                                    <div class="col">
-                                                        <h5>Personal Information</h5>
-                                                        <div class="row">
-                                                            <dt class="col-sm-3">First Name: </dt>
-                                                            <dd class="col-sm-8">{{ $posts->firstName }}</dd>
-                                                            <dt class="col-sm-3">Middle Name: </dt>
-                                                            <dd class="col-sm-8">{{ $posts->middleName }}</dd>
-                                                            <dt class="col-sm-3">Last Name: </dt>
-                                                            <dd class="col-sm-8">{{ $posts->lastName }}</dd>
-                                                            <dt class="col-sm-3">Gender: </dt>
-                                                            <dd class="col-sm-8">{{ $posts->gender ? 'Male' : 'Female' }}
-                                                            </dd>
-                                                            <dt class="col-sm-3">Birthdate: </dt>
-                                                            <dd class="col-sm-8">{{ $posts->birthdate }}</dd>
-                                                            <dt class="col-sm-3">Age: </dt>
-                                                            <dd class="col-sm-8">{{ $posts->age }}</dd>
-                                                            <dt class="col-sm-3">Birthplace: </dt>
-                                                            <dd class="col-sm-8">
-                                                                {{ $posts->birthplace ? $posts->birthplace : 'N/A' }}</dd>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <!-- Contact Details -->
-                                                    <!-- Additional Information -->
-                                                    <div class="col-md-6">
-                                                        <h5>Additional Information</h5>
-                                                        <p><strong>Civil Status:</strong> {{ $posts->civilStatus }}</p>
-                                                        <p><strong>Religion:</strong> {{ $posts->religion }}</p>
-                                                        <p><strong>Profession/Occupation:</strong>
-                                                            {{ $posts->profession ?? 'N/A' }}</p>
-                                                        <p><strong>Precinct Assignment No.:</strong>
-                                                            {{ $posts->voter->first()->precintNo ?? 'N/A' }}</p>
-                                                        <p><strong>Person w/ Disability:</strong>
-                                                            {{ $posts->isPWD ? 'Yes' : 'No' }}</p>
-                                                        <p><strong>4Ps Recipient:</strong>
-                                                            {{ $posts->is4Ps ? 'Yes' : 'No' }}</p>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h5>Contact Details</h5>
-                                                        <p><strong>Contact Number:</strong> {{ $posts->contactNumber }}</p>
-                                                        <p><strong>Voter's ID No.:</strong>
-                                                            {{ $posts->voter->first()->voterId ?? 'N/A' }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <a href="{{ url('admin/Resident/Edit/' . $posts->id) }}"
-                                                class="btn btn-primary">Edit</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Deactivate Modal -->
-                            <div class="modal fade" id="deactivateModal-{{ $posts->id }}" tabindex="-1"
-                                aria-labelledby="deactivateModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deactivateModalLabel">Deactivate Record</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to deactivate this record?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <a href="{{ url('admin/Resident/Deactivate/' . $posts->id) }}"
-                                                class="btn btn-danger">Deactivate</a>
-                                        </div>
-                                    </div>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button"
+                                    id="actionsMenu{{ $posts->id }}" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="actionsMenu{{ $posts->id }}">
+                                    <a class="dropdown-item"
+                                        href="{{ url('admin/BarangayClearance/Print/' . $posts->id) }}" target="_blank">
+                                        <i class="fa fa-print"></i> Barangay Certificate
+                                    </a>
+                                    <a class="dropdown-item"
+                                        href="{{ url('admin/CertificateIndigency/Print/' . $posts->id) }}"
+                                        target="_blank">
+                                        <i class="fa fa-print"></i> Certificate of Indigency
+                                    </a>
                                 </div>
                             </div>
                         </td>
@@ -311,6 +212,13 @@
     </div>
 @stop
 
+@section('css')
+    <style>
+        .dropdown-menu {
+            z-index: 1050 !important;
+        }
+    </style>
+@endsection
 
 @section('js')
     <script>
@@ -327,6 +235,8 @@
             $('.select2').select2({
                 theme: 'bootstrap4'
             })
+
+            $('.dropdown-toggle').dropdown();
         })
     </script>
 

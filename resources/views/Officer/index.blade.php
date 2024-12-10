@@ -29,33 +29,28 @@
             <table id="datatable" class="table table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
-                        <th>Position</th>
+                        <th>Image</th>
                         <th>Name</th>
-                        <th>Gender</th>
+                        <th>Position</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($post as $posts)
                         <tr>
-                            <td>{{ $posts->Position->position_name }}</td>
+                            <td><img src="{{ asset($posts->resident->image) }}" width="100px" style="max-width:100px;">
+                            </td>
                             <td>{{ $posts->Resident->firstName }} {{ $posts->Resident->middleName }}
                                 {{ $posts->Resident->lastName }}</td>
-                            <td>
-                                @if ($posts->Resident->gender == 1)
-                                    Male
-                                @else
-                                    Female
-                                @endif
-                            </td>
+                            <td>{{ $posts->Position->position_name }}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#editModal-{{ $posts->id }}">
-                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                     data-target="#deactivateModal-{{ $posts->id }}">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
                                 </button>
 
                                 <!-- Reactivate Modal -->

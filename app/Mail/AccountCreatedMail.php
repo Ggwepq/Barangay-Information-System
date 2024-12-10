@@ -47,7 +47,7 @@ class AccountCreatedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'Custom.account-created.email',
+            view: 'Custom.account-create',
         );
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AccountCreatedMail;
+use App\Mail\AccountUpdatedMail;
 use App\Mail\AnnouncementMail;
 use App\Mail\DocumentActionedMail;
 use App\Models\Announcement;
@@ -31,7 +32,7 @@ class EmailController extends Controller
 
         $subject = 'Your Barangay Information System Account Has Been Updated';
 
-        Mail::to($recipientEmail)->send(new AccountCreatedMail($subject, $recipientName, $email, $password));
+        Mail::to($recipientEmail)->send(new AccountUpdatedMail($subject, $recipientName, $email, $password));
     }
 
     public function sendAccountCreatedMail($recipientEmail, $recipientName, $email, $password)
