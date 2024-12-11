@@ -89,20 +89,6 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::post('/Resident/Account/Update/{id}', 'update');
     });
 
-    // Household
-    Route::controller(HouseholdController::class)->group(function () {
-        Route::get('/Household', 'index');
-        Route::get('/Household/Create', 'create');
-        Route::get('/Household/Inhabitant/{id}', 'inhabitant');
-        Route::get('/Household/Edit/{id}', 'edit');
-        Route::get('/Household/Deactivate/{id}', 'destroy');
-        Route::get('/Household/Soft', 'soft');
-        Route::get('/Household/Reactivate/{id}', 'reactivate');
-        Route::get('/Household/Remove/{id}', 'remove');
-        Route::post('/Household/Store', 'store');
-        Route::post('/Household/Update/{id}', 'update');
-    });
-
     // Officer
     Route::controller(OfficerController::class)->group(function () {
         Route::get('/Officer', 'index');
@@ -140,19 +126,6 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::get('/Project/Remove/{id}', 'remove');
         Route::post('/Project/Store', 'store');
         Route::post('/Project/Update/{id}', 'update');
-    });
-
-    // Business
-    Route::controller(BusinessController::class)->group(function () {
-        Route::get('/Business', 'index');
-        Route::get('/Business/Create', 'create');
-        Route::get('/Business/Edit/{id}', 'edit');
-        Route::get('/Business/Deactivate/{id}', 'destroy');
-        Route::get('/Business/Soft', 'soft');
-        Route::get('/Business/Reactivate/{id}', 'reactivate');
-        Route::get('/Business/Remove/{id}', 'remove');
-        Route::post('/Business/Store', 'store');
-        Route::post('/Business/Update/{id}', 'update');
     });
 
     // Queries

@@ -91,10 +91,11 @@ class ResidentController extends Controller
     public function index(Request $request)
     {
         $query = Resident::query();
-        $query->where('isActive', 1);
         $civilStatus = Resident::distinct()->pluck('civilStatus');
         $religions = Resident::distinct()->pluck('religion');
         $occupations = Resident::distinct()->pluck('occupation');
+        $officers = Officer::all();
+        $status = Blotter::distinct()->pluck('status');
 
         // dd(Resident::all()[0]->userofficer, Resident::first()->officer->first()->user->first()->email);
 
