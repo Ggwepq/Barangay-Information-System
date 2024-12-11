@@ -161,7 +161,10 @@ Route::prefix('admin')->middleware('officer')->group(function () {
     // Reports
     Route::controller(ReportController::class)->group(function () {
         Route::get('/Report', 'index');
-        Route::get('/Report/Table/{start}/{end}', 'table');
+        Route::get('/Report/Query/resident', 'report');
+        Route::get('/Report/Query/blotter', 'report');
+        Route::get('/Report/Query/projects', 'report');
+        Route::get('/Report/Table', 'table');
         Route::get('/Report/Pdf/{start}/{end}', 'pdf');
     });
 
@@ -262,59 +265,3 @@ Route::prefix('user')->middleware('resident')->group(function () {
         Route::get('/profile', 'profile');
     });
 });
-
-// Test Routes
-Route::controller(TestController::class)->group(function () {
-    Route::get('/BarangayClearance/{id}', 'index');
-    Route::get('/FiletoAction/{id}', 'fileToAction');
-});
-
-Route::get('/new-account-sms', function () {
-    $contact = '09916759759';
-    $firstName = 'Juan';
-    $email = 'juan@gmail.com';
-    $password = 'juan';
-
-    (new SMSController)->accountCreated($contact, ['residentName' => $firstName, 'email' => $email, 'password' => $password]);
-
-    return 'Successfully Send!!';
-});
-
-Route::get('/update-account-sms', function () {
-    $contact = '09916759759';
-    $account = [
-        'residentName' => 'Juan',
-        'email' => 'juan@gmail.com',
-        'password' => 'juan',
-    ];
-
-    (new SMSController)->accountUpdated($contact, $account);
-    return 'Successfully Send!!';
-});
-
-Route::get('/send-mail', function () {
-    (new EmailController)->sendAccountCreatedMail(
-        'salinas_erica@spcc.edu.ph',
-        'Erica Salinas',
-        'ericasalinas@gmail.com',
-        '@salinaserica.'
-    );
-});
-
-Route::get('/send-announcement-mail', function () {
-    (new EmailController)->sendAnnouncementMail(
-        'abaloyan_johncedric@spcc.edu.ph',
-        'Barangay Holiday Holiday',
-        '<h4 class=""><font color="#4a1031">As the holiday season approaches, we remind all residents to prioritize safety and security. Here are some tips to ensure a peaceful and joyful celebration:</font></h4><br><ul><li><font color="#085294" style="background-color: rgb(255, 255, 255);">Secure your home when leaving for holiday trips.</font></li><li><font color="#085294" style="background-color: rgb(255, 255, 255);">Avoid using overloaded electrical outlets for Christmas lights.</font></li><li><font color="#085294" style="background-color: rgb(255, 255, 255);">Keep emergency numbers handy.</font></li></ul>',
-    );
-});
-
-Route::get('/send-document-mail', function () {
-    (new EmailController)->sendDocumentMail(
-        'abaloyan_johncedric@spcc.edu.ph',
-        'Barangay Clearance',
-        'Approved',
-    );
-});
-
-// Route::get('/send-mail', [EmailController::class, 'sendAccountCreatedMail']);

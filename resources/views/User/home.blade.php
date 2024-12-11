@@ -112,7 +112,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-9">
-                    <div class="card card-outline card-primary collapsed-card">
+                    <div class="card card-outline card-primary">
                         <div class="card-header p-2">
                             <i class="fas fa-bullhorn"></i>
                             Announcements
@@ -126,8 +126,6 @@
 
                         <div class="card-body">
                             <div class="tab-pane" id="settings">
-                                <img src="{{ asset('/img/images/c3.png') }}" class="mx-auto d-block img-thumbnail"
-                                    alt="..." data-toggle="lightbox" data-gallery="hotline" data-max-width="600">
                                 @if (count($announcements) != 0)
                                     @foreach ($announcements as $announce)
                                         <div class="callout callout-info">
@@ -192,13 +190,11 @@
     </script>
 
     <script>
-        $(function() {
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox({
-                    alwaysShowClose: true
-                });
-            })
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
         })
     </script>
 @endsection

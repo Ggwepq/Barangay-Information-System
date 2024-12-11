@@ -69,6 +69,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Image</th>
                         <th>Requested By</th>
                         <th>Document Type</th>
                         <th>Purpose</th>
@@ -80,7 +81,9 @@
                 <tbody>
                     @foreach ($requests as $posts)
                         <tr>
-                            <td>#</td>
+                            <td>{{ $posts->resident_id }}</td>
+                            <td><img src="{{ asset($posts->resident->image) }}" width="100px" style="max-width:100px;">
+                            </td>
                             <td>{{ $posts->resident->firstName }} {{ $posts->resident->middleName }}
                                 {{ $posts->resident->lastName }}</td>
                             <td>{{ $posts->document_type }}</td>

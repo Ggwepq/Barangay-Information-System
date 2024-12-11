@@ -29,6 +29,7 @@
             <table id="datatable" class="table table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Position</th>
@@ -38,6 +39,7 @@
                 <tbody>
                     @foreach ($post as $posts)
                         <tr>
+                            <td>{{ $posts->id }}</td>
                             <td><img src="{{ asset($posts->resident->image) }}" width="100px" style="max-width:100px;">
                             </td>
                             <td>{{ $posts->Resident->firstName }} {{ $posts->Resident->middleName }}

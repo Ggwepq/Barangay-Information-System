@@ -32,6 +32,7 @@
             <table id="datatable" class="table table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Position</th>
                         <th>Limit</th>
                         <th>Actions</th>
@@ -40,6 +41,7 @@
                 <tbody>
                     @foreach ($post as $posts)
                         <tr>
+                            <td>{{ $posts->id }}</td>
                             <td>{{ $posts->position_name }}</td>
                             <td>{{ $posts->position_limit }}</td>
                             <td>

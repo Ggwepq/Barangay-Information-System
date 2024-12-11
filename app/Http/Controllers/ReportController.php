@@ -4,10 +4,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Blotter;
-use Illuminate\Support\Facades\DB;
+use App\Models\Project;
+use App\Models\Resident;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class ReportController extends Controller
 {
@@ -21,91 +24,50 @@ class ReportController extends Controller
         return view('Report.index');
     }
 
-    public function table($start, $end)
+    public function table(Request $request)
     {
+        if ($request->source == 'blotters') {
+            $data = DB::table('blotters as b')
+                ->join('residents as complainant', 'complainant.id', '=', 'b.complainant')
+                ->join('residents as complained', 'complained.id', '=', 'b.complainedResident')
+                ->whereBetween('b.created_at', [$request->from_date, $request->end_date])
+                ->select(
+                    'b.id',
+                    DB::raw('CONCAT(complainant.firstName, ", ", complainant.lastName) AS complainant'),
+                    DB::raw('CONCAT(complained.lastName, ", ", complained.firstName) AS complained_resident'),
+                    'b.created_at as date'
+                );
+        } else if ($request->source == 'residents') {
+            $data = DB::table('residents')
+                ->whereBetween('created_at', [$request->from_date, $request->end_date])
+                ->select(
+                    'id',
+                    'firstName',
+                    'lastName',
+                    'gender',
+                    'age',
+                    'civilStatus',
+                    'religion',
+                    'occupation',
+                    'created_at as date'
+                );
+        }
 
-        $post = DB::table('blotters as b')
-        ->join('residents as r', 'r.id', 'b.complainant')
-        ->join('residents as res', 'res.id', 'b.complainedResident')
-        ->whereBetween('b.created_at', [$start,$end])
-        ->select('b.id', DB::raw('CONCAT(r.lastName, ", ", r.firstName) AS complainant'), DB::raw('CONCAT(res.lastName, ", ", res.firstName) AS complainedResident'), 'b.created_at as date')
-        ->get();
-        return Response()->json(['data' => $post]);
+        $datatable = Datatables::of($data)->addIndexColumn()->make(true);
+
+        return $datatable;
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function pdf($start, $end)
     {
-        $post = Blotter::whereBetween('created_at', [$start,$end])->whereBetween('status', ['2','4'])->get();
+        $post = Blotter::whereBetween('created_at', [$start, $end])->whereBetween('status', ['2', '4'])->get();
         $pdf = Pdf::loadView('Forms.BlotterReport', compact('post', 'start', 'end'));
-        $pdf->SetPaper('letter', 'portrait');
-        ;
+        $pdf->SetPaper('letter', 'portrait');;
         return $pdf->stream();
-    }
-
-
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
