@@ -187,6 +187,8 @@ Route::prefix('admin')->middleware('officer')->group(function () {
         Route::get('/BarangayClearance/Print/{id}', 'index');
         Route::get('/BusinessPermit/Print/{id}', 'business');
         Route::get('/CertificateIndigency/Print/{id}', 'indigency');
+        Route::get('/CertificateResidency/Print/{id}', 'residency');
+        Route::get('/CertificateGoodMoral/Print/{id}', 'goodMoral');
         Route::get('/FiletoAction/Print/{id}', 'file');
     });
 
@@ -229,6 +231,8 @@ Route::prefix('user')->middleware('resident')->group(function () {
     Route::controller(PdfController::class)->group(function () {
         Route::get('/document/barangay-clearance/{id}', 'index');
         Route::get('/document/certificate-of-indigency/{id}', 'indigency');
+        Route::get('/document/certificate-of-residency/{id}', 'residency');
+        Route::get('/document/certificate-of-good-moral/{id}', 'goodMoral');
     });
 
     Route::controller(AnnouncementsController::class)->group(function () {

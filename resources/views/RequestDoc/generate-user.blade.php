@@ -186,12 +186,22 @@
                                         <a class="dropdown-item"
                                             href="{{ url('admin/BarangayClearance/Print/' . $posts->id) }}"
                                             target="_blank">
-                                            <i class="fa fa-print"></i> Barangay Certificate
+                                            <i class="fa fa-print"></i> Barangay Clearance
                                         </a>
                                         <a class="dropdown-item"
                                             href="{{ url('admin/CertificateIndigency/Print/' . $posts->id) }}"
                                             target="_blank">
                                             <i class="fa fa-print"></i> Certificate of Indigency
+                                        </a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/CertificateResidency/Print/' . $posts->id) }}"
+                                            target="_blank">
+                                            <i class="fa fa-print"></i> Certificate of Residency
+                                        </a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/CertificateGoodMoral/Print/' . $posts->id) }}"
+                                            target="_blank">
+                                            <i class="fa fa-print"></i> Certificate of Good Moral Character
                                         </a>
                                     </div>
                                 </div>

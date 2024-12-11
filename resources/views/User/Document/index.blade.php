@@ -73,6 +73,18 @@
                                             data-toggle="tooltip" data-placement="top" title="Certificate of Indigency">
                                             <i class="fa fa-print" aria-hidden="true"></i>
                                         </a>
+                                    @elseif ($posts->document_type == 'Certificate of Residency')
+                                        <a href="{{ url('/user/document/certificate-of-residency/' . $posts->resident_id) }}"
+                                            target="_blank" type="button" class="btn btn-success btn-sm"
+                                            data-toggle="tooltip" data-placement="top" title="Certificate of Indigency">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
+                                        </a>
+                                    @elseif ($posts->document_type == 'Certificate of Good Moral Character')
+                                        <a href="{{ url('/user/document/certificate-of-good-moral/' . $posts->resident_id) }}"
+                                            target="_blank" type="button" class="btn btn-success btn-sm"
+                                            data-toggle="tooltip" data-placement="top" title="Certificate of Indigency">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
+                                        </a>
                                     @endif
                                 @endif
 

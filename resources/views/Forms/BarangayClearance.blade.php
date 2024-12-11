@@ -119,7 +119,7 @@
         <!-- Main Content -->
         <div class="main-content">
             <h2>Office of the Barangay Chairman</h2>
-            <h3>Barangay Certification</h3>
+            <h3>Barangay Clearance</h3>
         </div>
 
         <div class="content">

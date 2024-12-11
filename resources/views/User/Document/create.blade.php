@@ -35,15 +35,12 @@
                             <label for="document_type" class="col-sm-2 col-form-label">Document</label>
                             <select class="form-control col-sm-9" id="document_type" name="document_type">
                                 <option value="" disabled selected>Select Document</option>
-                                <option value="Barangay Certificate"
-                                    {{ old('document_type') == 'Barangay Certificate' ? 'selected' : '' }}>Barangay
-                                    Certificate</option>
-                                <option value="Certificate of Indigency"
-                                    {{ old('document_type') == 'Certificate of Indigency' ? 'selected' : '' }}>Certificate
-                                    of Indigency</option>
                                 <option value="Barangay Clearance"
                                     {{ old('document_type') == 'Barangay Clearance' ? 'selected' : '' }}>Barangay Clearance
                                 </option>
+                                <option value="Certificate of Indigency"
+                                    {{ old('document_type') == 'Certificate of Indigency' ? 'selected' : '' }}>Certificate
+                                    of Indigency</option>
                                 <option value="Certificate of Residency"
                                     {{ old('document_type') == 'Certificate of Residency' ? 'selected' : '' }}>Certificate
                                     of Residency</option>
@@ -128,26 +125,26 @@
     <script>
         $(document).ready(function() {
             // Handle document type change
-            $('#document_type').on('change', function() {
-                // Hide all conditional fields
-                $('.conditional-fields').addClass('d-none');
-
-                // Show the relevant fields based on selected document type
-                var selectedType = $(this).val();
-
-                if (selectedType === 'Barangay Clearance') {
-                    $('#barangay-clearance-fields').removeClass('d-none');
-                } else if (selectedType === 'Certificate of Residency') {
-                    $('#residency-fields').removeClass('d-none');
-                } else if (selectedType === 'Certificate of Indigency') {
-                    $('#indigency-fields').removeClass('d-none');
-                } else if (selectedType === 'Certificate of Good Moral Character') {
-                    $('#moral-character-fields').removeClass('d-none');
-                }
-            });
-
-            // Trigger the change event on load to handle old values
-            $('#document_type').trigger('change');
+            // $('#document_type').on('change', function() {
+            //     // Hide all conditional fields
+            //     $('.conditional-fields').addClass('d-none');
+            //
+            //     // Show the relevant fields based on selected document type
+            //     var selectedType = $(this).val();
+            //
+            //     if (selectedType === 'Barangay Clearance') {
+            //         $('#barangay-clearance-fields').removeClass('d-none');
+            //     } else if (selectedType === 'Certificate of Residency') {
+            //         $('#residency-fields').removeClass('d-none');
+            //     } else if (selectedType === 'Certificate of Indigency') {
+            //         $('#indigency-fields').removeClass('d-none');
+            //     } else if (selectedType === 'Certificate of Good Moral Character') {
+            //         $('#moral-character-fields').removeClass('d-none');
+            //     }
+            // });
+            //
+            // // Trigger the change event on load to handle old values
+            // $('#document_type').trigger('change');
         });
     </script>
 @endsection

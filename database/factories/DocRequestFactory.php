@@ -21,7 +21,7 @@ class DocRequestFactory extends Factory
 
     public function definition(): array
     {
-        $type = fake()->randomElement(['Certificate of Indigency', 'Barangay Certificate']);
+        $type = fake()->randomElement(['Certificate of Indigency', 'Barangay Clearance', 'Certificate of Residency', 'Certificate of Good Moral']);
         $status = fake()->randomElement(['Pending', 'Approved', 'Rejected']);
         $purpose = fake()->sentence(1);
         $request = fake()->dateTimeThisMonth();
