@@ -114,6 +114,7 @@
                                 @endif
                             </td>
                             <td>
+
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#editModal-{{ $posts->id }}">
                                     <i class="fa fa-edit" aria-hidden="true"></i>

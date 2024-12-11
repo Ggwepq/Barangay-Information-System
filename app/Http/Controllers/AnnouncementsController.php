@@ -35,7 +35,7 @@ class AnnouncementsController extends Controller
             $announcement = Announcement::create([
                 'title' => $request->title,
                 'content' => $request->content,
-                'created_by' => auth()->user()->officerId,
+                'created_by' => auth()->user()->id,
             ]);
 
             return redirect('/admin/announcement')->withSuccess('Announcement Created Successfully!');

@@ -171,9 +171,10 @@ Route::prefix('admin')->middleware('officer')->group(function () {
     // Backup
     Route::controller(BackupController::class)->group(function () {
         Route::get('/Backup', 'index');
-        Route::get('/Backup/Create', 'create');
-        Route::get('/Backup/Download', 'download');
-        Route::get('/Backup/Delete', 'delete');
+        Route::get('/Backup/Create', 'backup')->name('backup.create');
+        Route::get('/Backup/Download/{file_name}', 'download')->name('backup.download');
+        Route::get('/Backup/Import/{file_name}', 'import')->name('backup.import');
+        Route::get('/Backup/Delete/{fileName}', 'delete')->name('backup.delete');
     });
 
     Route::controller(LocationController::class)->group(function () {

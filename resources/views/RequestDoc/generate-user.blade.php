@@ -161,40 +161,42 @@
                 <tbody>
                     @foreach ($post as $posts)
                         <tr>
-                    @endif
-                    <td><img src="{{ asset($posts->image) }}" width="100px" style="max-width:100px;"></td>
-                    <td>{{ $posts->firstName }} {{ $posts->middleName }} {{ $posts->lastName }}</td>
-                    <td>
-                        @if ($posts->gender == 1)
-                            Male
-                        @else
-                            Female
-                        @endif
-                    </td>
-                    <td>{{ $posts->age }}</td>
-                    <td>{{ $posts->civilStatus }}</td>
-                    <td>{{ $posts->religion }}</td>
-                    <td>{{ $posts->occupation ?? 'Unemployed' }}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button"
-                                id="actionsMenu{{ $posts->id }}" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                Actions
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="actionsMenu{{ $posts->id }}">
-                                <a class="dropdown-item" href="{{ url('admin/BarangayClearance/Print/' . $posts->id) }}"
-                                    target="_blank">
-                                    <i class="fa fa-print"></i> Barangay Certificate
-                                </a>
-                                <a class="dropdown-item"
-                                    href="{{ url('admin/CertificateIndigency/Print/' . $posts->id) }}" target="_blank">
-                                    <i class="fa fa-print"></i> Certificate of Indigency
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                    </tr>
+                            <td><img src="{{ asset($posts->image) }}" width="100px" style="max-width:100px;"></td>
+                            <td>{{ $posts->firstName }} {{ $posts->middleName }} {{ $posts->lastName }}</td>
+                            <td>
+                                @if ($posts->gender == 1)
+                                    Male
+                                @else
+                                    Female
+                                @endif
+                            </td>
+                            <td>{{ $posts->age }}</td>
+                            <td>{{ $posts->civilStatus }}</td>
+                            <td>{{ $posts->religion }}</td>
+                            <td>{{ $posts->occupation ?? 'Unemployed' }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button"
+                                        id="actionsMenu{{ $posts->id }}" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fa fa-tasks"></i>
+                                        Actions
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="actionsMenu{{ $posts->id }}">
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/BarangayClearance/Print/' . $posts->id) }}"
+                                            target="_blank">
+                                            <i class="fa fa-print"></i> Barangay Certificate
+                                        </a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/CertificateIndigency/Print/' . $posts->id) }}"
+                                            target="_blank">
+                                            <i class="fa fa-print"></i> Certificate of Indigency
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

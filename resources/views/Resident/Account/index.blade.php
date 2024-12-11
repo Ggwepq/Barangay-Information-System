@@ -29,7 +29,7 @@
             <table id="datatable" class="table table-striped dataTable dtr-inline">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Actions</th>
@@ -38,7 +38,8 @@
                 <tbody>
                     @foreach ($post as $posts)
                         <tr>
-                            <td>{{ $posts->Resident->id }}</td>
+                            <td><img src="{{ asset($posts->Resident->image) }}" width="100px" style="max-width:100px;">
+                            </td>
                             <td>{{ $posts->Resident->firstName }} {{ $posts->Resident->middleName }}
                                 {{ $posts->Resident->lastName }}</td>
                             <td>{{ $posts->email }}</td>
@@ -116,6 +117,12 @@
 @endsection
 
 @section('js')
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+        })
+    </script>
+
     @if (session('success'))
         <script type="text/javascript">
             toastr.success('{{ session('success') }}', 'Success!');

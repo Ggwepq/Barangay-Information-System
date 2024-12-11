@@ -44,18 +44,29 @@
                             </td>
                             <td>{{ Carbon\Carbon::parse($posts->created_at)->toFormattedDateString() }}</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                    data-target="#readModal-{{ $posts->id }}">
-                                    <i class="fa fa-eye" aria-hidden="true"></i> Read
-                                </button>
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                    data-target="#notifyModal-{{ $posts->id }}">
-                                    <i class="fa fa-bell" aria-hidden="true"></i> Notify
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                    data-target="#deactivateModal-{{ $posts->id }}">
-                                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                                </button>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button"
+                                        id="actionsMenu{{ $posts->id }}" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fa fa-tasks"></i>
+                                        Actions
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="actionsMenu{{ $posts->id }}">
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#readModal-{{ $posts->id }}">
+                                            <i class="fa fa-eye" aria-hidden="true"></i> Read
+                                        </button>
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#notifyModal-{{ $posts->id }}">
+                                            <i class="fa fa-bell" aria-hidden="true"></i> Notify
+                                        </button>
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#deactivateModal-{{ $posts->id }}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                                        </button>
+                                    </div>
+                                </div>
 
                                 <!-- Update Modal -->
                                 <div class="modal fade" id="readModal-{{ $posts->id }}" tabindex="-1"
@@ -152,6 +163,12 @@
 @endsection
 
 @section('js')
+
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+        })
+    </script>
     <script>
         var Toast = Swal.mixin({
             toast: true,

@@ -95,13 +95,9 @@
                                 <td><span class="badge bg-success p-2">{{ $posts->status }}</span></td>
                             @endif
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                     data-target="#editModal-{{ $posts->id }}">
-                                    <i class="fa fa-edit" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                    data-target="#deactivateModal-{{ $posts->id }}">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Action
                                 </button>
                                 @if ($posts->status == 'Approved')
                                     @if ($posts->document_type = 'Barangay Clerance')

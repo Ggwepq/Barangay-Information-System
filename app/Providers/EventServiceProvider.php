@@ -317,8 +317,19 @@ class EventServiceProvider extends ServiceProvider
             [
                 'text' => 'Settings',
                 'icon' => 'fas fa-cog',
-                'url' => '/admin/settings',
-            ],
+                'submenu' => [
+                    [
+                        'text' => 'Settings',
+                        'icon' => 'fas fa-cog',
+                        'url' => '/admin/settings',
+                    ],
+                    [
+                        'text' => 'Database Backup',
+                        'icon' => 'fas fa-database',
+                        'url' => '/admin/Backup',
+                    ],
+                ],
+            ]
         );
     }
 
